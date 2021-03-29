@@ -12,5 +12,6 @@ def main_url(req):
         template_data['form']=form
         template_data['login_button_link']="/login/"
         template_data['search_form_link']="/search/"
+        template_data['create_receip_link']="/create/"
         return render(req, template_name,template_data)
-    return HttpResponseBadRequest
+    return HttpResponseBadRequest()
