@@ -1,0 +1,6 @@
+from django import forms
+#Here we create the views for the forms
+
+#class Main_page_form(forms.Form):
+#    request_objective = forms.ChoiceField(choices=(("1","Recipe"),("2","BasicProduct"),("3","Nutrient")),widget=forms.RadioSelect)
+#    item_name = forms.CharField(label="Search Name")
