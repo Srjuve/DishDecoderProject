@@ -17,5 +17,5 @@ from django.contrib import admin
 from django.urls import path
 from DishDecoderApp import views
 urlpatterns = [
-    path('',views.main_url)
+    path('',views.main_url),
 ]
