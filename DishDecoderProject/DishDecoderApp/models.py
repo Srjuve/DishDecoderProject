@@ -13,6 +13,7 @@ class BasicProducts(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
+    
 
 class Nutrients(models.Model):
     id = models.AutoField(primary_key=True)
@@ -33,6 +34,7 @@ class Recipe_Product(models.Model):
     id_recipe = models.ForeignKey(Recipes,on_delete=models.CASCADE)
     id_product = models.ForeignKey(BasicProducts,on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=6,decimal_places=3,default=0,validators=[MinValueValidator(0)])
+    unit = models.CharField(max_length=12,default="unit")
     class Meta:
         constraints = [models.UniqueConstraint(fields=['id_recipe','id_product'],name="unique_key_pairs_recipe_product"),]
 
@@ -42,6 +44,7 @@ class Product_Nutrients(models.Model):
     id_product = models.ForeignKey(BasicProducts,on_delete=models.CASCADE)
     id_nutrient = models.ForeignKey(Nutrients,on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=6,decimal_places=3,default=0,validators=[MinValueValidator(0)])
+    unit = models.CharField(max_length=12,default="unit")
     class Meta:
         constraints = [models.UniqueConstraint(fields=['id_product','id_nutrient'],name="unique_key_pairs_product_nutrient"),]
     
