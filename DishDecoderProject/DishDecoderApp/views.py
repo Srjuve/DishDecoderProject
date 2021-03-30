@@ -72,4 +72,4 @@ def login_page_url(req):
 def logout_url(req):
     if req.user.is_authenticated:
         logout(req)
-    redirect('/')
+    return redirect('/')
