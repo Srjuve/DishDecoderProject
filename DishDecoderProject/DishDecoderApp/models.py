@@ -17,14 +17,10 @@ class BasicProducts(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
-<<<<<<< HEAD
-    
-=======
     nutrients = models.ManyToManyField('Nutrients',through='Product_Nutrients')
 
     def __str__(self):
         return self.name
->>>>>>> feature_main_page_backend
 
 class Nutrients(models.Model):
     id = models.AutoField(primary_key=True)
