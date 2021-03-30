@@ -8,16 +8,27 @@ class Recipes(models.Model):
     name = models.CharField(max_length=100)
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     steps = models.CharField(max_length=2000)
+    basic_products = models.ManyToManyField('BasicProducts',through='Recipe_Product')
+
+    def __str__(self):
+        return self.name
 
 class BasicProducts(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
+    nutrients = models.ManyToManyField('Nutrients',through='Product_Nutrients')
+
+    def __str__(self):
+        return self.name
 
 class Nutrients(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.name
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True)
