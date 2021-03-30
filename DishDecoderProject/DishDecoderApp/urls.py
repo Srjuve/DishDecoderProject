@@ -18,4 +18,7 @@ from django.urls import path
 from DishDecoderApp import views
 urlpatterns = [
     path('',views.main_url),
+    path('login/',views.login_page_url),
+    path('register/',views.register_page_url),
+    path('logout/',views.logout_url)
 ]
