@@ -7,9 +7,8 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
-@login_required(login_url='/login/')
 def main_url(req):
-    template_name="DishDecoderApp/main_url.html"
+    template_name="DishDecoderApp/main.html"
     template_data = {}
     if req.method == 'GET':
         form = Main_page_form()
@@ -29,7 +28,7 @@ def register_page_url(req):
         if form.is_valid():
             form.save()
             return redirect('/login/')
-   
+
     template_data['reg_form']=form
     template_data['login_button_link']="/login/"
     template_data['home_button_link']="/"
@@ -61,4 +60,4 @@ def login_page_url(req):
 def logout_url(req):
     if req.user.is_authenticated:
         logout(req)
-    redirect('/')
+    return redirect('/')
