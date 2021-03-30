@@ -8,6 +8,10 @@ from django.contrib import messages
 from django.urls import reverse
 from urllib.parse import urlencode
 # Create your views here.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 80a0f38cbaf631c08059c872aa29ba06bb6e1427
 def main_url(req):
     template_name="DishDecoderApp/main.html"
     template_data = {}
