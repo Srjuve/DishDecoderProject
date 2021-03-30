@@ -1,24 +1,35 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
-from .models import *
 from .forms import Main_page_form, Create_user_form
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
+from urllib.parse import urlencode
 # Create your views here.
-@login_required(login_url='/login/')
 def main_url(req):
-    template_name="DishDecoderApp/main_url.html"
+    template_name="DishDecoderApp/main.html"
     template_data = {}
-    if req.method == 'GET':
-        form = Main_page_form()
-        template_data['form']=form
-        template_data['login_button_link']="/login/"
-        template_data['search_form_link']="/search/"
-        template_data['create_receip_link']="/create/"
-        return render(req, template_name,template_data)
-    return HttpResponseBadRequest()
+    if req.method == 'POST':
+        radioptchoice = str(req.POST.get('request_objective'))
+        searched_data = str(req.POST.get('item_name'))
+        query_string = urlencode({'search':searched_data})
+        if radioptchoice == '1':
+            base_url = '/recipes/'
+        elif radioptchoice == '2':
+            base_url = '/basicproducts/'
+        elif radioptchoice == '3':
+            base_url = '/nutrients/'
+        url = '{}?{}'.format(base_url,query_string)
+        return redirect(url)
+    form = Main_page_form()
+    template_data['form']=form
+    template_data['login_button_link']="/login/"
+    template_data['logout_button_link']="/logout/"
+    template_data['profile_form_link']="/profile/"
+    template_data['create_receip_link']="/create/"
+    return render(req, template_name,template_data)
 
 
 def register_page_url(req):
