@@ -1,0 +1,33 @@
+{% extends 'DishDecoderApp/common.html' %}
+
+{% block content %}
+
+
+<hr>
+<h1 class="display-6 text-center">Related ingredients</h1>
+<hr>
+
+<div class="container">
+    <div class="list-group">
+
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Macarrones con tomatico</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Tortilla de patatas</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Macarrones con tomatico</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Tortilla de patatas</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Macarrones con tomatico</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Tortilla de patatas</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Macarrones con tomatico</a>
+        <a class="list-group-item list-group-item-action" href="https://www.google.com">Tortilla de patatas</a>
+
+    </div>
+</div>
+
+<div class="container">
+    <div class="list-group">
+        {% for ingredient in ingredients %}
+        <a class="list-group-item list-group-item-action" href="{{ingredient.url}}">{{ingredient.name}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
