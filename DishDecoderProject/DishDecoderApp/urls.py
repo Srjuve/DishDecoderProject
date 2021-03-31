@@ -24,5 +24,7 @@ urlpatterns = [
     path('recipes/',views.list_recipes_url),
     path('recipe/<int:recipeid>', views.recipe_profile_url, name="recipe"),
     path('basicproducts/',views.list_basicproducts_url),
-    path('basicproduct/<int:basicproductid>',views.basicproduct_profile_url, name="basicproduct")
+    path('basicproduct/<int:basicproductid>',views.basicproduct_profile_url, name="basicproduct"),
+    path('nutrients/',views.list_nutrients_url),
+    path('nutrient/<int:nutrientid>',views.nutrient_profile_url, name="nutrient")
 ]

@@ -82,6 +82,9 @@ def list_recipes_url(req):
 def list_basicproducts_url(req):
     return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
 
+def list_nutrients_url(req):
+    return list_data(req,"DishDecoderApp/nutrient.html","/nutrient/",Nutrients)
+
 def list_data(req,template_name,baseurl,searchedObject):
     template_data={}
     searched_name=req.GET.get('search')
@@ -100,4 +103,7 @@ def recipe_profile_url(req, recipeid):
     return HttpResponse('Placeholder')
 
 def basicproduct_profile_url(req, basicproductid):
+    return HttpResponse('Placeholder')
+
+def nutrient_profile_url(req, nutrientid):
     return HttpResponse('Placeholder')
