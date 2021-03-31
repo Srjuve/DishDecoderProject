@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from urllib.parse import urlencode
+from DishDecoderApp.models import *
 # Create your views here.
 
 def main_url(req):
@@ -74,3 +75,35 @@ def logout_url(req):
     if req.user.is_authenticated:
         logout(req)
     return redirect('/')
+
+def list_recipes_url(req):
+    return list_data(req,"DishDecoderApp/recipes.html","/recipe/",Recipes)
+
+def list_basicproducts_url(req):
+    return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
+
+def list_nutrients_url(req):
+    return list_data(req,"DishDecoderApp/nutrient.html","/nutrient/",Nutrients)
+
+def list_data(req,template_name,baseurl,searchedObject):
+    template_data={}
+    searched_name=req.GET.get('search')
+    if searched_name is not None:
+        data_fields = searchedObject.objects.filter(name__contains=searched_name)
+        if data_fields.count()==1:
+            url=baseurl+str(getattr(data_fields.first(),'id'))
+            return redirect(url)
+        template_data["listedtuples"]=data_fields
+        return render(req,template_name,template_data)
+    else:
+        return HttpResponseBadRequest()
+
+
+def recipe_profile_url(req, recipeid):
+    return HttpResponse('Placeholder')
+
+def basicproduct_profile_url(req, basicproductid):
+    return HttpResponse('Placeholder')
+
+def nutrient_profile_url(req, nutrientid):
+    return HttpResponse('Placeholder')

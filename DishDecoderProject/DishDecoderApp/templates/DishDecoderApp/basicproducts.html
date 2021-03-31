@@ -4,18 +4,18 @@
 
 
 <hr>
-<h1 class="display-6 text-center">Related recipes</h1>
+<h1 class="display-6 text-center">Related ingredients</h1>
 <hr>
-
 {% if listedtuples %}
 <div class="container">
     <div class="list-group">
         {% for tuple in listedtuples %}
-        <a class="list-group-item list-group-item-action" href={% url 'recipe' tuple.id %}>{{tuple.name}}</a>
+        <a class="list-group-item list-group-item-action" href={% url 'basicproduct' tuple.id %}>{{tuple.name}}</a>
         {% endfor %}
     </div>
 </div>
 {% else %}
     <p id="Error_message">No Data Found</p>
 {% endif %}
+
 {% endblock %}
