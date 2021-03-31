@@ -136,4 +136,8 @@ def basicproduct_profile_url(req, basicproductid):
     return HttpResponse('Placeholder')
 
 def nutrient_profile_url(req, nutrientid):
-    return HttpResponse('Placeholder')
+    template_data = {}
+    nutr = Nutrients.objects.get(id= nutrientid)
+    template_data["nutrient"]=nutr 
+    template_name="DishDecoderApp/nutrient.html"
+    return render(req,template_name,template_data )
