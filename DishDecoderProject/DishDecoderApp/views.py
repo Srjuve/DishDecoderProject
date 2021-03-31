@@ -77,18 +77,7 @@ def logout_url(req):
     return redirect('/')
 
 def list_recipes_url(req):
-    template_data={}
-    template_name="DishDecoderApp/recipes.html"
-    searched_name=req.GET.get('search')
-    if searched_name is not None:
-        recipes = Recipes.objects.filter(name__contains=searched_name)
-        if recipes.count()==1:
-            url='/recipe/'+str(getattr(recipes.first(),'id'))
-            return redirect(url)
-        template_data['recipes']=recipes
-        return render(req,template_name,template_data)
-    else:
-        return HttpResponseBadRequest()
+    return list_data(req,"DishDecoderApp/recipes.html","/recipe/","recipes",Recipes)
 
 def list_basicproducts_url(req):
     return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/","basicproducts",BasicProducts)
