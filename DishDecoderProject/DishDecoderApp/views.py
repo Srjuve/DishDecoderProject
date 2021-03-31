@@ -90,5 +90,25 @@ def list_recipes_url(req):
     else:
         return HttpResponseBadRequest()
 
+def list_basicproducts_url(req):
+    return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/","basicproducts",BasicProducts)
+
+def list_data(req,template_name,baseurl,searchtype,searchedObject):
+    template_data={}
+    searched_name=req.GET.get('search')
+    if searched_name is not None:
+        data_fields = searchedObject.objects.filter(name__contains=searched_name)
+        if data_fields.count()==1:
+            url=baseurl+str(getattr(data_fields.first(),'id'))
+            return redirect(url)
+        template_data[searchtype]=data_fields
+        return render(req,template_name,template_data)
+    else:
+        return HttpResponseBadRequest()
+
+
 def recipe_profile_url(req, recipeid):
+    return HttpResponse('Placeholder')
+
+def basicproduct_profile_url(req, basicproductid):
     return HttpResponse('Placeholder')

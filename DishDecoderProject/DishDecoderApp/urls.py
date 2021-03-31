@@ -22,5 +22,7 @@ urlpatterns = [
     path('register/',views.register_page_url),
     path('logout/',views.logout_url),
     path('recipes/',views.list_recipes_url),
-    path('recipe/<int:recipeid>', views.recipe_profile_url, name="recipe")
+    path('recipe/<int:recipeid>', views.recipe_profile_url, name="recipe"),
+    path('basicproducts/',views.list_basicproducts_url),
+    path('basicproduct/<int:basicproductid>',views.basicproduct_profile_url, name="basicproduct")
 ]
