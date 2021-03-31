@@ -26,7 +26,7 @@ urlpatterns = [
     path('basicproducts/',views.list_basicproducts_url, name="basicproducts"),
     path('basicproduct/<int:basicproductid>',views.basicproduct_profile_url, name="basicproduct"),
     path('nutrients/',views.list_nutrients_url, name="nutrients"),
-    path('nutrient/<int:nutrientid>',views.nutrient_profile_url, name="nutrient")
+    path('nutrient/<int:nutrientid>',views.nutrient_profile_url, name="nutrient"),
     path('profile/',views.user_profile_url),
     path('profile/change_password',views.change_password_url, name="changepass"),
     path('profile/change_email',views.change_mail_url, name="changemail")
