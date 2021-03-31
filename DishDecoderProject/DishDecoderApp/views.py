@@ -113,7 +113,7 @@ def list_basicproducts_url(req):
     return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
 
 def list_nutrients_url(req):
-    return list_data(req,"DishDecoderApp/nutrient.html","/nutrient/",Nutrients)
+    return list_data(req,"DishDecoderApp/nutrients.html","/nutrient/",Nutrients)
 
 def list_data(req,template_name,baseurl,searchedObject):
     template_data={}
