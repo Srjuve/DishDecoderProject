@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.urls import reverse
 from urllib.parse import urlencode
 from DishDecoderApp.models import *
+import random
 # Create your views here.
 
 def main_url(req):
@@ -133,7 +134,21 @@ def recipe_profile_url(req, recipeid):
     return HttpResponse('Placeholder')
 
 def basicproduct_profile_url(req, basicproductid):
-    return HttpResponse('Placeholder')
+    template_data={}
+    template_name="DishDecoderApp/basic_product.html"
+    if BasicProducts.objects.filter(id=basicproductid).exists():
+        productData=BasicProducts.objects.filter(id=basicproductid).first()
+        recipesData=Recipe_Product.objects.filter(id_product=basicproductid).all()
+        if(recipesData.count()>=5):
+            template_data["recipes_products"]= random.sample(list(recipesData),5)
+        else:
+            template_data["recipes_products"] = recipesData
+
+        template_data["basic_product"] = productData
+        
+        return render(req,template_name,template_data)
+    else:
+        return HttpResponseNotFound()
 
 def nutrient_profile_url(req, nutrientid):
     return HttpResponse('Placeholder')
