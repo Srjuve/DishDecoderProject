@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
-from .forms import Main_page_form, Create_user_form
-from django.contrib.auth.forms import UserCreationForm , AuthenticationForm
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form
+from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -27,15 +27,12 @@ def main_url(req):
         return redirect(url)
     form = Main_page_form()
     template_data['form']=form
-    template_data['login_button_link']="/login/"
-    template_data['logout_button_link']="/logout/"
-    template_data['profile_form_link']="/profile/"
-    template_data['create_receip_link']="/create/"
     return render(req, template_name,template_data)
 
 
 def register_page_url(req):
     template_data={}
+    template_name="DishDecoderApp/register.html"
     form = Create_user_form()
     if req.method == 'POST':
         form = Create_user_form(req.POST)
@@ -44,9 +41,6 @@ def register_page_url(req):
             return redirect('/login/')
    
     template_data['reg_form']=form
-    template_data['login_button_link']="/login/"
-    template_data['home_button_link']="/"
-    template_name="DishDecoderApp/register.html"
     return render(req, template_name,template_data)
 
 
@@ -65,8 +59,6 @@ def login_page_url(req):
             else:
                 messages.warning(req,'Login credentials invalid')
         template_data['auth_form']=form
-        template_data['home_button_link']="/"
-        template_data['register_button_link']="/register/"
         return render(req, template_name,template_data)
     else:
         return redirect('/')
@@ -76,6 +68,44 @@ def logout_url(req):
         logout(req)
     return redirect('/')
 
+@login_required(login_url='/login/')
+def user_profile_url(req):
+    template_data = {}
+    template_name = "DishDecoderApp/user_profile.html"
+    if Ratings.objects.filter(id_autor=req.user.id).exists():
+        rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
+        template_data['scored_recipes']=rating_data
+    return render(req, template_name,template_data)
+
+
+@login_required(login_url='/login/')
+def change_password_url(req):
+    #GET: Show the password change form
+    #POST: Fill form with post data, validate it and, if valid, save it into the database
+    return change_user_data(req,'DishDecoderApp/change_password.html',Change_password_form)
+
+
+
+@login_required(login_url='/login/')
+def change_mail_url(req):
+    #GET: Show the email change form
+    #POST: Fill form with post data, validate it and, if valid, save it into the database
+    return change_user_data(req,'DishDecoderApp/change_email.html',Change_email_form)
+
+
+def change_user_data(req,template_name,form_function):
+    template_data={}
+    if req.method=='POST':
+        form = form_function(req.user,req.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/profile/')
+        else:
+            messages.warning(req,'Invalid data entered')
+    template_data['change_data_form']=form_function(req.user)
+    return render(req, template_name, template_data)
+
+
 def list_recipes_url(req):
     return list_data(req,"DishDecoderApp/recipes.html","/recipe/",Recipes)
 
@@ -83,7 +113,7 @@ def list_basicproducts_url(req):
     return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
 
 def list_nutrients_url(req):
-    return list_data(req,"DishDecoderApp/nutrient.html","/nutrient/",Nutrients)
+    return list_data(req,"DishDecoderApp/nutrients.html","/nutrient/",Nutrients)
 
 def list_data(req,template_name,baseurl,searchedObject):
     template_data={}
