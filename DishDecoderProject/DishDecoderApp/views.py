@@ -77,12 +77,12 @@ def logout_url(req):
     return redirect('/')
 
 def list_recipes_url(req):
-    return list_data(req,"DishDecoderApp/recipes.html","/recipe/","recipes",Recipes)
+    return list_data(req,"DishDecoderApp/recipes.html","/recipe/",Recipes)
 
 def list_basicproducts_url(req):
-    return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/","basicproducts",BasicProducts)
+    return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
 
-def list_data(req,template_name,baseurl,searchtype,searchedObject):
+def list_data(req,template_name,baseurl,searchedObject):
     template_data={}
     searched_name=req.GET.get('search')
     if searched_name is not None:
@@ -90,7 +90,7 @@ def list_data(req,template_name,baseurl,searchtype,searchedObject):
         if data_fields.count()==1:
             url=baseurl+str(getattr(data_fields.first(),'id'))
             return redirect(url)
-        template_data[searchtype]=data_fields
+        template_data["listedtuples"]=data_fields
         return render(req,template_name,template_data)
     else:
         return HttpResponseBadRequest()

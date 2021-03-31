@@ -6,11 +6,11 @@
 <hr>
 <h1 class="display-6 text-center">Related ingredients</h1>
 <hr>
-{% if basicproducts %}
+{% if listedtuples %}
 <div class="container">
     <div class="list-group">
-        {% for basicproduct in basicproducts %}
-        <a class="list-group-item list-group-item-action" href={% url 'basicproduct' basicproduct.id %}>{{basicproduct.name}}</a>
+        {% for tuple in listedtuples %}
+        <a class="list-group-item list-group-item-action" href={% url 'basicproduct' tuple.id %}>{{tuple.name}}</a>
         {% endfor %}
     </div>
 </div>

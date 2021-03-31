@@ -7,11 +7,11 @@
 <h1 class="display-6 text-center">Related recipes</h1>
 <hr>
 
-{% if recipes %}
+{% if listedtuples %}
 <div class="container">
     <div class="list-group">
-        {% for recipe in recipes %}
-        <a class="list-group-item list-group-item-action" href={% url 'recipe' recipe.id %}>{{recipe.name}}</a>
+        {% for tuple in listedtuples %}
+        <a class="list-group-item list-group-item-action" href={% url 'recipe' tuple.id %}>{{tuple.name}}</a>
         {% endfor %}
     </div>
 </div>
