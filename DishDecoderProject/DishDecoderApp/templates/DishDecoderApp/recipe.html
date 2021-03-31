@@ -16,92 +16,47 @@
 -->
 
 <hr>
-<h1 class="display-6 text-center">Truita de patates</h1>
-<h1 class="text-center text-muted">by Jesucristo Garcia</h1>
-<!--<h1 class="display-6 text-center">{{recipe.name}}</h1>-->
-<!--<h1 class="text-center text-muted"><small>{{recipe.author.name}}</small></h1>-->
+<h1 class="display-6 text-center">{{recipe.name}}</h1>
+<h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
 <hr>
 
-
-<div class="container">
-    <h2 class="text-center">Basic products</h2>
-    <div class="list-group col-md-4 mx-auto">
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">10g salt</a>
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">500g potatos</a>
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">250g onion</a>
-    </div>
-</div>
-
-<!--
 <div class="container">
     <h2 class="text-center">Ingredients</h2>
     <div class="list-group col-md-4 mx-auto">
-        {% for ingredient in ingredients %}
-        <a class="list-group-item list-group-item-action" href="{{ingredient.url}}">{{ingredient.quantity}}{{ingredient.unit}} {{ingredient.name}}</a>
+        {% for ingredient in rec_prod %}
+        <a class="list-group-item list-group-item-action"
+            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity}}{{ingredient.id_product.unit}}
+            {{ingredient.id_product.name}}</a>
         {% endfor %}
     </div>
 </div>
--->
+
 
 <hr>
-<div class="container">
-    <h2 class="text-center">Steps</h2>
-    <ul class="list-group list-group-flush">
 
-        <li class="list-group-item">
-            <h2>Step 1</h2>Le metemos la mantequilla y le damos un golpe de horno y repetiemos y Le metemos la
-            mantequilla y le damos un golpe de horno y repetiemos y Le metemos la mantequilla y le damos un golpe de
-            horno y repetiemos y Le metemos la mantequilla y le damos un golpe de horno y repetiemos y Le metemos la
-            mantequilla y le damos un golpe de horno y repetiemos y Le metemos la mantequilla y le damos un golpe de
-            horno y repetiemos y Le metemos la mantequilla y le damos un golpe de horno y repetiemos y Le metemos la
-            mantequilla y le damos un golpe de horno y repetiemos y Le metemos la mantequilla y le damos un golpe de
-            horno y repetiemos y Le metemos la mantequilla y le damos un golpe de horno y repetiemos y Le metemos la
-            mantequilla y le damos un golpe de horno y repetiemos y Le metemos la mantequilla y le damos un golpe de
-            horno y repetiemos y Le metemos la mantequilla y le damos un golpe de horno y repetiemos y Le metemos la
-            mantequilla y le damos un golpe de horno y repetiemos y Le metemos la mantequilla y le damos un golpe de
-            horno y repetiemos y Le metemos la mantequilla y le damos un golpe de horno y repetiemos y .
-        </li>
-        <li class="list-group-item">
-            <h2>Step 2</h2>Dapibus ac facilisis in
-        </li>
-        <li class="list-group-item">
-            <h2>Step 3</h2>Morbi leo risus
-        </li>
-    </ul>
-</div>
 
-<!--
 <div class="container">
     <h2 class="text-center">Steps</h2>
     <ul class="list-group list-group-flush">
         {% for step in steps %}
-            <li class="list-group-item"><h2>Step {{forloop.counter}}</h2>{{step}}</li>
-        {% endfor %} 
+        <li class="list-group-item">
+            <h2>Step {{forloop.counter}}</h2>{{step}}
+        </li>
+        {% endfor %}
     </ul>
 </div>
--->
 
 <hr>
 
 <div class="container">
     <h2 class="text-center">Nutrients</h2>
     <div class="list-group col-md-4 mx-auto">
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">10g carbos</a>
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">5mg sodium</a>
-        <a class="list-group-item list-group-item-action" href="https://www.google.com">100g vitamina-A</a>
-    </div>
-</div>
-
-<!--
-<div class="container">
-    <h2 class="text-center">Nutrients</h2>
-    <div class="list-group col-md-4 mx-auto">
-        {% for nutrient in nutrients %}
-        <a class="list-group-item list-group-item-action" href="{{nutrient.url}}">{{nutrient.quantity}}{{nutrient.unit}} {{nutrient.name}}</a>
+        {% for value, nutrient in nut_value %}
+        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
+            {{nutrient.name}}</a>
         {% endfor %}
     </div>
 </div>
--->
 
 <hr>
 
@@ -124,6 +79,7 @@
 </div>
 {% endif %}
 -->
+<!--
 <div class="container bg-info col-md-6">
     <h2 class="text-center">Rate this recipe</h2>
     <form action="" method="post">
@@ -152,6 +108,7 @@
         <center><button type="submit" class="btn btn-success btn-lg">Submit rating</button></center>
     </form>
 </div>
+-->
 
 <hr>
 {% endblock %}

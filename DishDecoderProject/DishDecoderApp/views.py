@@ -130,7 +130,35 @@ def list_data(req,template_name,baseurl,searchedObject):
 
 
 def recipe_profile_url(req, recipeid):
-    return HttpResponse('Placeholder')
+    template_data={}
+
+    recipe = Recipes.objects.get(id=recipeid)
+    rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
+
+    prod_nut = Product_Nutrients.objects.filter(id_product__in = [ingredient.id_product for ingredient in rec_prod])
+    nutrients = Nutrients.objects.all()
+
+    res = get_nutritional_value_foreach_nutrition(prod_nut)
+    
+    steps = recipe.steps.strip().split('#')
+    steps = [x for x in steps if x.strip()]
+
+    template_data['steps'] = steps
+    template_data['recipe'] = recipe
+    template_data['rec_prod'] = rec_prod
+    template_data['nut_value'] = res
+    template_name="DishDecoderApp/recipe.html"  
+    return render(req, template_name,template_data)
+
+def get_nutritional_value_foreach_nutrition(prod_nut):
+    nut_value = {}
+    for e in prod_nut:
+        value = e.quantity
+        if e.id_nutrient.id not in nut_value:
+            nut_value[e.id_nutrient.id] = {'value':value, 'nutrient' : e.id_nutrient}
+        else:
+            nut_value[e.id_nutrient.id]['value'] += value
+    return [list(nut_value[e].values()) for e in nut_value]
 
 def basicproduct_profile_url(req, basicproductid):
     return HttpResponse('Placeholder')
