@@ -1,20 +1,33 @@
 {% extends 'DishDecoderApp/common.html' %}
-
 {% block content %}
 
+<!--
+    Nom producte basic
+
+    Descripcio 
+    
+    Llista receptes relacionades
+    
+-->
 
 <hr>
-<h1 class="display-6 text-center">Related nutrients</h1>
+<h1 class="display-6 text-center">Sodium</h1>
+<!--<h1 class="display-6 text-center">{{nutrient.name}}</h1>-->
 <hr>
-{% if listedtuples %}
+
 <div class="container">
-    <div class="list-group">
-        {% for tuple in listedtuples %}
-        <a class="list-group-item list-group-item-action" href={% url 'nutrient' tuple.id %}>{{tuple.name}}</a>
-        {% endfor %}
-    </div>
+    <h1 class="display-6 text-center">Description</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos ratione mollitia accusantium laborum ipsa iusto
+        optio, dolor ab ducimus dolore eum ullam, animi et voluptatibus repellendus perferendis quas tenetur eius.</p>
 </div>
-{% else %}
-    <p id="Error_message">No Data Found</p>
-{% endif %}
+
+<!--
+<div class="container">
+    <h1 class="display-6 text-center">Description</h1>
+    <p>{{nutrient.description}}</p>
+</div>
+
+-->
+
+<hr>
 {% endblock %}
