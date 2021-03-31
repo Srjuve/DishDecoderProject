@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from urllib.parse import urlencode
+from DishDecoderApp.models import *
 # Create your views here.
 
 def main_url(req):
@@ -74,3 +75,20 @@ def logout_url(req):
     if req.user.is_authenticated:
         logout(req)
     return redirect('/')
+
+def list_recipes_url(req):
+    template_data={}
+    template_name="DishDecoderApp/recipes.html"
+    searched_name=req.GET.get('search')
+    if searched_name is not None:
+        recipes = Recipes.objects.filter(name__contains=searched_name)
+        if recipes.count()==1:
+            url='/recipe/'+str(getattr(recipes.first(),'id'))
+            return redirect(url)
+        template_data['recipes']=recipes
+        return render(req,template_name,template_data)
+    else:
+        return HttpResponseBadRequest()
+
+def recipe_profile_url(req, recipeid):
+    return HttpResponse('Placeholder')

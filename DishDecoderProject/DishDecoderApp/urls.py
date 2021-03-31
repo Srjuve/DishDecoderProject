@@ -14,11 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from DishDecoderApp import views
 urlpatterns = [
     path('',views.main_url),
     path('login/',views.login_page_url),
     path('register/',views.register_page_url),
-    path('logout/',views.logout_url)
+    path('logout/',views.logout_url),
+    path('recipes/',views.list_recipes_url),
+    path('recipe/<int:recipeid>', views.recipe_profile_url, name="recipe")
 ]
