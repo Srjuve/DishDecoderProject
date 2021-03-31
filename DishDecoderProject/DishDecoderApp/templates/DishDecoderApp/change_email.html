@@ -1,0 +1,28 @@
+{% extends 'DishDecoderApp/common.html' %}
+
+{% block content %}
+
+
+<hr>
+<h1 class="display-6 text-center">Change Email</h1>
+<hr>
+<div class="container">
+
+    <form method="POST" action="">{% csrf_token %}
+        <div class="mb-3">
+            {{ change_data_form.new_email1.label}}
+            {{ change_data_form.new_email1}}
+        </div>
+        <div class="mb-3">
+            {{ change_data_form.new_email2.label}}
+            {{ change_data_form.new_email2}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% for message in messages %}
+            <p id="Error_message">{{message}}</p>
+        {% endfor %}
+</div>
+
+<hr>
+{% endblock %}

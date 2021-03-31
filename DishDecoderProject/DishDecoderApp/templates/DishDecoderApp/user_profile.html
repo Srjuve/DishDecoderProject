@@ -20,65 +20,35 @@
 
 <hr>
 <h1 class="display-6 text-center">User Profile</h1>
-<h1 class="text-center text-muted">Profile</h1>
-<!--<h1 class="text-center text-muted"><small>{{user.name}}</small></h1>-->
+<h1 class="text-center text-muted"><small>{{user.username}}</small></h1>
 <hr>
 
-<div class="container">
-    <h2 class="text-center">Last scored recipes</h2>
-    <hr>
-    <div class="card w-75 mx-auto">
-        <div class="card-body">
-            <h5 class="card-title">Macarrones con tomatico by Perico</h5>
-            <p class="card-text">Lorem ipsum abaco evocu memono triporito. Lorem ipsum abaco evocu memono triporito.</p>
-            <a href="#" class="btn btn-primary">Go to the recipe</a>
-            <button type="button" class="btn btn-primary btn-sm" disabled> 7 out of 10</button>
-        </div>
-    </div>
-    <hr>
-    <div class="card w-75 mx-auto">
-        <div class="card-body">
-            <h5 class="card-title">Truita de patata by Webo</h5>
-            <p class="card-text">Lorem ipsum abaco evocu memono triporito. Lorem ipsum abaco evocu memono triporito.</p>
-            <a href="#" class="btn btn-primary">Go to the recipe</a>
-            <button type="button" class="btn btn-primary btn-sm" disabled> 5 out of 10</button>
-        </div>
-    </div>
-</div>
-<!--
+
     <div class="container">
     <h2 class="text-center">Last scored recipes</h2>
-    {% for scored_recipe in scored_recipes %}
-    <hr>
-    <div class="card w-75 mx-auto">
-        <div class="card-body">
-            <h5 class="card-title">{{scored_recipe.name}} by {{scored_recipe.author.name}}</h5>
-            <p class="card-text">{{user_score.comment}}</p>
-            <a href="{{scored_recipe.url}}" class="btn btn-primary">Go to the recipe</a>
-            <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating}} out of 10</button>
+    {% if scored_recipes %}
+        {% for scored_recipe in scored_recipes %}
+        <hr>
+        <div class="card w-75 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">{{scored_recipe.id_recipe.name}} by {{scored_recipe.id_autor.username}}</h5>
+                <p class="card-text">{{scored_recipe.desc}}</p>
+                <a href={% url 'recipe' scored_recipe.id_recipe.id %} class="btn btn-primary">Go to the recipe</a>
+                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating}} out of 10</button>
+            </div>
         </div>
-    </div>
-    <hr>
-    {% endfor %}
+        <hr>
+        {% endfor %}
+    {% else %}
+        <p id="Error_message">No Data Found</p>
+    {% endif %}
 </div>
--->
+
 <hr>
 <div class="container">
 
     <h2 class="text-center">Change password</h2>
-
-    <form>
-        <div class="mb-3">
-            <label for="inputPassword1" class="form-label">New password</label>
-            <input type="password" class="form-control" id="inputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="inputPassword2" class="form-label">Repeat new password</label>
-            <input type="password" class="form-control" id="inputPassword2">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
+    <a class="btn btn-primary" href={% url 'changepass' %}>Change Password</a>
 </div>
 
 <hr>
@@ -86,15 +56,7 @@
 <div class="container">
 
     <h2 class="text-center">Change email</h2>
-
-    <form>
-        <div class="mb-3">
-            <label for="inputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="inputEmail1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else ;).</div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <a class="btn btn-primary" href={% url 'changemail' %}>Change Email</a>
 
 </div>
 
