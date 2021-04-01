@@ -29,5 +29,8 @@ urlpatterns = [
     path('nutrient/<int:nutrientid>',views.nutrient_profile_url, name="nutrient"),
     path('profile/',views.user_profile_url),
     path('profile/change_password',views.change_password_url, name="changepass"),
-    path('profile/change_email',views.change_mail_url, name="changemail")
+    path('profile/change_email',views.change_mail_url, name="changemail"),
+    
+
+    path('createrecipe/',views.create_recipe_url, name="createrecipe"),
 ]
