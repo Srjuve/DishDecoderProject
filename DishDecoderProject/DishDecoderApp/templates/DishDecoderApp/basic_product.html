@@ -1,0 +1,34 @@
+{% extends 'DishDecoderApp/common.html' %}
+{% block content %}
+
+<!--
+    Nom producte basic
+
+    Descripcio 
+    
+    Llista receptes relacionades
+    
+-->
+
+<hr>
+<h1 class="display-6 text-center">{{basic_product.name}}</h1>
+<hr>
+
+
+<div class="container">
+    <h1 class="display-6 text-center">Description</h1>
+    <p>{{basic_product.desc}}</p>
+</div>
+
+
+<div class="container">
+    <div class="list-group">
+        {% for recipe_product in recipes_products %}
+        <a class="list-group-item list-group-item-action" href={% url 'recipe' recipe_product.id_recipe.id %}>{{recipe_product.id_recipe.name}}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+<hr>
+{% endblock %}

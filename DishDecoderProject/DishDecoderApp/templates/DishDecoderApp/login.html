@@ -1,0 +1,20 @@
+{%  extends 'DishDecoderApp/common.html' %}
+{% block content %}
+<html>
+    <head>
+        <title>Log in</title>
+    </head>
+    <h3>Login</h3>
+    <form method="POST" action="">{% csrf_token %}
+        {{auth_form.username.label}}
+        {{auth_form.username}}
+        {{auth_form.password.label}}
+        {{auth_form.password}}
+        <input type="submit" name="Log in">
+        {% for message in messages %}
+            <p id="Error_message">{{message}}</p>
+        {% endfor %}
+    </form>
+    <p>If you are not Registered go click<a href="/register"> Here</a></p>
+</html>
+{% endblock %}
