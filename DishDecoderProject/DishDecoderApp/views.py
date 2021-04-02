@@ -32,17 +32,20 @@ def main_url(req):
 
 
 def register_page_url(req):
-    template_data={}
-    template_name="DishDecoderApp/register.html"
-    form = Create_user_form()
-    if req.method == 'POST':
-        form = Create_user_form(req.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/login/')
-   
-    template_data['reg_form']=form
-    return render(req, template_name,template_data)
+    if req.user.is_authenticated:
+        return redirect('/')
+    else:
+        template_data={}
+        template_name="DishDecoderApp/register.html"
+        form = Create_user_form()
+        if req.method == 'POST':
+            form = Create_user_form(req.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/login/')
+    
+        template_data['reg_form']=form
+        return render(req, template_name,template_data)
 
 
 def login_page_url(req):
