@@ -32,9 +32,7 @@ def main_url(req):
 
 
 def register_page_url(req):
-    if req.user.is_authenticated:
-        return redirect('/')
-    else:
+    if not req.user.is_authenticated:
         template_data={}
         template_name="DishDecoderApp/register.html"
         form = Create_user_form()
@@ -46,6 +44,7 @@ def register_page_url(req):
     
         template_data['reg_form']=form
         return render(req, template_name,template_data)
+    return redirect('/')
 
 
 def login_page_url(req):
@@ -130,7 +129,7 @@ def list_data(req,template_name,baseurl,searchedObject):
         template_data["listedtuples"]=data_fields
         return render(req,template_name,template_data)
     else:
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest('THE REQUEST HAS BEEN DENIED BECAUSE THE ABSENCE OF ENOUGH PARAMETERS.')
 
 
 def recipe_profile_url(req, recipeid):
