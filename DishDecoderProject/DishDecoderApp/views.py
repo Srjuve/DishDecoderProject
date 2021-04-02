@@ -185,6 +185,8 @@ def nutrient_profile_url(req, nutrientid):
     template_name="DishDecoderApp/nutrient.html"
     return render(req,template_name,template_data )
 
+
+@login_required(login_url='/login/')
 def create_recipe_url(req):
     #Aquí no demanem data ja que qui ho ha d'emplenar és l'usuari.
     #Lo que no tinc clar és com guardem la data que ens doni 
