@@ -138,30 +138,41 @@ def recipe_profile_url(req, recipeid):
     recipe = Recipes.objects.get(id=recipeid)
     rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
 
-    prod_nut = Product_Nutrients.objects.filter(id_product__in = [ingredient.id_product for ingredient in rec_prod])
     nutrients = Nutrients.objects.all()
 
-    res = get_nutritional_value_foreach_nutrition(prod_nut)
-    
+    res = get_nutritional_value_foreach_nutrition(rec_prod)
     steps = recipe.steps.strip().split('#')
     steps = [x for x in steps if x.strip()]
+
+    rating_data = Ratings.objects.filter(id_recipe=recipeid).all()
+    try:
+        average = sum([recipe_rating.rating for recipe_rating in rating_data]) / rating_data.count()
+    except ZeroDivisionError as e:
+        average = "Not rated"
 
     template_data['steps'] = steps
     template_data['recipe'] = recipe
     template_data['rec_prod'] = rec_prod
     template_data['nut_value'] = res
+    template_data['rating_data'] = rating_data
+    template_data['average_score'] = average
     template_name="DishDecoderApp/recipe.html"  
     return render(req, template_name,template_data)
 
-def get_nutritional_value_foreach_nutrition(prod_nut):
-    nut_value = {}
-    for e in prod_nut:
-        value = e.quantity
-        if e.id_nutrient.id not in nut_value:
-            nut_value[e.id_nutrient.id] = {'value':value, 'nutrient' : e.id_nutrient}
-        else:
-            nut_value[e.id_nutrient.id]['value'] += value
-    return [list(nut_value[e].values()) for e in nut_value]
+def get_nutritional_value_foreach_nutrition(rec_prod):
+    nut_value = {} #diccionari, clau id del nutrient, valor es un diccionari amb dos items, valor pel valor nutricional i nutrient per l'entitat nutrient corresponent
+    for rel_rec_prod in rec_prod:
+        for rel_prod_nut in Product_Nutrients.objects.filter(id_product=rel_rec_prod.id_product):
+            unit = rel_rec_prod.id_product.unit
+            value = rel_rec_prod.quantity * (rel_prod_nut.quantity / 100) #Hardcoded
+            nut_id = rel_prod_nut.id_nutrient.id
+            if unit == 'L':
+                value *= 1000 #Hardcoded
+            if nut_id not in nut_value:
+                nut_value[nut_id] = {'value':value, 'nutrient' : rel_prod_nut.id_nutrient}
+            else:
+                nut_value[nut_id]['value'] += value
+    return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
 
 def basicproduct_profile_url(req, basicproductid):
     template_data={}
