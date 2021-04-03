@@ -1,28 +1,39 @@
 {%  extends 'DishDecoderApp/common.html' %}
 {% block content %}
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <html>
     <head>
         <title>Register</title>
     </head>
-    <h3>Register</h3>
+    <h3 style="text-align: center;">Register</h3>
 
-    <form method="POST" action="">
+    <form style="text-align: center;" method="POST" action="">
+        <fieldset>
         {% csrf_token %}
-
-        {{reg_form.username.label}}
-        {{reg_form.username}}
-
-        {{reg_form.email.label}}
+    <div style="margin-top: 100px; border-radius: 25px; background-color: rgb(74, 235, 200); padding: 20px; margin-left: 700px; margin-right: 700px;">
+        <div class="control-group">
+            <p><b>Username</b></p>
+            {{reg_form.username}}
+        </div>
+        <div>
+        <p><b>Email adress</b></p>
         {{reg_form.email}}
-
-        {{reg_form.password1.label}}
+        </div>
+        <div>
+        <p><b>Password</b></p>
         {{reg_form.password1}}
-
-        {{reg_form.password2.label}}
+        </div>
+        <div>
+        <p><b>Password confirmation</b></p>
         {{reg_form.password2}}
+        </div>
         <input type="submit" name="Create User">
+    </div>
     </form>
 
-    {{reg_form.errors}}
+        {{reg_form.errors}}
+    </fieldset>
 </html>
 {% endblock %}
