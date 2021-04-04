@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django.views.defaults import *
 from urllib.parse import urlencode
 from DishDecoderApp.models import *
 import random
@@ -95,7 +96,7 @@ def change_mail_url(req):
     #POST: Fill form with post data, validate it and, if valid, save it into the database
     return change_user_data(req,'DishDecoderApp/change_email.html',Change_email_form)
 
-
+@login_required(login_url='/login/')
 def change_user_data(req,template_name,form_function):
     template_data={}
     if req.method=='POST':
@@ -129,35 +130,41 @@ def list_data(req,template_name,baseurl,searchedObject):
         template_data["listedtuples"]=data_fields
         return render(req,template_name,template_data)
     else:
-        return HttpResponseBadRequest('THE REQUEST HAS BEEN DENIED BECAUSE THE ABSENCE OF ENOUGH PARAMETERS.')
+        return bad_request(req, exception=None)
 
 
 def recipe_profile_url(req, recipeid):
     template_data={}
 
-    recipe = Recipes.objects.get(id=recipeid)
-    rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
+    try :
+        recipe = Recipes.objects.get(id=recipeid)
+        rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
 
-    nutrients = Nutrients.objects.all()
+        nutrients = Nutrients.objects.all()
 
-    res = get_nutritional_value_foreach_nutrition(rec_prod)
-    steps = recipe.steps.strip().split('#')
-    steps = [x for x in steps if x.strip()]
+        res = get_nutritional_value_foreach_nutrition(rec_prod)
+        steps = recipe.steps.strip().split('#')
+        steps = [x for x in steps if x.strip()]
 
-    rating_data = Ratings.objects.filter(id_recipe=recipeid).all()
-    try:
-        average = sum([recipe_rating.rating for recipe_rating in rating_data]) / rating_data.count()
-    except ZeroDivisionError as e:
-        average = "Not rated"
+        rating_data = Ratings.objects.filter(id_recipe=recipeid).all()
+        try:
+            average = sum([recipe_rating.rating for recipe_rating in rating_data]) / rating_data.count()
+        except ZeroDivisionError as e:
+            average = "Not rated"
 
-    template_data['steps'] = steps
-    template_data['recipe'] = recipe
-    template_data['rec_prod'] = rec_prod
-    template_data['nut_value'] = res
-    template_data['rating_data'] = rating_data
-    template_data['average_score'] = average
-    template_name="DishDecoderApp/recipe.html"  
-    return render(req, template_name,template_data)
+        template_data['steps'] = steps
+        template_data['recipe'] = recipe
+        template_data['rec_prod'] = rec_prod
+        template_data['nut_value'] = res
+        template_data['rating_data'] = rating_data
+        template_data['average_score'] = average
+        template_name="DishDecoderApp/recipe.html"  
+        return render(req, template_name,template_data)
+    except Recipes.DoesNotExist:
+        return page_not_found(req, exception=None)
+    
+    
+    
 
 def get_nutritional_value_foreach_nutrition(rec_prod):
     nut_value = {} #diccionari, clau id del nutrient, valor es un diccionari amb dos items, valor pel valor nutricional i nutrient per l'entitat nutrient corresponent
@@ -176,9 +183,10 @@ def get_nutritional_value_foreach_nutrition(rec_prod):
 
 def basicproduct_profile_url(req, basicproductid):
     template_data={}
-    template_name="DishDecoderApp/basic_product.html"
-    if BasicProducts.objects.filter(id=basicproductid).exists():
-        productData=BasicProducts.objects.filter(id=basicproductid).first()
+    template_name="DishDecoderApp/basic_product.html"        
+    
+    try:
+        productData=BasicProducts.objects.get(id=basicproductid)
         recipesData=Recipe_Product.objects.filter(id_product=basicproductid).all()
         if(recipesData.count()>=5):
             template_data["recipes_products"]= random.sample(list(recipesData),5)
@@ -188,12 +196,25 @@ def basicproduct_profile_url(req, basicproductid):
         template_data["basic_product"] = productData
         
         return render(req,template_name,template_data)
-    else:
-        return HttpResponseNotFound()
+    
+    except BasicProducts.DoesNotExist:
+            return page_not_found(req, exception=None)
+
 
 def nutrient_profile_url(req, nutrientid):
     template_data = {}
-    nutr = Nutrients.objects.get(id= nutrientid)
-    template_data["nutrient"]=nutr 
-    template_name="DishDecoderApp/nutrient.html"
-    return render(req,template_name,template_data )
+    
+    try:
+        nutr = Nutrients.objects.get(id= nutrientid)
+        template_data["nutrient"]=nutr 
+        template_name="DishDecoderApp/nutrient.html"
+        return render(req,template_name,template_data )    
+    
+    except Nutrients.DoesNotExist:
+            return page_not_found(req, exception=None)
+
+
+
+
+
+
