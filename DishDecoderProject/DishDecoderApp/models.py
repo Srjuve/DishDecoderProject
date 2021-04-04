@@ -16,11 +16,13 @@ class Recipes(models.Model):
         return self.name
 
 class BasicProducts(models.Model):
+    SUPPORTED_UNITS = [('g', 'Gram'),('L', 'Litre')]
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     desc = models.CharField(max_length=1000)
-    unit = models.CharField(max_length=12)
+    unit = models.CharField(max_length=12, choices=SUPPORTED_UNITS, default='g')
     nutrients = models.ManyToManyField('Nutrients',through='Product_Nutrients')
+    
 
     def __str__(self):
         return self.name
