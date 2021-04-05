@@ -22,13 +22,16 @@
 
 
 <div class="container">
+    <h1 class="display-6 text-center">Recipes that contain this basic product</h1>
     <div class="list-group">
+        {% if recipes_products %}
         {% for recipe_product in recipes_products %}
         <a class="list-group-item list-group-item-action" href={% url 'recipe' recipe_product.id_recipe.id %}>{{recipe_product.id_recipe.name}}</a>
         {% endfor %}
     </div>
 </div>
-
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 {% endblock %}

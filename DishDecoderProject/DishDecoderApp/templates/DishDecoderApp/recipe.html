@@ -21,8 +21,10 @@
 <h1 class="display-6 text-center">Rating: {{average_score}}</h1>
 <hr>
 
+
 <div class="container">
     <h2 class="text-center">Ingredients</h2>
+    {% if Ingredients %}
     <div class="list-group col-md-4 mx-auto">
         {% for ingredient in rec_prod %}
         <a class="list-group-item list-group-item-action"
@@ -31,12 +33,15 @@
         {% endfor %}
     </div>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 
 <div class="container">
     <h2 class="text-center">Steps</h2>
+    {% if steps %}
     <ul class="list-group list-group-flush">
         {% for step in steps %}
         <li class="list-group-item">
@@ -45,11 +50,14 @@
         {% endfor %}
     </ul>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 <div class="container">
     <h2 class="text-center">Nutrients</h2>
+    {% if nutrients %}
     <div class="list-group col-md-4 mx-auto">
         {% for value, nutrient in nut_value %}
         <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
@@ -57,12 +65,15 @@
         {% endfor %}
     </div>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 
 <div class="container">
     <h2 class="text-center">User comments</h2>
+        {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
         <div class="card w-75 mx-auto">
@@ -75,7 +86,9 @@
         <hr>
         {% endfor %}
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 
 <!--
 {% if user != recipe.author %}
