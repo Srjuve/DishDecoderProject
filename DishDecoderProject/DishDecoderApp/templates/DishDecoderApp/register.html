@@ -12,27 +12,26 @@
     <form style="text-align: center;" method="POST" action="">
         <fieldset>
         {% csrf_token %}
-    <div style="margin-top: 100px; border-radius: 25px; background-color: rgb(74, 235, 200); padding: 20px; margin-left: 700px; margin-right: 700px;">
-        <div class="control-group">
+    <div style="margin-top: 100px; border-radius: 25px; padding: 20px;">
+        <div class="text-center">
             <p><b>Username</b></p>
             {{reg_form.username}}
         </div>
-        <div>
+        <div class="text-center">
         <p><b>Email adress</b></p>
         {{reg_form.email}}
         </div>
-        <div>
+        <div class="text-center">
         <p><b>Password</b></p>
         {{reg_form.password1}}
         </div>
-        <div>
+        <div class="text-center">
         <p><b>Password confirmation</b></p>
         {{reg_form.password2}}
         </div>
         <input type="submit" name="Create User">
     </div>
     </form>
-
         {{reg_form.errors}}
     </fieldset>
 </html>
