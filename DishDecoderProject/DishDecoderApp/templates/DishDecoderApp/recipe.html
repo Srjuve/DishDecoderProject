@@ -1,20 +1,6 @@
 {% extends 'DishDecoderApp/common.html' %}
 {% block content %}
 
-<!--
-    Nom recepta
-    by Nom autor
-
-    Formulari de comentari i nota
-    
-    Llista productes basics
-    
-    Pasos
-
-    Llista nutrients
-
--->
-
 <hr>
 <h1 class="display-6 text-center">{{recipe.name}}</h1>
 <h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
@@ -89,25 +75,6 @@
 {% else %}
         <p id="Error_message">No Data Found</p>
 {% endif %}
-
-<!--
-{% if user != recipe.author %}
-
-<div class="container">
-    <form action="" method="post">
-        {% csrf_token %}
-        {% for field in score_form %}
-        <div class='form-group'>
-          <label for="{{ field.name }}">{{ field.label }}</label>
-          {{ field }}
-        </div>
-        {% endfor %}
-        <br>
-        <center><button type="submit" class="btn btn-success btn-lg">Submit rating</button></center>
-      </form>
-</div>
-{% endif %}
--->
 
 {% if user != recipe.author %}
 <div class="container col-md-6">

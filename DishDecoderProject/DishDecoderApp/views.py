@@ -10,8 +10,9 @@ from django.views.defaults import *
 from urllib.parse import urlencode
 from DishDecoderApp.models import *
 import random
-# Create your views here.
 
+
+# GET: Show the principal page, and redirects the search depending on what the user selects
 def main_url(req):
     template_name="DishDecoderApp/main.html"
     template_data = {}
@@ -32,7 +33,8 @@ def main_url(req):
     template_data['title_page']='Dish Decoder'
     return render(req, template_name,template_data)
 
-
+#GET : shows the registrations form
+#POST : proves that the data introduced is correct, creates the user and redirects the user to log in page
 def register_page_url(req):
     if not req.user.is_authenticated:
         template_data={}
@@ -49,7 +51,8 @@ def register_page_url(req):
         return render(req, template_name,template_data)
     return redirect('/')
 
-
+# GET: Shows the log in forms
+# POST: Proves that the data introduced is from an user, autenticates the user and redirects him to the main page logged.
 def login_page_url(req):
     if not req.user.is_authenticated:
         template_data={}
@@ -70,11 +73,13 @@ def login_page_url(req):
     else:
         return redirect('/')
 
+# GET: the user log outs
 def logout_url(req):
     if req.user.is_authenticated:
         logout(req)
     return redirect('/')
 
+# GET: the user profile where the user can go to change the password or the email
 @login_required(login_url='/login/')
 def user_profile_url(req):
     template_data = {}
@@ -100,6 +105,7 @@ def change_mail_url(req):
     #POST: Fill form with post data, validate it and, if valid, save it into the database
     return change_user_data(req,'DishDecoderApp/change_email.html',Change_email_form)
 
+# funcion used by change mail and change password to perform each funtions
 @login_required(login_url='/login/')
 def change_user_data(req,template_name,form_function):
     template_data={}
@@ -117,16 +123,19 @@ def change_user_data(req,template_name,form_function):
         template_data['title_page']='Change email'
     return render(req, template_name, template_data)
 
-
+# GET: funtions that use the funtion list_data to list the recipes
 def list_recipes_url(req):
     return list_data(req,"DishDecoderApp/recipes.html","/recipe/",Recipes)
 
+# GET: funtions that use the funtion list_data to list the basic products
 def list_basicproducts_url(req):
     return list_data(req,"DishDecoderApp/basicproducts.html","/basicproduct/",BasicProducts)
 
+# GET: funtions that use the funtion list_data to list the nutrients
 def list_nutrients_url(req):
     return list_data(req,"DishDecoderApp/nutrients.html","/nutrient/",Nutrients)
 
+#GET: funtion thah shows the list of recipes, basic products or nutrients that start by the same way that the user typed
 def list_data(req,template_name,baseurl,searchedObject):
     template_data={}
     searched_name=req.GET.get('search')
@@ -146,7 +155,7 @@ def list_data(req,template_name,baseurl,searchedObject):
     else:
         return bad_request(req, exception=None)
 
-
+# GET: shows the recipe page with the relationated info about it
 def recipe_profile_url(req, recipeid):
     template_data={}
 
@@ -180,22 +189,23 @@ def recipe_profile_url(req, recipeid):
     
     
     
-
+# GET: Calculates the nutritional value from a recipe
 def get_nutritional_value_foreach_nutrition(rec_prod):
-    nut_value = {} #diccionari, clau id del nutrient, valor es un diccionari amb dos items, valor pel valor nutricional i nutrient per l'entitat nutrient corresponent
+    nut_value = {} 
     for rel_rec_prod in rec_prod:
         for rel_prod_nut in Product_Nutrients.objects.filter(id_product=rel_rec_prod.id_product):
             unit = rel_rec_prod.id_product.unit
-            value = rel_rec_prod.quantity * (rel_prod_nut.quantity / 100) #Hardcoded
+            value = rel_rec_prod.quantity * (rel_prod_nut.quantity / 100)
             nut_id = rel_prod_nut.id_nutrient.id
             if unit == 'L':
-                value *= 1000 #Hardcoded
+                value *= 1000
             if nut_id not in nut_value:
                 nut_value[nut_id] = {'value':value, 'nutrient' : rel_prod_nut.id_nutrient}
             else:
                 nut_value[nut_id]['value'] += value
     return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
 
+# GET: Shows the basic product and the data related to them
 def basicproduct_profile_url(req, basicproductid):
     template_data={}
     template_name="DishDecoderApp/basic_product.html"        
@@ -215,7 +225,7 @@ def basicproduct_profile_url(req, basicproductid):
     except BasicProducts.DoesNotExist:
             return page_not_found(req, exception=None)
 
-
+#GET: shoes the nutrient page and the data related to it
 def nutrient_profile_url(req, nutrientid):
     template_data = {}
     
@@ -230,12 +240,9 @@ def nutrient_profile_url(req, nutrientid):
             return page_not_found(req, exception=None)
 
 
-
+# Not implemented
 @login_required(login_url='/login/')
 def create_recipe_url(req):
-    #Aquí no demanem data ja que qui ho ha d'emplenar és l'usuari.
-    #Lo que no tinc clar és com guardem la data que ens doni 
-    #i com li donem les opcions.
     return render(req,'DishDecoderApp/createrecipe.html')
 
 
