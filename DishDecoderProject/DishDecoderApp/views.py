@@ -29,6 +29,7 @@ def main_url(req):
         return redirect(url)
     form = Main_page_form()
     template_data['form']=form
+    template_data['title_page']='Dish Decoder'
     return render(req, template_name,template_data)
 
 
@@ -44,6 +45,7 @@ def register_page_url(req):
                 return redirect('/login/')
     
         template_data['reg_form']=form
+        template_data['title_page']='Register'
         return render(req, template_name,template_data)
     return redirect('/')
 
@@ -63,6 +65,7 @@ def login_page_url(req):
             else:
                 messages.warning(req,'Login credentials invalid')
         template_data['auth_form']=form
+        template_data['title_page']='Log in'
         return render(req, template_name,template_data)
     else:
         return redirect('/')
@@ -79,6 +82,7 @@ def user_profile_url(req):
     if Ratings.objects.filter(id_autor=req.user.id).exists():
         rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
         template_data['scored_recipes']=rating_data
+        template_data['title_page']='User profile'
     return render(req, template_name,template_data)
 
 
@@ -107,6 +111,10 @@ def change_user_data(req,template_name,form_function):
         else:
             messages.warning(req,'Invalid data entered')
     template_data['change_data_form']=form_function(req.user)
+    if template_name =='DishDecoderApp/change_password.html':
+        template_data['title_page']='Change Password'
+    if template_name == 'DishDecoderApp/change_email.html':
+        template_data['title_page']='Change email'
     return render(req, template_name, template_data)
 
 
@@ -128,6 +136,12 @@ def list_data(req,template_name,baseurl,searchedObject):
             url=baseurl+str(getattr(data_fields.first(),'id'))
             return redirect(url)
         template_data["listedtuples"]=data_fields
+        if template_name =="DishDecoderApp/recipes.html":
+            template_data['title_page']='Recipes'
+        if template_name == "DishDecoderApp/basicproducts.html":
+            template_data['title_page']='Basic Products'
+        if template_name == "DishDecoderApp/nutrients.html":
+            template_data['title_page']='Nutrients'
         return render(req,template_name,template_data)
     else:
         return bad_request(req, exception=None)
@@ -158,6 +172,7 @@ def recipe_profile_url(req, recipeid):
         template_data['nut_value'] = res
         template_data['rating_data'] = rating_data
         template_data['average_score'] = average
+        template_data['title_page']='Recipe Profile'
         template_name="DishDecoderApp/recipe.html"  
         return render(req, template_name,template_data)
     except Recipes.DoesNotExist:
@@ -194,7 +209,7 @@ def basicproduct_profile_url(req, basicproductid):
             template_data["recipes_products"] = recipesData
 
         template_data["basic_product"] = productData
-        
+        template_data['title_page']='Basic Product Profile'
         return render(req,template_name,template_data)
     
     except BasicProducts.DoesNotExist:
@@ -208,6 +223,7 @@ def nutrient_profile_url(req, nutrientid):
         nutr = Nutrients.objects.get(id= nutrientid)
         template_data["nutrient"]=nutr 
         template_name="DishDecoderApp/nutrient.html"
+        template_data['title_page']='Nutrient Profile'
         return render(req,template_name,template_data )    
     
     except Nutrients.DoesNotExist:
