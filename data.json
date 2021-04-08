@@ -3,26 +3,62 @@
     "model": "DishDecoderApp.recipes",
     "pk": 1,
     "fields": {
-        "name": "Roast beef",
-        "author": 2,
-        "steps": "#Get ingredients. #Cake it. #Bake it. #Eat it."
+        "name": "breaded pork",
+        "author": 1,
+        "steps": "#put the meat with beaten egg, #Batter the meat,  #put the meat in the pan #put salt in it."
     }
 },
 {
     "model": "DishDecoderApp.recipes",
     "pk": 2,
     "fields": {
-        "name": "Chocolate cake",
-        "author": 3,
-        "steps": "#Get ingredients. #Cake it. #Bake it. #Eat it."
+        "name": "Pasta with tomato",
+        "author": 1,
+        "steps": "# boil the pasta  #put the tomato"
+    }
+},
+{
+    "model": "DishDecoderApp.recipes",
+    "pk": 3,
+    "fields": {
+        "name": "Pizza",
+        "author": 1,
+        "steps": "#Go to mercadona and buy a precooked one."
+    }
+},
+{
+    "model": "DishDecoderApp.recipes",
+    "pk": 4,
+    "fields": {
+        "name": "Macarroni with tomato",
+        "author": 1,
+        "steps": "#Boil the macarroni #put the tomato"
+    }
+},
+{
+    "model": "DishDecoderApp.recipes",
+    "pk": 5,
+    "fields": {
+        "name": "Tortilla",
+        "author": 1,
+        "steps": "#Beat the egg# put salt and potatos# put all in to a pan"
+    }
+},
+{
+    "model": "DishDecoderApp.recipes",
+    "pk": 6,
+    "fields": {
+        "name": "Sushi",
+        "author": 1,
+        "steps": "#Go carrefour and buy sushi"
     }
 },
 {
     "model": "DishDecoderApp.basicproducts",
     "pk": 1,
     "fields": {
-        "name": "Beef",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "carrot",
+        "desc": "a plant, Daucus carota, of the parsley family, having pinnately decompound leaves and umbels of small white or yellow flowers, in its wild form a widespread, familiar weed, and in cultivation valued for its edible root.",
         "unit": "g"
     }
 },
@@ -30,8 +66,8 @@
     "model": "DishDecoderApp.basicproducts",
     "pk": 2,
     "fields": {
-        "name": "Salt",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "Potato",
+        "desc": "Also called Irish potato, white potato. the edible tuber of a cultivated plant, Solanum tuberosum, of the nightshade family.",
         "unit": "g"
     }
 },
@@ -39,17 +75,17 @@
     "model": "DishDecoderApp.basicproducts",
     "pk": 3,
     "fields": {
-        "name": "Water",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
-        "unit": "L"
+        "name": "Lettuce",
+        "desc": "a cultivated plant, Lactuca sativa, occurring in many varieties and having succulent leaves used for salads.",
+        "unit": "g"
     }
 },
 {
     "model": "DishDecoderApp.basicproducts",
     "pk": 4,
     "fields": {
-        "name": "Onion",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "pork meat",
+        "desc": "the flesh of animals as used for food.",
         "unit": "g"
     }
 },
@@ -57,8 +93,8 @@
     "model": "DishDecoderApp.basicproducts",
     "pk": 5,
     "fields": {
-        "name": "Potatoes",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "Pasta",
+        "desc": "any of various flour-and-egg food preparations of Italian origin, made of thin, unleavened dough and produced in a variety of forms, usually served with a sauce and sometimes stuffed.",
         "unit": "g"
     }
 },
@@ -66,17 +102,17 @@
     "model": "DishDecoderApp.basicproducts",
     "pk": 6,
     "fields": {
-        "name": "Oil",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
-        "unit": "L"
+        "name": "bread crumbs",
+        "desc": "Bread crumbs or breadcrumbs (regional variants: breading, crispies) consist of crumbled bread of various dryness, sometimes with seasonings added, used for breading or crumbing foods, topping casseroles, stuffing poultry, thickening stews, adding inexpensive bulk to soups, meatloaves and similar foods, and making a crisp and crunchy covering for fried foods, especially breaded cutlets like tonkatsu and schnitzel.",
+        "unit": "g"
     }
 },
 {
     "model": "DishDecoderApp.basicproducts",
     "pk": 7,
     "fields": {
-        "name": "Chocolate",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "Salt",
+        "desc": "a crystalline compound, sodium chloride, NaCl, occurring as a mineral, a constituent of seawater, etc., and used for seasoning food, as a preservative, etc.",
         "unit": "g"
     }
 },
@@ -84,8 +120,26 @@
     "model": "DishDecoderApp.basicproducts",
     "pk": 8,
     "fields": {
-        "name": "Butter",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse.",
+        "name": "Tomato sauce",
+        "desc": "A tomato product that is not as thick as tomato puree but thicker than tomato juice. It generally has its flavor enhanced by the addition of herbs, spices, onion and garlic. Tomato sauce is commercially canned and sold in most food stores. It is used as a base for other sauces and in a variety of dishes.",
+        "unit": "g"
+    }
+},
+{
+    "model": "DishDecoderApp.basicproducts",
+    "pk": 9,
+    "fields": {
+        "name": "Egg",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "unit": "g"
+    }
+},
+{
+    "model": "DishDecoderApp.basicproducts",
+    "pk": 10,
+    "fields": {
+        "name": "Money",
+        "desc": "You need this to buy food",
         "unit": "g"
     }
 },
@@ -93,304 +147,317 @@
     "model": "DishDecoderApp.nutrients",
     "pk": 1,
     "fields": {
-        "name": "Protein",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse."
+        "name": "Vitamin a",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
 },
 {
     "model": "DishDecoderApp.nutrients",
     "pk": 2,
     "fields": {
-        "name": "Carbohydrates",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse."
+        "name": "Vitamin b",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
 },
 {
     "model": "DishDecoderApp.nutrients",
     "pk": 3,
     "fields": {
-        "name": "Sugars",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse."
+        "name": "Vitamin c",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
     }
 },
 {
     "model": "DishDecoderApp.nutrients",
     "pk": 4,
     "fields": {
-        "name": "Fat",
-        "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Id sunt praesentium, eius sed porro nesciunt possimus aperiam dolorem architecto esse."
+        "name": "Vitamin d",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+},
+{
+    "model": "DishDecoderApp.nutrients",
+    "pk": 5,
+    "fields": {
+        "name": "Vitamine e",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+},
+{
+    "model": "DishDecoderApp.nutrients",
+    "pk": 6,
+    "fields": {
+        "name": "Vitamin g",
+        "desc": "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 1,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 1,
+        "rating": 10,
+        "desc": "Incredible, the best recipe of all time"
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 2,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 2,
+        "rating": 5,
+        "desc": "Is just pasta with tomato."
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 3,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 3,
+        "rating": 7,
+        "desc": "I like pizza."
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 4,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 4,
+        "rating": 6,
+        "desc": "I like macorronis with tomato, it's easy to make and its good."
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 5,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 5,
+        "rating": 7,
+        "desc": "Fast to do and it's good."
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 6,
+    "fields": {
+        "id_autor": 1,
+        "id_recipe": 6,
+        "rating": 9,
+        "desc": "I love sushi, and i just have to go to carrefour and buy it."
     }
 },
 {
     "model": "DishDecoderApp.recipe_product",
     "pk": 1,
-    "fields": {
-        "id_recipe": 1,
-        "id_product": 1,
-        "quantity": "500.000"
-    }
-},
-{
-    "model": "DishDecoderApp.recipe_product",
-    "pk": 2,
-    "fields": {
-        "id_recipe": 1,
-        "id_product": 2,
-        "quantity": "10.000"
-    }
-},
-{
-    "model": "DishDecoderApp.recipe_product",
-    "pk": 3,
     "fields": {
         "id_recipe": 1,
         "id_product": 4,
-        "quantity": "100.000"
+        "quantity": "1.000"
     }
 },
 {
     "model": "DishDecoderApp.recipe_product",
-    "pk": 4,
+    "pk": 2,
     "fields": {
         "id_recipe": 1,
-        "id_product": 5,
-        "quantity": "250.000"
+        "id_product": 7,
+        "quantity": "0.000"
     }
 },
 {
     "model": "DishDecoderApp.recipe_product",
-    "pk": 5,
+    "pk": 3,
     "fields": {
         "id_recipe": 1,
         "id_product": 6,
-        "quantity": "0.500"
+        "quantity": "0.000"
     }
 },
 {
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 1,
-    "fields": {
-        "id_product": 1,
-        "id_nutrient": 1,
-        "quantity": "10.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 2,
-    "fields": {
-        "id_product": 1,
-        "id_nutrient": 2,
-        "quantity": "5.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 3,
-    "fields": {
-        "id_product": 1,
-        "id_nutrient": 3,
-        "quantity": "5.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
+    "model": "DishDecoderApp.recipe_product",
     "pk": 4,
     "fields": {
-        "id_product": 1,
-        "id_nutrient": 4,
-        "quantity": "20.000"
+        "id_recipe": 2,
+        "id_product": 5,
+        "quantity": "1.000"
     }
 },
 {
-    "model": "DishDecoderApp.product_nutrients",
+    "model": "DishDecoderApp.recipe_product",
     "pk": 5,
     "fields": {
-        "id_product": 2,
-        "id_nutrient": 1,
-        "quantity": "33.000"
+        "id_recipe": 2,
+        "id_product": 8,
+        "quantity": "1.000"
     }
 },
 {
-    "model": "DishDecoderApp.product_nutrients",
+    "model": "DishDecoderApp.recipe_product",
     "pk": 6,
     "fields": {
-        "id_product": 2,
-        "id_nutrient": 2,
+        "id_recipe": 3,
+        "id_product": 10,
+        "quantity": "3.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 7,
+    "fields": {
+        "id_recipe": 4,
+        "id_product": 5,
+        "quantity": "1.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 8,
+    "fields": {
+        "id_recipe": 4,
+        "id_product": 8,
+        "quantity": "1.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 9,
+    "fields": {
+        "id_recipe": 5,
+        "id_product": 9,
         "quantity": "2.000"
     }
 },
 {
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 10,
+    "fields": {
+        "id_recipe": 5,
+        "id_product": 7,
+        "quantity": "1.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 11,
+    "fields": {
+        "id_recipe": 5,
+        "id_product": 2,
+        "quantity": "1.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 12,
+    "fields": {
+        "id_recipe": 6,
+        "id_product": 10,
+        "quantity": "11.000"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 1,
+    "fields": {
+        "id_product": 1,
+        "id_nutrient": 1,
+        "quantity": "1.000"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 2,
+    "fields": {
+        "id_product": 2,
+        "id_nutrient": 2,
+        "quantity": "0.003"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 3,
+    "fields": {
+        "id_product": 3,
+        "id_nutrient": 3,
+        "quantity": "0.019"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 4,
+    "fields": {
+        "id_product": 4,
+        "id_nutrient": 4,
+        "quantity": "0.063"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 5,
+    "fields": {
+        "id_product": 5,
+        "id_nutrient": 5,
+        "quantity": "0.019"
+    }
+},
+{
+    "model": "DishDecoderApp.product_nutrients",
+    "pk": 6,
+    "fields": {
+        "id_product": 6,
+        "id_nutrient": 6,
+        "quantity": "0.046"
+    }
+},
+{
     "model": "DishDecoderApp.product_nutrients",
     "pk": 7,
     "fields": {
-        "id_product": 2,
-        "id_nutrient": 3,
-        "quantity": "10.000"
+        "id_product": 6,
+        "id_nutrient": 2,
+        "quantity": "0.020"
     }
 },
 {
     "model": "DishDecoderApp.product_nutrients",
     "pk": 8,
     "fields": {
-        "id_product": 2,
-        "id_nutrient": 4,
-        "quantity": "23.000"
+        "id_product": 7,
+        "id_nutrient": 2,
+        "quantity": "0.038"
     }
 },
 {
     "model": "DishDecoderApp.product_nutrients",
     "pk": 9,
     "fields": {
-        "id_product": 3,
-        "id_nutrient": 1,
-        "quantity": "0.000"
+        "id_product": 8,
+        "id_nutrient": 3,
+        "quantity": "0.034"
     }
 },
 {
     "model": "DishDecoderApp.product_nutrients",
     "pk": 10,
     "fields": {
-        "id_product": 3,
-        "id_nutrient": 2,
-        "quantity": "0.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 11,
-    "fields": {
-        "id_product": 3,
-        "id_nutrient": 3,
-        "quantity": "0.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 12,
-    "fields": {
-        "id_product": 3,
-        "id_nutrient": 4,
-        "quantity": "0.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 13,
-    "fields": {
-        "id_product": 4,
-        "id_nutrient": 1,
-        "quantity": "2.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 14,
-    "fields": {
-        "id_product": 4,
-        "id_nutrient": 2,
-        "quantity": "5.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 15,
-    "fields": {
-        "id_product": 4,
-        "id_nutrient": 3,
-        "quantity": "10.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 16,
-    "fields": {
-        "id_product": 4,
-        "id_nutrient": 4,
-        "quantity": "3.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 17,
-    "fields": {
-        "id_product": 5,
-        "id_nutrient": 1,
-        "quantity": "15.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 18,
-    "fields": {
-        "id_product": 5,
-        "id_nutrient": 2,
-        "quantity": "30.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 19,
-    "fields": {
-        "id_product": 5,
-        "id_nutrient": 3,
-        "quantity": "20.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 20,
-    "fields": {
-        "id_product": 5,
-        "id_nutrient": 4,
-        "quantity": "0.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 21,
-    "fields": {
-        "id_product": 6,
-        "id_nutrient": 1,
-        "quantity": "0.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 22,
-    "fields": {
-        "id_product": 6,
-        "id_nutrient": 2,
-        "quantity": "20.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 23,
-    "fields": {
-        "id_product": 6,
-        "id_nutrient": 3,
-        "quantity": "5.000"
-    }
-},
-{
-    "model": "DishDecoderApp.product_nutrients",
-    "pk": 24,
-    "fields": {
-        "id_product": 6,
-        "id_nutrient": 4,
-        "quantity": "5.000"
+        "id_product": 9,
+        "id_nutrient": 5,
+        "quantity": "0.033"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 1,
     "fields": {
-        "action_time": "2021-03-31T15:43:51.266Z",
+        "action_time": "2021-04-08T17:59:09.918Z",
         "user": 1,
-        "content_type": 2,
+        "content_type": 1,
         "object_id": "1",
-        "object_repr": "Protein",
+        "object_repr": "carrot",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -399,11 +466,11 @@
     "model": "admin.logentry",
     "pk": 2,
     "fields": {
-        "action_time": "2021-03-31T15:44:00.094Z",
+        "action_time": "2021-04-08T17:59:46.949Z",
         "user": 1,
-        "content_type": 2,
+        "content_type": 1,
         "object_id": "2",
-        "object_repr": "Carbohydrates",
+        "object_repr": "Potato",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -412,11 +479,11 @@
     "model": "admin.logentry",
     "pk": 3,
     "fields": {
-        "action_time": "2021-03-31T15:44:05.759Z",
+        "action_time": "2021-04-08T18:00:37.089Z",
         "user": 1,
-        "content_type": 2,
+        "content_type": 1,
         "object_id": "3",
-        "object_repr": "Sugars",
+        "object_repr": "Lettuce",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -425,11 +492,11 @@
     "model": "admin.logentry",
     "pk": 4,
     "fields": {
-        "action_time": "2021-03-31T15:44:19.707Z",
+        "action_time": "2021-04-08T18:01:51.308Z",
         "user": 1,
-        "content_type": 2,
+        "content_type": 1,
         "object_id": "4",
-        "object_repr": "Fat",
+        "object_repr": "pork meat",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -438,11 +505,11 @@
     "model": "admin.logentry",
     "pk": 5,
     "fields": {
-        "action_time": "2021-03-31T15:47:07.363Z",
+        "action_time": "2021-04-08T18:03:34.270Z",
         "user": 1,
         "content_type": 1,
-        "object_id": "1",
-        "object_repr": "Beef",
+        "object_id": "5",
+        "object_repr": "Pasta",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -451,10 +518,23 @@
     "model": "admin.logentry",
     "pk": 6,
     "fields": {
-        "action_time": "2021-03-31T15:47:23.651Z",
+        "action_time": "2021-04-08T18:06:04.900Z",
         "user": 1,
         "content_type": 1,
-        "object_id": "2",
+        "object_id": "6",
+        "object_repr": "bread crumbs",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2021-04-08T18:06:24.774Z",
+        "user": 1,
+        "content_type": 1,
+        "object_id": "7",
         "object_repr": "Salt",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
@@ -462,26 +542,13 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 7,
-    "fields": {
-        "action_time": "2021-03-31T15:47:33.830Z",
-        "user": 1,
-        "content_type": 1,
-        "object_id": "3",
-        "object_repr": "Water",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
     "pk": 8,
     "fields": {
-        "action_time": "2021-03-31T15:47:45.438Z",
+        "action_time": "2021-04-08T18:07:27.894Z",
         "user": 1,
         "content_type": 1,
-        "object_id": "4",
-        "object_repr": "Onion",
+        "object_id": "8",
+        "object_repr": "Tomato sauce",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -490,11 +557,11 @@
     "model": "admin.logentry",
     "pk": 9,
     "fields": {
-        "action_time": "2021-03-31T15:47:56.991Z",
+        "action_time": "2021-04-08T18:09:49.462Z",
         "user": 1,
-        "content_type": 1,
-        "object_id": "5",
-        "object_repr": "Potatoes",
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "Vitamine a",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -503,20 +570,98 @@
     "model": "admin.logentry",
     "pk": 10,
     "fields": {
-        "action_time": "2021-03-31T15:48:08.255Z",
+        "action_time": "2021-04-08T18:10:00.148Z",
         "user": 1,
-        "content_type": 1,
-        "object_id": "6",
-        "object_repr": "Oil",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "Vitamin a",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 11,
     "fields": {
-        "action_time": "2021-03-31T15:49:28.177Z",
+        "action_time": "2021-04-08T18:10:21.213Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "2",
+        "object_repr": "Vitamin b",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2021-04-08T18:10:34.233Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "3",
+        "object_repr": "Vitamin c",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2021-04-08T18:10:45.559Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "4",
+        "object_repr": "Vitamin d",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2021-04-08T18:11:13.379Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "5",
+        "object_repr": "Vitamine e",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2021-04-08T18:11:40.853Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "6",
+        "object_repr": "Vitamin g",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2021-04-08T18:11:51.970Z",
+        "user": 1,
+        "content_type": 1,
+        "object_id": "9",
+        "object_repr": "Egg",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2021-04-08T18:12:05.288Z",
         "user": 1,
         "content_type": 6,
         "object_id": "1",
@@ -527,9 +672,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 12,
+    "pk": 18,
     "fields": {
-        "action_time": "2021-03-31T15:49:39.804Z",
+        "action_time": "2021-04-08T18:12:14.215Z",
         "user": 1,
         "content_type": 6,
         "object_id": "2",
@@ -540,9 +685,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 13,
+    "pk": 19,
     "fields": {
-        "action_time": "2021-03-31T15:49:46.368Z",
+        "action_time": "2021-04-08T18:12:26.677Z",
         "user": 1,
         "content_type": 6,
         "object_id": "3",
@@ -553,9 +698,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 14,
+    "pk": 20,
     "fields": {
-        "action_time": "2021-03-31T15:49:55.498Z",
+        "action_time": "2021-04-08T18:12:50.071Z",
         "user": 1,
         "content_type": 6,
         "object_id": "4",
@@ -566,9 +711,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 15,
+    "pk": 21,
     "fields": {
-        "action_time": "2021-03-31T15:58:33.626Z",
+        "action_time": "2021-04-08T18:13:00.176Z",
         "user": 1,
         "content_type": 6,
         "object_id": "5",
@@ -579,9 +724,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 16,
+    "pk": 22,
     "fields": {
-        "action_time": "2021-03-31T15:58:42.202Z",
+        "action_time": "2021-04-08T18:13:12.764Z",
         "user": 1,
         "content_type": 6,
         "object_id": "6",
@@ -592,9 +737,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 17,
+    "pk": 23,
     "fields": {
-        "action_time": "2021-03-31T15:58:49.940Z",
+        "action_time": "2021-04-08T18:13:24.157Z",
         "user": 1,
         "content_type": 6,
         "object_id": "7",
@@ -605,9 +750,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 18,
+    "pk": 24,
     "fields": {
-        "action_time": "2021-03-31T15:58:57.158Z",
+        "action_time": "2021-04-08T18:13:41.302Z",
         "user": 1,
         "content_type": 6,
         "object_id": "8",
@@ -618,9 +763,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 19,
+    "pk": 25,
     "fields": {
-        "action_time": "2021-03-31T16:08:06.451Z",
+        "action_time": "2021-04-08T18:14:09.340Z",
         "user": 1,
         "content_type": 6,
         "object_id": "9",
@@ -631,9 +776,9 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 20,
+    "pk": 26,
     "fields": {
-        "action_time": "2021-03-31T16:08:12.877Z",
+        "action_time": "2021-04-08T18:14:19.593Z",
         "user": 1,
         "content_type": 6,
         "object_id": "10",
@@ -644,91 +789,13 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 21,
-    "fields": {
-        "action_time": "2021-03-31T16:08:19.588Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "11",
-        "object_repr": "Product_Nutrients object (11)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 22,
-    "fields": {
-        "action_time": "2021-03-31T16:08:26.742Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "12",
-        "object_repr": "Product_Nutrients object (12)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 23,
-    "fields": {
-        "action_time": "2021-03-31T16:08:44.749Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "13",
-        "object_repr": "Product_Nutrients object (13)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 24,
-    "fields": {
-        "action_time": "2021-03-31T16:08:55.286Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "14",
-        "object_repr": "Product_Nutrients object (14)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 25,
-    "fields": {
-        "action_time": "2021-03-31T16:09:02.585Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "15",
-        "object_repr": "Product_Nutrients object (15)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 26,
-    "fields": {
-        "action_time": "2021-03-31T16:09:16.777Z",
-        "user": 1,
-        "content_type": 6,
-        "object_id": "16",
-        "object_repr": "Product_Nutrients object (16)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
     "pk": 27,
     "fields": {
-        "action_time": "2021-03-31T16:09:30.511Z",
+        "action_time": "2021-04-08T18:22:50.520Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "17",
-        "object_repr": "Product_Nutrients object (17)",
+        "content_type": 5,
+        "object_id": "1",
+        "object_repr": "breaded pork",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -737,11 +804,11 @@
     "model": "admin.logentry",
     "pk": 28,
     "fields": {
-        "action_time": "2021-03-31T16:09:37.581Z",
+        "action_time": "2021-04-08T18:23:25.890Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "18",
-        "object_repr": "Product_Nutrients object (18)",
+        "content_type": 5,
+        "object_id": "2",
+        "object_repr": "Pasta with tomato",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -750,11 +817,11 @@
     "model": "admin.logentry",
     "pk": 29,
     "fields": {
-        "action_time": "2021-03-31T16:09:45.618Z",
+        "action_time": "2021-04-08T18:24:30.032Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "19",
-        "object_repr": "Product_Nutrients object (19)",
+        "content_type": 5,
+        "object_id": "3",
+        "object_repr": "Pizza",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -763,50 +830,50 @@
     "model": "admin.logentry",
     "pk": 30,
     "fields": {
-        "action_time": "2021-03-31T16:09:52.255Z",
+        "action_time": "2021-04-08T18:25:35.923Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "20",
-        "object_repr": "Product_Nutrients object (20)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
+        "content_type": 5,
+        "object_id": "2",
+        "object_repr": "Pasta with tomato",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Steps\"]}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 31,
     "fields": {
-        "action_time": "2021-03-31T16:10:02.600Z",
+        "action_time": "2021-04-08T18:26:08.662Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "21",
-        "object_repr": "Product_Nutrients object (21)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
+        "content_type": 5,
+        "object_id": "1",
+        "object_repr": "breaded pork",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Steps\"]}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 32,
     "fields": {
-        "action_time": "2021-03-31T16:10:09.970Z",
+        "action_time": "2021-04-08T18:26:15.054Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "22",
-        "object_repr": "Product_Nutrients object (22)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
+        "content_type": 5,
+        "object_id": "3",
+        "object_repr": "Pizza",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Steps\"]}}]"
     }
 },
 {
     "model": "admin.logentry",
     "pk": 33,
     "fields": {
-        "action_time": "2021-03-31T16:10:18.002Z",
+        "action_time": "2021-04-08T18:27:15.634Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "23",
-        "object_repr": "Product_Nutrients object (23)",
+        "content_type": 5,
+        "object_id": "4",
+        "object_repr": "Macarroni with tomato",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -815,11 +882,11 @@
     "model": "admin.logentry",
     "pk": 34,
     "fields": {
-        "action_time": "2021-03-31T16:10:28.876Z",
+        "action_time": "2021-04-08T18:29:06.773Z",
         "user": 1,
-        "content_type": 6,
-        "object_id": "24",
-        "object_repr": "Product_Nutrients object (24)",
+        "content_type": 5,
+        "object_id": "5",
+        "object_repr": "Tortija",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -828,11 +895,11 @@
     "model": "admin.logentry",
     "pk": 35,
     "fields": {
-        "action_time": "2021-03-31T16:12:09.768Z",
+        "action_time": "2021-04-08T18:30:24.001Z",
         "user": 1,
-        "content_type": 10,
-        "object_id": "2",
-        "object_repr": "perico",
+        "content_type": 5,
+        "object_id": "6",
+        "object_repr": "Sushi",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -841,11 +908,11 @@
     "model": "admin.logentry",
     "pk": 36,
     "fields": {
-        "action_time": "2021-03-31T16:12:17.518Z",
+        "action_time": "2021-04-08T18:30:48.342Z",
         "user": 1,
-        "content_type": 5,
-        "object_id": "1",
-        "object_repr": "Roast beef",
+        "content_type": 1,
+        "object_id": "10",
+        "object_repr": "Money",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -854,33 +921,7 @@
     "model": "admin.logentry",
     "pk": 37,
     "fields": {
-        "action_time": "2021-03-31T16:12:33.784Z",
-        "user": 1,
-        "content_type": 10,
-        "object_id": "3",
-        "object_repr": "JesucristoGarcia",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 38,
-    "fields": {
-        "action_time": "2021-03-31T16:12:38.407Z",
-        "user": 1,
-        "content_type": 5,
-        "object_id": "2",
-        "object_repr": "Chocolate cake",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
-    "pk": 39,
-    "fields": {
-        "action_time": "2021-03-31T16:13:00.873Z",
+        "action_time": "2021-04-08T18:31:42.094Z",
         "user": 1,
         "content_type": 4,
         "object_id": "1",
@@ -891,9 +932,22 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 40,
+    "pk": 38,
     "fields": {
-        "action_time": "2021-03-31T16:13:08.567Z",
+        "action_time": "2021-04-08T18:32:07.603Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "1",
+        "object_repr": "Recipe_Product object (1)",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+        "action_time": "2021-04-08T18:32:21.089Z",
         "user": 1,
         "content_type": 4,
         "object_id": "2",
@@ -904,9 +958,22 @@
 },
 {
     "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+        "action_time": "2021-04-08T18:32:24.946Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "1",
+        "object_repr": "Recipe_Product object (1)",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
     "pk": 41,
     "fields": {
-        "action_time": "2021-03-31T16:13:18.910Z",
+        "action_time": "2021-04-08T18:32:34.636Z",
         "user": 1,
         "content_type": 4,
         "object_id": "3",
@@ -919,7 +986,7 @@
     "model": "admin.logentry",
     "pk": 42,
     "fields": {
-        "action_time": "2021-03-31T16:13:31.561Z",
+        "action_time": "2021-04-08T18:32:53.986Z",
         "user": 1,
         "content_type": 4,
         "object_id": "4",
@@ -932,7 +999,7 @@
     "model": "admin.logentry",
     "pk": 43,
     "fields": {
-        "action_time": "2021-03-31T16:13:42.387Z",
+        "action_time": "2021-04-08T18:33:04.214Z",
         "user": 1,
         "content_type": 4,
         "object_id": "5",
@@ -945,11 +1012,11 @@
     "model": "admin.logentry",
     "pk": 44,
     "fields": {
-        "action_time": "2021-03-31T16:43:39.982Z",
+        "action_time": "2021-04-08T18:33:13.537Z",
         "user": 1,
-        "content_type": 1,
-        "object_id": "7",
-        "object_repr": "Chocolate",
+        "content_type": 4,
+        "object_id": "6",
+        "object_repr": "Recipe_Product object (6)",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -958,11 +1025,167 @@
     "model": "admin.logentry",
     "pk": 45,
     "fields": {
-        "action_time": "2021-03-31T16:43:55.345Z",
+        "action_time": "2021-04-08T18:33:24.397Z",
         "user": 1,
-        "content_type": 1,
+        "content_type": 4,
+        "object_id": "7",
+        "object_repr": "Recipe_Product object (7)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+        "action_time": "2021-04-08T18:33:32.665Z",
+        "user": 1,
+        "content_type": 4,
         "object_id": "8",
-        "object_repr": "Butter",
+        "object_repr": "Recipe_Product object (8)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+        "action_time": "2021-04-08T18:33:41.263Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "9",
+        "object_repr": "Recipe_Product object (9)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+        "action_time": "2021-04-08T18:33:49.639Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "10",
+        "object_repr": "Recipe_Product object (10)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+        "action_time": "2021-04-08T18:34:07.436Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "11",
+        "object_repr": "Recipe_Product object (11)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+        "action_time": "2021-04-08T18:34:14.273Z",
+        "user": 1,
+        "content_type": 4,
+        "object_id": "12",
+        "object_repr": "Recipe_Product object (12)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 51,
+    "fields": {
+        "action_time": "2021-04-08T18:34:25.126Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "5",
+        "object_repr": "Tortilla",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 52,
+    "fields": {
+        "action_time": "2021-04-08T18:35:48.918Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "Ratings object (1)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 53,
+    "fields": {
+        "action_time": "2021-04-08T18:36:24.171Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Ratings object (2)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 54,
+    "fields": {
+        "action_time": "2021-04-08T18:36:49.441Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "3",
+        "object_repr": "Ratings object (3)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 55,
+    "fields": {
+        "action_time": "2021-04-08T18:38:26.904Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "4",
+        "object_repr": "Ratings object (4)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 56,
+    "fields": {
+        "action_time": "2021-04-08T18:39:08.226Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "5",
+        "object_repr": "Ratings object (5)",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 57,
+    "fields": {
+        "action_time": "2021-04-08T18:40:29.803Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "6",
+        "object_repr": "Ratings object (6)",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -1403,8 +1626,8 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-        "password": "pbkdf2_sha256$216000$NAA7a7YbjWQi$xM6NkB5sZ2ro7FNRaPhi8sjedtTDfR+eQ5MLbYCD5As=",
-        "last_login": "2021-03-31T17:35:03.800Z",
+        "password": "pbkdf2_sha256$216000$3bMkalhOGuNH$4/y9W5176ed6wwcgMra8Z2eXjt9aDC6QH2wQ8yHopjY=",
+        "last_login": "2021-04-08T17:57:10.836Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1412,43 +1635,7 @@
         "email": "",
         "is_staff": true,
         "is_active": true,
-        "date_joined": "2021-03-31T14:58:18.327Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
-    "pk": 2,
-    "fields": {
-        "password": "pbkdf2_sha256$216000$DrAFl26dCAfP$XkHM5dwkHMNQrlOFM9X+Lz2SFRwHy0FA2GVs13yriCQ=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "perico",
-        "first_name": "",
-        "last_name": "",
-        "email": "",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2021-03-31T16:12:09.554Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
-    "pk": 3,
-    "fields": {
-        "password": "pbkdf2_sha256$216000$WyEIvyNUFig0$Ko9ynu5IwiytDzYi+5JXQhEfwfTHOEQYpZKBXwjRmog=",
-        "last_login": null,
-        "is_superuser": false,
-        "username": "JesucristoGarcia",
-        "first_name": "",
-        "last_name": "",
-        "email": "",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2021-03-31T16:12:33.574Z",
+        "date_joined": "2021-04-08T17:45:57.665Z",
         "groups": [],
         "user_permissions": []
     }
@@ -1551,18 +1738,10 @@
 },
 {
     "model": "sessions.session",
-    "pk": "cxrmf4epk7qayyijlr78e5h1msvvhjkk",
+    "pk": "44nbmdtro9n21ritmb7mpq21viglrmi5",
     "fields": {
-        "session_data": ".eJxVjDsOwjAQRO_iGln-rrOU9DmDtf7hAHKkOKkQdyeRUkA3mvdm3szTtla_9bz4KbErk-zy2wWKz9wOkB7U7jOPc1uXKfBD4SftfJxTft1O9--gUq_7WqMBMSDGSFScNMYpEJCjLZoUGA0KcwxhsJhEthpBBthT0S5gKUqwzxfJRDeE:1lRcIb:EuYxImCAi0siu1EcZu-zN2OuJ8XpL2HF557LI1C560w",
-        "expire_date": "2021-04-14T14:58:25.637Z"
-    }
-},
-{
-    "model": "sessions.session",
-    "pk": "yfy7upc7dqc28lwpen1mqrnw8dyj6lq9",
-    "fields": {
-        "session_data": ".eJxVjDsOwjAQRO_iGln-rrOU9DmDtf7hAHKkOKkQdyeRUkA3mvdm3szTtla_9bz4KbErk-zy2wWKz9wOkB7U7jOPc1uXKfBD4SftfJxTft1O9--gUq_7WqMBMSDGSFScNMYpEJCjLZoUGA0KcwxhsJhEthpBBthT0S5gKUqwzxfJRDeE:1lRdw7:mFLR4dwRWV9CdD-pXEopSQV1ITqQa6AvzkWE6DPbhT8",
-        "expire_date": "2021-04-14T16:43:19.969Z"
+        "session_data": ".eJxVjMEOwiAQRP-FsyEQWECP3v0GsixbqRpISnsy_rs06UGPM-_NvEXEbS1x67zEOYuL0OL02yWkJ9cd5AfWe5PU6rrMSe6KPGiXt5b5dT3cv4OCvYw16kwcSHk7ASsC7-2ZQWlAZIMKPUAIRlEyOFl2jOSstYM6bUYE8fkC8Lg4Iw:1lUYty:Z4K-WYPBBAYKeVu6yHwuWudAsbqEffShf_9V_q4GiHc",
+        "expire_date": "2021-04-22T17:57:10.846Z"
     }
 }
 ]
