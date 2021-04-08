@@ -1,28 +1,16 @@
 {% extends 'DishDecoderApp/common.html' %}
 {% block content %}
 
-<!--
-    Nom recepta
-    by Nom autor
-
-    Formulari de comentari i nota
-    
-    Llista productes basics
-    
-    Pasos
-
-    Llista nutrients
-
--->
-
 <hr>
 <h1 class="display-6 text-center">{{recipe.name}}</h1>
 <h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
 <h1 class="display-6 text-center">Rating: {{average_score}}</h1>
 <hr>
 
+
 <div class="container">
     <h2 class="text-center">Ingredients</h2>
+    {% if rec_prod %}
     <div class="list-group col-md-4 mx-auto">
         {% for ingredient in rec_prod %}
         <a class="list-group-item list-group-item-action"
@@ -31,12 +19,15 @@
         {% endfor %}
     </div>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 
 <div class="container">
     <h2 class="text-center">Steps</h2>
+    {% if steps %}
     <ul class="list-group list-group-flush">
         {% for step in steps %}
         <li class="list-group-item">
@@ -45,11 +36,14 @@
         {% endfor %}
     </ul>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 <div class="container">
     <h2 class="text-center">Nutrients</h2>
+    {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
         {% for value, nutrient in nut_value %}
         <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
@@ -57,12 +51,15 @@
         {% endfor %}
     </div>
 </div>
-
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
 <hr>
 
 
 <div class="container">
     <h2 class="text-center">User comments</h2>
+        {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
         <div class="card w-75 mx-auto">
@@ -75,26 +72,9 @@
         <hr>
         {% endfor %}
 </div>
-
-
-<!--
-{% if user != recipe.author %}
-
-<div class="container">
-    <form action="" method="post">
-        {% csrf_token %}
-        {% for field in score_form %}
-        <div class='form-group'>
-          <label for="{{ field.name }}">{{ field.label }}</label>
-          {{ field }}
-        </div>
-        {% endfor %}
-        <br>
-        <center><button type="submit" class="btn btn-success btn-lg">Submit rating</button></center>
-      </form>
-</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
 {% endif %}
--->
 
 {% if user != recipe.author %}
 <div class="container col-md-6">
