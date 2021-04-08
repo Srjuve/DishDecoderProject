@@ -87,7 +87,7 @@ def user_profile_url(req):
     if Ratings.objects.filter(id_autor=req.user.id).exists():
         rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
         template_data['scored_recipes']=rating_data
-        template_data['title_page']='User profile'
+    template_data['title_page']='User profile'
     return render(req, template_name,template_data)
 
 
