@@ -8,8 +8,6 @@ One Paragraph of project description goes here
   - [Runing the tests](#running-the-tests)
   - [Deployment](#deployment)
   - [Built With](#built-with)
-  - [Contributing](#contributing)
-  - [Versioning](#versioning)
   - [Authors](#authors)
   - [License](#license)
   - [Acknowledgments](#acknowledgments)
@@ -24,8 +22,9 @@ for notes on how to deploy the project on a live system.
 
 What things you need to install the software and how to install them
 
-    Give examples
-
+```shell 
+pip install -r requirements.txt
+```
 ### Installing
 
 A step by step series of examples that tell you how to get a development
@@ -59,35 +58,40 @@ Explain what these tests test and why
     Give an example
 
 ## Deployment
+At config you must add the environment files:
+- .database.env
+```bash
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_DB=dish_decoder_db
+```
 
-Add additional notes about how to deploy this on a live system
-
+- .env
+v
+```bash
+SECRET_KEY=your_secret_key
+DEBUG=True
+POSTGRES_ENGINE=django.db.backends.postgresql
+POSTGRES_NAME=dish_decoder_db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+```
 ## Built With
 
-  - [Contributor Covenant](https://www.contributor-covenant.org/) - Used
-    for the Code of Conduct
-  - [Creative Commons](https://creativecommons.org/) - Used to choose
-    the license
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
+  - Python3
+  - Docker
+  - Heroku
+  - PostgreSQL
 
 ## Authors
 
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of
-[contributors](https://github.com/PurpleBooth/a-good-readme-template/contributors)
-who participated in this project.
+  - GuillemCamats
+  - rogerLarriba
+  - Srjuve
+  - Spiritusrevenge
+  - santo0
 
 ## License
 
