@@ -1,0 +1,20 @@
+{% extends 'DishDecoderApp/common.html' %}
+{% block content %}
+
+<hr>
+<h1 class="display-6 text-center">{{nutrient.name}}</h1>
+<hr>
+
+
+<div class="container">
+    <h1 class="display-6 text-center">Description</h1>
+    {% if nutrient %}
+    <p>{{nutrient.desc}}</p>
+</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
+
+
+<hr>
+{% endblock %}

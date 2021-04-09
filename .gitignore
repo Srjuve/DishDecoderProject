@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 *.pyc
+
+*.env
+.database.env

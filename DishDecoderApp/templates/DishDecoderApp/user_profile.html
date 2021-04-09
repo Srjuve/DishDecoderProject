@@ -1,0 +1,49 @@
+{% extends 'DishDecoderApp/common.html' %}
+
+{% block content %}
+
+<hr>
+<h1 class="display-6 text-center">User Profile</h1>
+<h1 class="text-center text-muted"><small>{{user.username}}</small></h1>
+<hr>
+
+
+    <div class="container">
+    <h2 class="text-center">Last scored recipes</h2>
+    {% if scored_recipes %}
+        {% for scored_recipe in scored_recipes %}
+        <hr>
+        <div class="card w-75 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">{{scored_recipe.id_recipe.name}} by {{scored_recipe.id_autor.username}}</h5>
+                <p class="card-text">{{scored_recipe.desc}}</p>
+                <a href={% url 'recipe' scored_recipe.id_recipe.id %} class="btn btn-primary">Go to the recipe</a>
+                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating}} out of 10</button>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <p id="Error_message">No Data Found</p>
+    {% endif %}
+</div>
+
+<hr>
+<div class="container">
+
+    <h2 class="text-center">Change password</h2>
+    <a class="btn btn-primary" href={% url 'changepass' %}>Change Password</a>
+</div>
+
+<hr>
+
+<div class="container">
+
+    <h2 class="text-center">Change email</h2>
+    <a class="btn btn-primary" href={% url 'changemail' %}>Change Email</a>
+
+</div>
+
+<hr>
+
+{% endblock %}

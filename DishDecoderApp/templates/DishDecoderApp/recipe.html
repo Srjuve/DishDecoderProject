@@ -1,0 +1,112 @@
+{% extends 'DishDecoderApp/common.html' %}
+{% block content %}
+
+<hr>
+<h1 class="display-6 text-center">{{recipe.name}}</h1>
+<h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
+<h1 class="display-6 text-center">Rating: {{average_score}}</h1>
+<hr>
+
+
+<div class="container">
+    <h2 class="text-center">Ingredients</h2>
+    {% if rec_prod %}
+    <div class="list-group col-md-4 mx-auto">
+        {% for ingredient in rec_prod %}
+        <a class="list-group-item list-group-item-action"
+            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity}}{{ingredient.id_product.unit}}
+            {{ingredient.id_product.name}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
+<hr>
+
+
+<div class="container">
+    <h2 class="text-center">Steps</h2>
+    {% if steps %}
+    <ul class="list-group list-group-flush">
+        {% for step in steps %}
+        <li class="list-group-item">
+            <h2>Step {{forloop.counter}}</h2>{{step}}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
+<hr>
+
+<div class="container">
+    <h2 class="text-center">Nutrients</h2>
+    {% if nut_value %}
+    <div class="list-group col-md-4 mx-auto">
+        {% for value, nutrient in nut_value %}
+        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
+            {{nutrient.name}}</a>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
+<hr>
+
+
+<div class="container">
+    <h2 class="text-center">User comments</h2>
+        {% if rating_data %}
+        {% for user_rating in rating_data %}
+        <hr>
+        <div class="card w-75 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">{{user_rating.id_autor.username}}</h5>
+                <p class="card-text">{{user_rating.desc}}</p>
+                <button type="button" class="btn btn-primary btn-sm" disabled> {{user_rating.rating}} out of 10</button>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+</div>
+{% else %}
+        <p id="Error_message">No Data Found</p>
+{% endif %}
+
+{% if user != recipe.author %}
+<div class="container col-md-6">
+    <h2 class="text-center">Rate this recipe</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <center>
+            <div class="form-group col-md-5">
+                <label for="comment">Comment</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="exampleFormControlSelect1">Rating</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                </select>
+            </div>
+        </center>
+        <br>
+        <center><button type="submit" class="btn btn-success btn-lg">Submit rating</button></center>
+    </form>
+</div>
+{% endif %}
+
+<hr>
+{% endblock %}
