@@ -98,4 +98,4 @@ details
 ## Acknowledgments
 
   - https://github.com/PurpleBooth/a-good-readme-template
-![Just a birb](https://media.giphy.com/media/l3q2zVr6cu95nF6O4/giphy.gif)
+  - And a birb ![Just a birb](https://media.giphy.com/media/l3q2zVr6cu95nF6O4/giphy.gif)
