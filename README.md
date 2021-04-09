@@ -3,7 +3,8 @@ Food/Nutrient related web page, where the user can search for meals depending on
 ## Summary
 
   - [Getting Started](#getting-started)
-  - [Deployment](#deployment)
+  - [Run with docker](#run-with-docker)
+  - [Deploy with heroku](#deploy-with-heroku)
   - [Built With](#built-with)
   - [Authors](#authors)
   - [License](#license)
@@ -16,9 +17,21 @@ your local machine for development and testing purposes. See deployment
 for notes on how to deploy the project on a live system.
 
 ### Prerequisites
+Install all the dependencies:
 ```shell 
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
+Migrate and run server:
+```shell 
+$ python manage.py makemigrations
+```
+```shell 
+$ python manage.py migrate
+```
+```shell 
+$ python manage.py runserver
+```
+
 
 ## Run with Docker
 At config you must add the environment files:
@@ -41,7 +54,15 @@ POSTGRES_HOST=db
 POSTGRES_PORT=5432
 ```
 
-### Deploy with Heroku
+```shell 
+$ docker-compose build
+```
+
+```shell 
+$ docker-compose up
+```
+
+## Deploy with Heroku
 
 
 ## Built With
