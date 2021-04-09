@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "name": "breaded pork",
-        "author": 1,
+        "author": 3,
         "steps": "#put the meat with beaten egg, #Batter the meat,  #put the meat in the pan #put salt in it."
     }
 },
@@ -13,7 +13,7 @@
     "pk": 2,
     "fields": {
         "name": "Pasta with tomato",
-        "author": 1,
+        "author": 3,
         "steps": "# boil the pasta  #put the tomato"
     }
 },
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
         "name": "Pizza",
-        "author": 1,
+        "author": 3,
         "steps": "#Go to mercadona and buy a precooked one."
     }
 },
@@ -31,7 +31,7 @@
     "pk": 4,
     "fields": {
         "name": "Macarroni with tomato",
-        "author": 1,
+        "author": 3,
         "steps": "#Boil the macarroni #put the tomato"
     }
 },
@@ -40,7 +40,7 @@
     "pk": 5,
     "fields": {
         "name": "Tortilla",
-        "author": 1,
+        "author": 3,
         "steps": "#Beat the egg# put salt and potatos# put all in to a pan"
     }
 },
@@ -49,7 +49,7 @@
     "pk": 6,
     "fields": {
         "name": "Sushi",
-        "author": 1,
+        "author": 3,
         "steps": "#Go carrefour and buy sushi"
     }
 },
@@ -195,7 +195,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 1,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 1,
         "rating": 10,
         "desc": "Incredible, the best recipe of all time"
@@ -205,7 +205,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 2,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 2,
         "rating": 5,
         "desc": "Is just pasta with tomato."
@@ -215,7 +215,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 3,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 3,
         "rating": 7,
         "desc": "I like pizza."
@@ -225,7 +225,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 4,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 4,
         "rating": 6,
         "desc": "I like macorronis with tomato, it's easy to make and its good."
@@ -235,7 +235,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 5,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 5,
         "rating": 7,
         "desc": "Fast to do and it's good."
@@ -245,7 +245,7 @@
     "model": "DishDecoderApp.ratings",
     "pk": 6,
     "fields": {
-        "id_autor": 1,
+        "id_autor": 2,
         "id_recipe": 6,
         "rating": 9,
         "desc": "I love sushi, and i just have to go to carrefour and buy it."
@@ -1191,6 +1191,240 @@
     }
 },
 {
+    "model": "admin.logentry",
+    "pk": 58,
+    "fields": {
+        "action_time": "2021-04-09T16:18:17.481Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "6",
+        "object_repr": "Sushi",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 59,
+    "fields": {
+        "action_time": "2021-04-09T16:18:21.169Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "5",
+        "object_repr": "Tortilla",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 60,
+    "fields": {
+        "action_time": "2021-04-09T16:18:24.620Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "4",
+        "object_repr": "Macarroni with tomato",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 61,
+    "fields": {
+        "action_time": "2021-04-09T16:18:27.650Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "4",
+        "object_repr": "Macarroni with tomato",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 62,
+    "fields": {
+        "action_time": "2021-04-09T16:18:30.913Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "3",
+        "object_repr": "Pizza",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 63,
+    "fields": {
+        "action_time": "2021-04-09T16:18:33.551Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "3",
+        "object_repr": "Pizza",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 64,
+    "fields": {
+        "action_time": "2021-04-09T16:18:36.818Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "2",
+        "object_repr": "Pasta with tomato",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 65,
+    "fields": {
+        "action_time": "2021-04-09T16:18:40.418Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "1",
+        "object_repr": "breaded pork",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Author\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 66,
+    "fields": {
+        "action_time": "2021-04-09T16:18:42.971Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "2",
+        "object_repr": "Pasta with tomato",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 67,
+    "fields": {
+        "action_time": "2021-04-09T16:18:55.714Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "6",
+        "object_repr": "Ratings object (6)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 68,
+    "fields": {
+        "action_time": "2021-04-09T16:18:59.397Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "5",
+        "object_repr": "Ratings object (5)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 69,
+    "fields": {
+        "action_time": "2021-04-09T16:19:02.916Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "4",
+        "object_repr": "Ratings object (4)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 70,
+    "fields": {
+        "action_time": "2021-04-09T16:19:07.059Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "3",
+        "object_repr": "Ratings object (3)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 71,
+    "fields": {
+        "action_time": "2021-04-09T16:19:10.746Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Ratings object (2)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 72,
+    "fields": {
+        "action_time": "2021-04-09T16:19:14.102Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "Ratings object (1)",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Id autor\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 73,
+    "fields": {
+        "action_time": "2021-04-09T16:19:17.036Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "4",
+        "object_repr": "Ratings object (4)",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 74,
+    "fields": {
+        "action_time": "2021-04-09T16:19:20.618Z",
+        "user": 1,
+        "content_type": 3,
+        "object_id": "3",
+        "object_repr": "Ratings object (3)",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 75,
+    "fields": {
+        "action_time": "2021-04-09T16:22:34.030Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "6",
+        "object_repr": "Sushi",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
     "model": "auth.permission",
     "pk": 1,
     "fields": {
@@ -1627,7 +1861,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$216000$3bMkalhOGuNH$4/y9W5176ed6wwcgMra8Z2eXjt9aDC6QH2wQ8yHopjY=",
-        "last_login": "2021-04-08T17:57:10.836Z",
+        "last_login": "2021-04-09T16:18:11.694Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "",
@@ -1636,6 +1870,42 @@
         "is_staff": true,
         "is_active": true,
         "date_joined": "2021-04-08T17:45:57.665Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$1QYHlVpaKGHK$+GxplR1VpaduK+KtVT0oweQHUPGhSj1u7cz7redewVk=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "user1",
+        "first_name": "",
+        "last_name": "",
+        "email": "user1@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-09T16:17:13.186Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$ZLNbUxQWT97u$HvSgBO99uEw+6dGTqAXT6bt9756sF3lAOhwPnyJ5Jcs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "patata4",
+        "first_name": "",
+        "last_name": "",
+        "email": "patata4@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-04-09T16:18:00.018Z",
         "groups": [],
         "user_permissions": []
     }
@@ -1742,6 +2012,14 @@
     "fields": {
         "session_data": ".eJxVjMEOwiAQRP-FsyEQWECP3v0GsixbqRpISnsy_rs06UGPM-_NvEXEbS1x67zEOYuL0OL02yWkJ9cd5AfWe5PU6rrMSe6KPGiXt5b5dT3cv4OCvYw16kwcSHk7ASsC7-2ZQWlAZIMKPUAIRlEyOFl2jOSstYM6bUYE8fkC8Lg4Iw:1lUYty:Z4K-WYPBBAYKeVu6yHwuWudAsbqEffShf_9V_q4GiHc",
         "expire_date": "2021-04-22T17:57:10.846Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "d6zxjbv5bdwfit5jajxaybt425zlv1mh",
+    "fields": {
+        "session_data": ".eJxVjMEOwiAQRP-FsyEQWECP3v0GsixbqRpISnsy_rs06UGPM-_NvEXEbS1x67zEOYuL0OL02yWkJ9cd5AfWe5PU6rrMSe6KPGiXt5b5dT3cv4OCvYw16kwcSHk7ASsC7-2ZQWlAZIMKPUAIRlEyOFl2jOSstYM6bUYE8fkC8Lg4Iw:1lUtpj:dX3bAWgG32iikxw5aT_AO3jot617NxLNlR5aVEfEYSY",
+        "expire_date": "2021-04-23T16:18:11.704Z"
     }
 }
 ]
