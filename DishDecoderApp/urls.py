@@ -16,21 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from DishDecoderApp import views
+from django.contrib.auth.decorators import login_required
+from DishDecoderApp.models import *
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form
+from DishDecoderApp.views import *
 urlpatterns = [
-    path('',views.main_url, name = "home"),
-    path('login/',views.login_page_url, name="login"),
-    path('register/',views.register_page_url, name="register"),
-    path('logout/',views.logout_url, name="logout"),
-    path('recipes/',views.list_recipes_url, name="recipes"),
-    path('recipe/<int:recipeid>', views.recipe_profile_url, name="recipe"),
-    path('basicproducts/',views.list_basicproducts_url, name="basicproducts"),
-    path('basicproduct/<int:basicproductid>',views.basicproduct_profile_url, name="basicproduct"),
-    path('nutrients/',views.list_nutrients_url, name="nutrients"),
-    path('nutrient/<int:nutrientid>',views.nutrient_profile_url, name="nutrient"),
-    path('profile/',views.user_profile_url),
-    path('profile/change_password',views.change_password_url, name="changepass"),
-    path('profile/change_email',views.change_mail_url, name="changemail"),
+    path('',main_url.as_view(), name = "home"),
+    path('login/',login_page_url.as_view(), name="login"),
+    path('register/',register_page_url.as_view(), name="register"),
+    path('logout/',logout_url.as_view(), name="logout"),
+    path('recipes/',list_data_url.as_view(template_name="DishDecoderApp/recipes.html",baseurl="/recipe/", searchedObject=Recipes,title_page="Recipes"), name="recipes"),
+    path('recipe/<int:recipeid>', recipe_profile_url.as_view(), name="recipe"),
+    path('basicproducts/',list_data_url.as_view(template_name="DishDecoderApp/basicproducts.html",baseurl="/basicproduct/", searchedObject=BasicProducts,title_page="Basic Products"), name="basicproducts"),
+    path('basicproduct/<int:basicproductid>',basicproduct_profile_url.as_view(), name="basicproduct"),
+    path('nutrients/',list_data_url.as_view(template_name="DishDecoderApp/nutrients.html",baseurl="/nutrient/", searchedObject=Nutrients,title_page="Nutrients"), name="nutrients"),
+    path('nutrient/<int:nutrientid>',nutrient_profile_url.as_view(), name="nutrient"),
+    path('profile/',user_profile_url.as_view()),
+    path('profile/change_password',change_data_url.as_view(template_name="DishDecoderApp/change_password.html",form_function=Change_password_form,title_page="Change password"), name="changepass"),
+    path('profile/change_email',change_data_url.as_view(template_name="DishDecoderApp/change_email.html",form_function=Change_email_form,title_page="Change email"), name="changemail"),
     
 
-    path('createrecipe/',views.create_recipe_url, name="createrecipe"),
+    path('createrecipe/',create_recipe_url.as_view(), name="createrecipe"),
 ]
