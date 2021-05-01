@@ -2,16 +2,16 @@
 {% block content %}
 
 <hr>
-<h1 class="display-6 text-center">{{recipe.name}}</h1>
-<h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
-<h1 class="display-6 text-center">Rating: {{average_score}}</h1>
+<h1 class="display-6 text-center" id="recipe_name">{{recipe.name}}</h1>
+<h1 class="text-center text-muted" id="recipe_author"><small>by {{recipe.author}}</small></h1>
+<h1 class="display-6 text-center" id="recipe_rating">Rating: {{average_score}}</h1>
 <hr>
 
 
 <div class="container">
     <h2 class="text-center">Ingredients</h2>
     {% if rec_prod %}
-    <div class="list-group col-md-4 mx-auto">
+    <div class="list-group col-md-4 mx-auto" id="recipe_ingredients">
         {% for ingredient in rec_prod %}
         <a class="list-group-item list-group-item-action"
             href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity}}{{ingredient.id_product.unit}}
@@ -25,7 +25,7 @@
 <hr>
 
 
-<div class="container">
+<div class="container" id="recipe_steps">
     <h2 class="text-center">Steps</h2>
     {% if steps %}
     <ul class="list-group list-group-flush">
@@ -41,7 +41,7 @@
 {% endif %}
 <hr>
 
-<div class="container">
+<div class="container" id="recipe_nutrients">
     <h2 class="text-center">Nutrients</h2>
     {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
@@ -57,7 +57,7 @@
 <hr>
 
 
-<div class="container">
+<div class="container" id="recipe_rating">
     <h2 class="text-center">User comments</h2>
         {% if rating_data %}
         {% for user_rating in rating_data %}
