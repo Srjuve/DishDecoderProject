@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
-from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form
+from .forms import *
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
@@ -463,8 +463,21 @@ class nutrient_profile_url(View):
 
 class create_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
+    template_name ='DishDecoderApp/createrecipe.html'
+    template_data={}
+    form = Create_recipe_form()
     def get(self, req):
-        return render(req,'DishDecoderApp/createrecipe.html')
+        prod = BasicProducts.objects.all()
+        nutrients = Nutrients.objects.all()
+        self.template_data['nutriens']=nutrients
+        self.template_data['prod']=prod
+        self.template_data['steps_form']=self.form
+        self.template_data['title_page']='Create_recipe'
+        return render(req,self.template_name,self.template_data)
+
+    def post(self, req):
+        username = request.user.username
+        pass
 
 # Not implemented
 #@login_required(login_url='/login/')

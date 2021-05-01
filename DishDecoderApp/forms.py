@@ -1,4 +1,5 @@
 from django import forms
+from .models import *
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -7,7 +8,6 @@ from django.contrib.auth.models import User
 class Main_page_form(forms.Form):
     request_objective = forms.ChoiceField(choices=(("1","Recipe"),("2","BasicProduct"),("3","Nutrient")),widget=forms.RadioSelect,label='')
     item_name = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Type something here'}))
-
 
 class Create_user_form(UserCreationForm):
     class Meta:
@@ -52,6 +52,10 @@ class Change_email_form(forms.Form):
     class Meta:
         fields = ['new_email1','new_email2']
 
+class Create_recipe_form(forms.Form):
+    steps = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Separe the steps using #'}))
+    basicproduct = forms.ModelMultipleChoiceField(queryset=BasicProducts.objects.all(), widget=forms.CheckboxSelectMultiple())
+    nutrients = forms.ModelMultipleChoiceField(queryset=Nutrients.objects.all(), widget=forms.CheckboxSelectMultiple())
 
 
 

@@ -7,7 +7,32 @@
 <h1 class="display-6 text-center">Create Your Recipe</h1>
 <hr>
 
-<p class="text-justify text-center">Aquest formulari i les seves funcionalitats encara no seran implementades en el primer lliurament. Gràcies.</p>
-
+<h3 class="text-justify text-center">Recipe steps</h3>
+<form action="" method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="form-group col-md-5">
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="7"></textarea>
+        </div>
+        <div class="container">
+            <h2 class="text-center">Select the Ingredients</h2>
+            {% if prod %}
+            <div class="form-group col-md-4 mx-auto">
+                <select class="form-control" id="exampleFormControlSelect1">
+                    {% for ingredient in prod %}
+                    <a class="list-group-item list-group-item-action">
+                        <option>{{ingredient.name}}</option></a>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% else %}
+                <p id="Error_message">No Data Found</p>
+        {% endif %}
+    </center>
+    <br>
+    <center><button type="submit" class="btn btn-success btn-lg">Create recipe</button></center>
+    <br>
+</form>
 
 {% endblock %}
