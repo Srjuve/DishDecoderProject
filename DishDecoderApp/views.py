@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
 from .forms import *
+from django.forms import formset_factory
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
@@ -467,17 +468,39 @@ class create_recipe_url(LoginRequiredMixin,View):
     template_data={}
     form = Create_recipe_form()
     def get(self, req):
-        prod = BasicProducts.objects.all()
-        nutrients = Nutrients.objects.all()
-        self.template_data['nutriens']=nutrients
-        self.template_data['prod']=prod
-        self.template_data['steps_form']=self.form
-        self.template_data['title_page']='Create_recipe'
-        return render(req,self.template_name,self.template_data)
+        return self.returnSharedForm(req)
 
     def post(self, req):
-        username = request.user.username
-        pass
+        recipeuser = req.user
+        recipename = req.POST.get('name')
+        recipesteps = req.POST.get('steps')
+        numberOfForms = req.POST.get('form-TOTAL_FORMS')
+        if recipename is not None and recipesteps is not None and numberOfForms is not None:
+            newRecipe = Recipes.objects.create(name=recipename,author=recipeuser,steps=recipesteps)
+            numberOfForms = int(numberOfForms)
+            if(not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms)):
+                Recipes.objects.filter(id=newRecipe.id).delete()
+                return self.returnSharedForm(req)  
+        else:
+            return self.returnSharedForm(req)
+        return redirect("/")
+
+    def putIngredientsIntoRecipe(self, newRecipe, req,numberOfForms):
+        for i in range(1,numberOfForms,1):
+            product = req.POST.get('form-'+str(i)+'-id_product')
+            quantity = req.POST.get('form-'+str(i)+'-quantity')
+            if product is not None and quantity is not None:
+                Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+            else:
+                return False
+        return True
+    
+    def returnSharedForm(self, req):
+        articleFormSet = formset_factory(Add_products_form)
+        self.template_data['recipe_basic_form'] = self.form
+        self.template_data['formset'] = articleFormSet
+        self.template_data['title_page']='Create_recipe'
+        return render(req,self.template_name,self.template_data)
 
 # Not implemented
 #@login_required(login_url='/login/')

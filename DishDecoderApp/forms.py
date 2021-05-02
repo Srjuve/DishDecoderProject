@@ -52,10 +52,15 @@ class Change_email_form(forms.Form):
     class Meta:
         fields = ['new_email1','new_email2']
 
-class Create_recipe_form(forms.Form):
-    steps = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Separe the steps using #'}))
-    basicproduct = forms.ModelMultipleChoiceField(queryset=BasicProducts.objects.all(), widget=forms.CheckboxSelectMultiple())
-    nutrients = forms.ModelMultipleChoiceField(queryset=Nutrients.objects.all(), widget=forms.CheckboxSelectMultiple())
+class Create_recipe_form(forms.ModelForm):
+    class Meta:
+        model = Recipes
+        fields = ['name','steps',]
+
+class Add_products_form(forms.ModelForm):
+    class Meta:
+        model = Recipe_Product
+        fields = ['id_product','quantity']
 
 
 
