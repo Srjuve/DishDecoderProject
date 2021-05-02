@@ -34,6 +34,8 @@ urlpatterns = [
     path('profile/',user_profile_url.as_view()),
     path('profile/change_password',change_data_url.as_view(template_name="DishDecoderApp/change_password.html",form_function=Change_password_form,title_page="Change password"), name="changepass"),
     path('profile/change_email',change_data_url.as_view(template_name="DishDecoderApp/change_email.html",form_function=Change_email_form,title_page="Change email"), name="changemail"),
+    #path('autocomplete/', autocomplete_test_url.as_view(), name='autocomplete_test'),
+    path('extrecipe/', external_recipe_url.as_view(), name='extrecipe'),
     
 
     path('createrecipe/',create_recipe_url.as_view(), name="createrecipe"),
