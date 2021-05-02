@@ -2,7 +2,14 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.conf import settings
 from django.contrib.auth.models import User
+from .models import Recipes
 #Here we create the views for the forms
+
+class Autocomplete_form(forms.Form):
+    recipe_title = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Type something here'}))
+    recipe_href = forms.CharField(widget = forms.HiddenInput(), required = False)
+    recipe_ing = forms.CharField(widget = forms.HiddenInput(), required = False)
+
 
 class Main_page_form(forms.Form):
     request_objective = forms.ChoiceField(choices=(("1","Recipe"),("2","BasicProduct"),("3","Nutrient")),widget=forms.RadioSelect,label='')
