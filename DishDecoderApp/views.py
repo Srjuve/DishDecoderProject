@@ -27,7 +27,7 @@ class main_url(View):
         return render(req, self.template_name,self.template_data)
 
     def post(self,req):
-        external_recipe_title = str(req.POST.get('recipe_title'))
+        external_recipe_title = req.POST.get('recipe_title')
         if external_recipe_title:
             external_recipe_href = req.POST.get('recipe_href')
             external_recipe_ing = req.POST.get('recipe_ing')
