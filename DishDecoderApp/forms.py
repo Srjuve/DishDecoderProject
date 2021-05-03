@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.conf import settings
 from django.contrib.auth.models import User
+from .models import Ratings
 #Here we create the views for the forms
 
 class Main_page_form(forms.Form):
@@ -51,8 +52,11 @@ class Change_email_form(forms.Form):
         return self.user
     class Meta:
         fields = ['new_email1','new_email2']
+    
 
-
-
+class Comments_form(forms.ModelForm):
+    class Meta:
+        model = Ratings
+        fields = ['rating','desc']
 
 

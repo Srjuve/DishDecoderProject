@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
-from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form, Comments_form
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
@@ -297,9 +297,12 @@ class list_data_url(View):
 #        return bad_request(req, exception=None)
 
 class recipe_profile_url(View):
-
+    form = Comments_form()
+    template_data={}
+    template_name="DishDecoderApp/recipe.html" 
     def get(self, req, recipeid):
         template_data={}
+        form = Comments_form(req.POST)
         try :
             recipe = Recipes.objects.get(id=recipeid)
             rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
@@ -323,6 +326,7 @@ class recipe_profile_url(View):
             template_data['rating_data'] = rating_data
             template_data['average_score'] = average
             template_data['title_page']='Recipe Profile'
+            template_data['Comments_form'] = form
             template_name="DishDecoderApp/recipe.html"  
             return render(req, template_name,template_data)
         except Recipes.DoesNotExist:
@@ -342,6 +346,44 @@ class recipe_profile_url(View):
                 else:
                     nut_value[nut_id]['value'] += value
         return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
+
+#    def review_recipe(self, request, recipeid):
+#        template_name="DishDecoderApp/recipe.html"
+#        if request.user.is_authenticated:
+#            recipe2=recipe.objects.get(id=recipeid)
+#            if request.method=="POST":
+#                form = Comments_form(req.POST or None)
+#                if form.is_valid():
+#                    data = form.save(commit=False)
+#                    data.rating=request.POST["rating"]
+#                    data.desc=request.POST["desc"]
+#                    data.id_autor=request.user
+#                    data.id_recipe=recipe2
+#                    data.save()
+#                    return redirect(template_name,recipeid)
+#                else:
+#                    form =Comments_form()
+#            return render(req,template_name,{"form": form})
+#        else:
+#            return redirect('/login')
+#        login_url = '/login/'
+
+
+    def post(self, req, recipeid):
+        
+        reviewuser=req.user
+        form = Comments_form(req.POST)
+        desc=req.POST.get('desc')
+        rating=req.POST.get('rating')
+        newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
+
+        newReview.save()
+
+        self.template_data['Comments_form']=self.form
+        self.template_data['title_page']='Recipe'     
+        return redirect('/recipe/'+str(recipeid))
+
+
 
 # GET: shows the recipe page with the relationated info about it
 #def recipe_profile_url(req, recipeid):
