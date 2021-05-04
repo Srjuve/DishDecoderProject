@@ -48,6 +48,7 @@
                 $('#id_form-'+(form_count-1)+'-id_product').parent().parent().remove();
                 if(form_count>1){
                     form_count--;
+                    $('#id_form-TOTAL_FORMS').val(form_count);
                 }
                 console.log(form_count);
             });
@@ -74,5 +75,13 @@
     <center><button type="submit" class="btn btn-success btn-lg">Create recipe</button></center>
     <br>
 </form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 {% endblock %}

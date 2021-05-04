@@ -61,7 +61,13 @@ class Add_products_form(forms.ModelForm):
     class Meta:
         model = Recipe_Product
         fields = ['id_product','quantity']
+        
 
+class erase_recipe_form(forms.Form):
 
+    recipes=forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,queryset=None)
 
+    def __init__(self, user, *args, **kwargs):
+        super(erase_recipe_form, self).__init__(*args,**kwargs)
+        self.fields['recipes'].queryset = Recipes.objects.filter(author=user).all()
 

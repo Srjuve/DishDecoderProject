@@ -1,0 +1,16 @@
+{% extends 'DishDecoderApp/common.html' %}
+
+{% block content %}
+
+
+<hr>
+<h1 class="display-6 text-center">{{ title_page }}</h1>
+<hr>
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.recipes }}
+        <button type="submit" class="btn btn-success btn-lg">Erase recipes</button>
+    </form>
+</div>
+{% endblock %}

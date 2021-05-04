@@ -196,7 +196,7 @@ class change_data_url(LoginRequiredMixin, View):
 
     def get(self, req):
         self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']='Change password'
+        self.template_data['title_page']=self.title_page
         return render(req, self.template_name, self.template_data)
 
 
@@ -208,7 +208,7 @@ class change_data_url(LoginRequiredMixin, View):
         else:
             messages.warning(req,'Invalid data entered')
         self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']='Change password'
+        self.template_data['title_page']=self.title_page
         return render(req, self.template_name, self.template_data)
 
 #GET: Show the password change form
@@ -467,6 +467,7 @@ class create_recipe_url(LoginRequiredMixin,View):
     template_name ='DishDecoderApp/createrecipe.html'
     template_data={}
     form = Create_recipe_form()
+    articleFormSet = formset_factory(Add_products_form)
     def get(self, req):
         return self.returnSharedForm(req)
 
@@ -476,29 +477,35 @@ class create_recipe_url(LoginRequiredMixin,View):
         recipesteps = req.POST.get('steps')
         numberOfForms = req.POST.get('form-TOTAL_FORMS')
         if recipename is not None and recipesteps is not None and numberOfForms is not None:
-            newRecipe = Recipes.objects.create(name=recipename,author=recipeuser,steps=recipesteps)
-            numberOfForms = int(numberOfForms)
-            if(not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms)):
-                Recipes.objects.filter(id=newRecipe.id).delete()
-                return self.returnSharedForm(req)  
+            try:
+                newRecipe = Recipes.objects.create(name=recipename,author=recipeuser,steps=recipesteps)
+                numberOfForms = int(numberOfForms)
+                if((numberOfForms-1) <= 0 or not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms)):
+                    Recipes.objects.filter(id=newRecipe.id).delete()
+                    messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
+                    return self.returnSharedForm(req)
+            except:
+                return redirect("/")  
         else:
             return self.returnSharedForm(req)
-        return redirect("/")
+        return redirect("/recipe/"+str(newRecipe.id))
 
     def putIngredientsIntoRecipe(self, newRecipe, req,numberOfForms):
         for i in range(1,numberOfForms,1):
             product = req.POST.get('form-'+str(i)+'-id_product')
             quantity = req.POST.get('form-'+str(i)+'-quantity')
-            if product is not None and quantity is not None:
-                Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+            if product is not None and quantity is not None and not product=="" and float(quantity)>0:
+                try:
+                    Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+                except:
+                    return False
             else:
                 return False
         return True
     
     def returnSharedForm(self, req):
-        articleFormSet = formset_factory(Add_products_form)
         self.template_data['recipe_basic_form'] = self.form
-        self.template_data['formset'] = articleFormSet
+        self.template_data['formset'] = self.articleFormSet
         self.template_data['title_page']='Create_recipe'
         return render(req,self.template_name,self.template_data)
 
@@ -506,5 +513,111 @@ class create_recipe_url(LoginRequiredMixin,View):
 #@login_required(login_url='/login/')
 #def create_recipe_url(req):
 #    return render(req,'DishDecoderApp/createrecipe.html')
+
+class list_recipes_edit_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    template_data={}
+    template_name=""
+    baseurl=''
+    title_page="Your Recipes"
+    def get(self, req):
+        self.template_name="DishDecoderApp/listeditrecipes.html"
+        self.baseurl='/edit/'
+        data_fields = Recipes.objects.filter(author=req.user).all()
+        if data_fields.count()==1:
+            url=self.baseurl+str(getattr(data_fields.first(),'id'))
+            return redirect(url)
+        self.template_data["listedtuples"]=data_fields
+        self.template_data['title_page']=self.title_page
+        return render(req,self.template_name,self.template_data)
+
+
+class edit_recipe_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    template_data={}
+    template_name="DishDecoderApp/edit_recipe.html"
+    baseurl='/edit/'
+    title_page="Your Recipes"
+    form = Create_recipe_form()
+    articleFormSet = formset_factory(Add_products_form)
+
+    def get(self, req, recipeid):
+        recipe_data = Recipes.objects.get(id=recipeid)
+        ingredients_data = Recipe_Product.objects.filter(id_recipe=recipeid).all()
+        self.template_data["recipe_data"]=recipe_data
+        self.template_data["ingredients_data"]=ingredients_data
+        self.template_data["recipe_form"]=self.form
+        self.template_data["ingredients_forms"]=self.fill_ingredient_form(recipeid)
+        self.template_data['title_page']=self.title_page
+        return render(req,self.template_name,self.template_data)
+    
+    def post(self, req, recipeid):
+        recipe = Recipes.objects.get(id=recipeid)
+        if req.POST.get('name') is not None:
+            recipe.name = req.POST.get('name')
+            recipe.save()
+        elif req.POST.get('steps') is not None:
+            recipe.steps = req.POST.get('steps')
+            recipe.save()
+        elif req.POST.get('form-TOTAL_FORMS') is not None:
+            if int(req.POST.get('form-TOTAL_FORMS')) > 0:
+                if( not self.putIngredientsIntoRecipe(req, recipe, int(req.POST.get('form-TOTAL_FORMS')))):
+                    messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
+                    return self.get(req,recipeid)
+            else:
+                messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
+                return self.get(req,recipeid)
+        return redirect('/recipe/'+str(recipeid))
+
+    def putIngredientsIntoRecipe(self, req, editedRecipe, numberOfForms):
+        if self.checkValidIngredients(req,numberOfForms):
+            Recipe_Product.objects.filter(id_recipe=editedRecipe).delete()
+            for i in range(0,numberOfForms,1):
+                product = req.POST.get('form-'+str(i)+'-id_product')
+                quantity = req.POST.get('form-'+str(i)+'-quantity')
+                try:
+                    Recipe_Product.objects.create(id_recipe=editedRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+                except:
+                    return False
+            return True
+        return False
+
+    def checkValidIngredients(self,req, numberOfForms):
+        for i in range(0,numberOfForms,1):
+            print(req.POST)
+            product = req.POST.get('form-'+str(i)+'-id_product')
+            quantity = req.POST.get('form-'+str(i)+'-quantity')
+            print(product)
+            print(quantity)
+            if product is None or quantity is None or product=="" or float(quantity)<=0:
+                return False
+        return True
+
+    def fill_ingredient_form(self, recipeid):
+        data=[]
+        ingredients_data = Recipe_Product.objects.filter(id_recipe=recipeid).all()
+        for ingredient in ingredients_data:
+            data.append({'id_product':ingredient.id_product,'quantity':ingredient.quantity})
+        return self.articleFormSet(initial=data)
+
+
+
+class erase_recipe_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    template_data={}
+    template_name="DishDecoderApp/listeraserecipes.html"
+    title_page="Your Recipes"
+    def get(self, req):
+        newForm = erase_recipe_form(req.user)
+        self.template_data['form']=newForm
+        self.template_data['title_page']=self.title_page
+        return render(req,self.template_name,self.template_data)   
+
+    def post(self, req):
+        recipes = dict(req.POST).get('recipes')
+        if recipes is not None:
+            for recipe in recipes:
+                Recipes.objects.filter(id=recipe,author=req.user).delete()
+        return redirect("/")
 
 
