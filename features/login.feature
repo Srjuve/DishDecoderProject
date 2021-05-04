@@ -4,14 +4,14 @@ Feature: Login Account
     I want to login to an account.
 
 Background: There is user registerd on DB
-    Given Exists a user "usr" with password "password" 
+    Given Exists a user "username" with password "password" 
     And I click on the login button
 
 Scenario: Users login correctly
-    Given I login as user "usr" with password "password"
-    Then It appears my username "usr"
+    When I login as user "username" with password "password"
+    Then It appears my username "username"
 
 
 Scenario: User tries to login with invalid username
-    Given I login as user "foo" with "password"
+    When I login as user "foo" with password "password"
     Then Login credentials invalid
