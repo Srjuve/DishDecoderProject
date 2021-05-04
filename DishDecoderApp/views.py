@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
 from .forms import *
 from django.forms import formset_factory
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form, Autocomplete_form
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
@@ -20,22 +21,34 @@ class main_url(View):
     template_data = {}
     template_name = "DishDecoderApp/main.html"
     form = Main_page_form()
+    aform = Autocomplete_form
     def get(self,req):
         self.template_data['form']=self.form
+        self.template_data['aform'] = self.aform
         self.template_data['title_page']='Dish Decoder'
         return render(req, self.template_name,self.template_data)
 
     def post(self,req):
-        radioptchoice = str(req.POST.get('request_objective'))
-        searched_data = str(req.POST.get('item_name'))
-        query_string = urlencode({'search':searched_data})
-        if radioptchoice == '1':
-            base_url = '/recipes/'
-        elif radioptchoice == '2':
-            base_url = '/basicproducts/'
-        elif radioptchoice == '3':
-            base_url = '/nutrients/'
-        url = '{}?{}'.format(base_url,query_string)
+        external_recipe_title = req.POST.get('recipe_title')
+        if external_recipe_title:
+            external_recipe_href = req.POST.get('recipe_href')
+            external_recipe_ing = req.POST.get('recipe_ing')
+            query_string = urlencode({'title' : str(external_recipe_title), 
+                                    'href' : str(external_recipe_href), 
+                                    'ing' : str(external_recipe_ing)})
+            base_url = '/extrecipe'
+            url = '{}?{}'.format(base_url, query_string)
+        else:
+            radioptchoice = str(req.POST.get('request_objective'))
+            searched_data = str(req.POST.get('item_name'))
+            query_string = urlencode({'search':searched_data})
+            if radioptchoice == '1':
+                base_url = '/recipes/'
+            elif radioptchoice == '2':
+                base_url = '/basicproducts/'
+            elif radioptchoice == '3':
+                base_url = '/nutrients/'
+            url = '{}?{}'.format(base_url,query_string)
         return redirect(url)
 
     
@@ -620,4 +633,13 @@ class erase_recipe_url(LoginRequiredMixin,View):
                 Recipes.objects.filter(id=recipe,author=req.user).delete()
         return redirect("/")
 
+
+class external_recipe_url(View):
+    template_data = {}
+    template_name = "DishDecoderApp/extrecipe.html"
+    def get(self, req):
+        self.template_data['title'] = req.GET.get('title')
+        self.template_data['ing'] = req.GET.get('inf')
+        self.template_data['href'] = req.GET.get('href')
+        return render(req, self.template_name, self.template_data)
 

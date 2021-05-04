@@ -1,0 +1,18 @@
+{% extends 'DishDecoderApp/common.html' %}
+{% block content %}
+
+<div text-align="center" align-items="center" >
+
+    <h1 text-align="center">{{title}}</h1>
+
+    <a href="{{href}}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true" text-align="center">Go to recipe web page</a>
+
+    <h1 text-align="center">Ingredients</h1>
+    {% if ing %}
+    <h1 text-align="center">{{ing}}</h1>
+    {% else %}
+    <h3 text-align="center">Check the web site for more information about the ingredients.</h3>
+    {% endif %}
+
+</div>
+{% endblock %}
