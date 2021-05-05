@@ -135,6 +135,9 @@ class login_page_url(View):
             user = authenticate(req,username=username,password=password)
             if user is not None:
                 login(req,user)
+                nextData = req.GET.get('next')
+                if(nextData is not None):
+                    return redirect(nextData)
                 return redirect('/')
             else:
                 messages.warning(req,'Login credentials invalid')
@@ -493,9 +496,12 @@ class create_recipe_url(LoginRequiredMixin,View):
             try:
                 newRecipe = Recipes.objects.create(name=recipename,author=recipeuser,steps=recipesteps)
                 numberOfForms = int(numberOfForms)
-                if((numberOfForms-1) <= 0 or not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms)):
+                if(numberOfForms-1) <= 0:
                     Recipes.objects.filter(id=newRecipe.id).delete()
-                    messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
+                    messages.add_message(req, messages.ERROR, 'Incorrect number of ingredients')
+                    return self.returnSharedForm(req)
+                elif not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms):
+                    Recipes.objects.filter(id=newRecipe.id).delete()
                     return self.returnSharedForm(req)
             except:
                 return redirect("/")  
@@ -511,8 +517,10 @@ class create_recipe_url(LoginRequiredMixin,View):
                 try:
                     Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
                 except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient already set')
                     return False
             else:
+                messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
                 return False
         return True
     
@@ -575,10 +583,9 @@ class edit_recipe_url(LoginRequiredMixin,View):
         elif req.POST.get('form-TOTAL_FORMS') is not None:
             if int(req.POST.get('form-TOTAL_FORMS')) > 0:
                 if( not self.putIngredientsIntoRecipe(req, recipe, int(req.POST.get('form-TOTAL_FORMS')))):
-                    messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
                     return self.get(req,recipeid)
             else:
-                messages.add_message(req, messages.ERROR, 'Incorrect Ingredients')
+                messages.add_message(req, messages.ERROR, 'Incorrect number of ingredients')
                 return self.get(req,recipeid)
         return redirect('/recipe/'+str(recipeid))
 
@@ -591,18 +598,17 @@ class edit_recipe_url(LoginRequiredMixin,View):
                 try:
                     Recipe_Product.objects.create(id_recipe=editedRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
                 except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient already set')
                     return False
             return True
         return False
 
     def checkValidIngredients(self,req, numberOfForms):
         for i in range(0,numberOfForms,1):
-            print(req.POST)
             product = req.POST.get('form-'+str(i)+'-id_product')
             quantity = req.POST.get('form-'+str(i)+'-quantity')
-            print(product)
-            print(quantity)
             if product is None or quantity is None or product=="" or float(quantity)<=0:
+                messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
                 return False
         return True
 
@@ -617,14 +623,17 @@ class edit_recipe_url(LoginRequiredMixin,View):
 
 class erase_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
-    template_data={}
-    template_name="DishDecoderApp/listeraserecipes.html"
-    title_page="Your Recipes"
     def get(self, req):
+        template_data={}
+        template_name="DishDecoderApp/listeraserecipes.html"
+        title_page="Your Recipes"
         newForm = erase_recipe_form(req.user)
-        self.template_data['form']=newForm
-        self.template_data['title_page']=self.title_page
-        return render(req,self.template_name,self.template_data)   
+        recipes_count=Recipes.objects.filter(author=req.user).all().count()
+        print(recipes_count)
+        if recipes_count >= 1:
+            template_data['form']=newForm
+        template_data['title_page']=title_page
+        return render(req,template_name,template_data)   
 
     def post(self, req):
         recipes = dict(req.POST).get('recipes')

@@ -7,10 +7,14 @@
 <h1 class="display-6 text-center">{{ title_page }}</h1>
 <hr>
 <div class="container">
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.recipes }}
-        <button type="submit" class="btn btn-success btn-lg">Erase recipes</button>
-    </form>
+    {% if form %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.recipes }}
+            <button type="submit" class="btn btn-success btn-lg">Erase recipes</button>
+        </form>
+    {% else %}
+        <p id="Error_message">No Data Found</p>
+    {% endif %}
 </div>
 {% endblock %}
