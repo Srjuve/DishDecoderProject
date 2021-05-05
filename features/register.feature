@@ -3,7 +3,7 @@ Feature: Test register
     As non registered user,
     I want to register to an account.
 
-Scenario: Register without problems
-    Given Exist an username "patata",and a mail "patata@patata.com", and a password "Exemple123"
-    When I click the register button
-    Then I'm viewing the login page
+Scenario: User register correctly
+    When I register as username "patata1" with mail "test@gmail.com" and password "Exemple123"
+    Then I see the login page, i log in with my username "patata1" and password "Exemple123"
+    Then It appears my username "patata1"
