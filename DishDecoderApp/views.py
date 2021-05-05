@@ -327,6 +327,7 @@ class recipe_profile_url(View):
             template_data['average_score'] = average
             template_data['title_page']='Recipe Profile'
             template_data['Comments_form'] = form
+            template_data['ratings'] = Ratings
             template_name="DishDecoderApp/recipe.html"  
             return render(req, template_name,template_data)
         except Recipes.DoesNotExist:
@@ -347,41 +348,22 @@ class recipe_profile_url(View):
                     nut_value[nut_id]['value'] += value
         return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
 
-#    def review_recipe(self, request, recipeid):
-#        template_name="DishDecoderApp/recipe.html"
-#        if request.user.is_authenticated:
-#            recipe2=recipe.objects.get(id=recipeid)
-#            if request.method=="POST":
-#                form = Comments_form(req.POST or None)
-#                if form.is_valid():
-#                    data = form.save(commit=False)
-#                    data.rating=request.POST["rating"]
-#                    data.desc=request.POST["desc"]
-#                    data.id_autor=request.user
-#                    data.id_recipe=recipe2
-#                    data.save()
-#                    return redirect(template_name,recipeid)
-#                else:
-#                    form =Comments_form()
-#            return render(req,template_name,{"form": form})
-#        else:
-#            return redirect('/login')
-#        login_url = '/login/'
-
 
     def post(self, req, recipeid):
-        
+        hasreview=False
         reviewuser=req.user
         form = Comments_form(req.POST)
         desc=req.POST.get('desc')
         rating=req.POST.get('rating')
-        newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
-
-        newReview.save()
-
-        self.template_data['Comments_form']=self.form
-        self.template_data['title_page']='Recipe'     
-        return redirect('/recipe/'+str(recipeid))
+        try:
+            newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
+            newReview.save()
+            self.template_data['Comments_form']=self.form
+            self.template_data['title_page']='Recipe'     
+            return redirect('/recipe/'+str(recipeid))
+        except :
+            messages.warning(req, 'Only one review per user and recipe')
+            return redirect('/recipe/'+str(recipeid))
 
 
 
