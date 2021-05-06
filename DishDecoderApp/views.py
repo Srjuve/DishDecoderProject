@@ -83,6 +83,7 @@ class register_page_url(View):
                     self.template_data['reg_form'] = self.form
                     self.template_data['title_page'] = 'Register'
                     return render(req, self.template_name,self.template_data)
+        messages.add_message(reg, messages.ERROR, 'Error al registrarse')
         return redirect('/')
 
 #def register_page_url(req):
