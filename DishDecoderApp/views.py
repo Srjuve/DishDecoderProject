@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
-from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form
+from .forms import *
+from django.forms import formset_factory
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form, Autocomplete_form
 from django.contrib.auth.forms import UserCreationForm , AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.decorators import login_required
@@ -19,22 +21,34 @@ class main_url(View):
     template_data = {}
     template_name = "DishDecoderApp/main.html"
     form = Main_page_form()
+    aform = Autocomplete_form
     def get(self,req):
         self.template_data['form']=self.form
+        self.template_data['aform'] = self.aform
         self.template_data['title_page']='Dish Decoder'
         return render(req, self.template_name,self.template_data)
 
     def post(self,req):
-        radioptchoice = str(req.POST.get('request_objective'))
-        searched_data = str(req.POST.get('item_name'))
-        query_string = urlencode({'search':searched_data})
-        if radioptchoice == '1':
-            base_url = '/recipes/'
-        elif radioptchoice == '2':
-            base_url = '/basicproducts/'
-        elif radioptchoice == '3':
-            base_url = '/nutrients/'
-        url = '{}?{}'.format(base_url,query_string)
+        external_recipe_title = req.POST.get('recipe_title')
+        if external_recipe_title:
+            external_recipe_href = req.POST.get('recipe_href')
+            external_recipe_ing = req.POST.get('recipe_ing')
+            query_string = urlencode({'title' : str(external_recipe_title), 
+                                    'href' : str(external_recipe_href), 
+                                    'ing' : str(external_recipe_ing)})
+            base_url = '/extrecipe'
+            url = '{}?{}'.format(base_url, query_string)
+        else:
+            radioptchoice = str(req.POST.get('request_objective'))
+            searched_data = str(req.POST.get('item_name'))
+            query_string = urlencode({'search':searched_data})
+            if radioptchoice == '1':
+                base_url = '/recipes/'
+            elif radioptchoice == '2':
+                base_url = '/basicproducts/'
+            elif radioptchoice == '3':
+                base_url = '/nutrients/'
+            url = '{}?{}'.format(base_url,query_string)
         return redirect(url)
 
     
@@ -80,6 +94,7 @@ class register_page_url(View):
                     form.save()
                     return redirect('/login/')
                 else:
+                    messages.add_message(req, messages.ERROR, 'Error al registrar-se')
                     self.template_data['reg_form'] = self.form
                     self.template_data['title_page'] = 'Register'
                     return render(req, self.template_name,self.template_data)
@@ -121,6 +136,9 @@ class login_page_url(View):
             user = authenticate(req,username=username,password=password)
             if user is not None:
                 login(req,user)
+                nextData = req.GET.get('next')
+                if(nextData is not None):
+                    return redirect(nextData)
                 return redirect('/')
             else:
                 messages.warning(req,'Login credentials invalid')
@@ -195,7 +213,7 @@ class change_data_url(LoginRequiredMixin, View):
 
     def get(self, req):
         self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']='Change password'
+        self.template_data['title_page']=self.title_page
         return render(req, self.template_name, self.template_data)
 
 
@@ -207,7 +225,7 @@ class change_data_url(LoginRequiredMixin, View):
         else:
             messages.warning(req,'Invalid data entered')
         self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']='Change password'
+        self.template_data['title_page']=self.title_page
         return render(req, self.template_name, self.template_data)
 
 #GET: Show the password change form
@@ -463,12 +481,175 @@ class nutrient_profile_url(View):
 
 class create_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
+    template_name ='DishDecoderApp/createrecipe.html'
+    template_data={}
+    form = Create_recipe_form()
+    articleFormSet = formset_factory(Add_products_form)
     def get(self, req):
-        return render(req,'DishDecoderApp/createrecipe.html')
+        return self.returnSharedForm(req)
+
+    def post(self, req):
+        recipeuser = req.user
+        recipename = req.POST.get('name')
+        recipesteps = req.POST.get('steps')
+        numberOfForms = req.POST.get('form-TOTAL_FORMS')
+        if recipename is not None and recipesteps is not None and numberOfForms is not None:
+            try:
+                newRecipe = Recipes.objects.create(name=recipename,author=recipeuser,steps=recipesteps)
+                numberOfForms = int(numberOfForms)
+                if(numberOfForms-1) <= 0:
+                    Recipes.objects.filter(id=newRecipe.id).delete()
+                    messages.add_message(req, messages.ERROR, 'Incorrect number of ingredients')
+                    return self.returnSharedForm(req)
+                elif not self.putIngredientsIntoRecipe(newRecipe, req, numberOfForms):
+                    Recipes.objects.filter(id=newRecipe.id).delete()
+                    return self.returnSharedForm(req)
+            except:
+                return redirect("/")  
+        else:
+            return self.returnSharedForm(req)
+        return redirect("/recipe/"+str(newRecipe.id))
+
+    def putIngredientsIntoRecipe(self, newRecipe, req,numberOfForms):
+        for i in range(1,numberOfForms,1):
+            product = req.POST.get('form-'+str(i)+'-id_product')
+            quantity = req.POST.get('form-'+str(i)+'-quantity')
+            if product is not None and quantity is not None and not product=="" and float(quantity)>0:
+                try:
+                    Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+                except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient already set')
+                    return False
+            else:
+                messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
+                return False
+        return True
+    
+    def returnSharedForm(self, req):
+        self.template_data['recipe_basic_form'] = self.form
+        self.template_data['formset'] = self.articleFormSet
+        self.template_data['title_page']='Create_recipe'
+        return render(req,self.template_name,self.template_data)
 
 # Not implemented
 #@login_required(login_url='/login/')
 #def create_recipe_url(req):
 #    return render(req,'DishDecoderApp/createrecipe.html')
 
+class list_recipes_edit_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    template_data={}
+    template_name=""
+    baseurl=''
+    title_page="Your Recipes"
+    def get(self, req):
+        self.template_name="DishDecoderApp/listeditrecipes.html"
+        self.baseurl='/edit/'
+        data_fields = Recipes.objects.filter(author=req.user).all()
+        if data_fields.count()==1:
+            url=self.baseurl+str(getattr(data_fields.first(),'id'))
+            return redirect(url)
+        self.template_data["listedtuples"]=data_fields
+        self.template_data['title_page']=self.title_page
+        return render(req,self.template_name,self.template_data)
+
+
+class edit_recipe_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    template_data={}
+    template_name="DishDecoderApp/edit_recipe.html"
+    baseurl='/edit/'
+    title_page="Your Recipes"
+    form = Create_recipe_form()
+    articleFormSet = formset_factory(Add_products_form)
+
+    def get(self, req, recipeid):
+        recipe_data = Recipes.objects.get(id=recipeid)
+        ingredients_data = Recipe_Product.objects.filter(id_recipe=recipeid).all()
+        self.template_data["recipe_data"]=recipe_data
+        self.template_data["ingredients_data"]=ingredients_data
+        self.template_data["recipe_form"]=self.form
+        self.template_data["ingredients_forms"]=self.fill_ingredient_form(recipeid)
+        self.template_data['title_page']=self.title_page
+        return render(req,self.template_name,self.template_data)
+    
+    def post(self, req, recipeid):
+        recipe = Recipes.objects.get(id=recipeid)
+        if req.POST.get('name') is not None:
+            recipe.name = req.POST.get('name')
+            recipe.save()
+        elif req.POST.get('steps') is not None:
+            recipe.steps = req.POST.get('steps')
+            recipe.save()
+        elif req.POST.get('form-TOTAL_FORMS') is not None:
+            if int(req.POST.get('form-TOTAL_FORMS')) > 0:
+                if( not self.putIngredientsIntoRecipe(req, recipe, int(req.POST.get('form-TOTAL_FORMS')))):
+                    return self.get(req,recipeid)
+            else:
+                messages.add_message(req, messages.ERROR, 'Incorrect number of ingredients')
+                return self.get(req,recipeid)
+        return redirect('/recipe/'+str(recipeid))
+
+    def putIngredientsIntoRecipe(self, req, editedRecipe, numberOfForms):
+        if self.checkValidIngredients(req,numberOfForms):
+            Recipe_Product.objects.filter(id_recipe=editedRecipe).delete()
+            for i in range(0,numberOfForms,1):
+                product = req.POST.get('form-'+str(i)+'-id_product')
+                quantity = req.POST.get('form-'+str(i)+'-quantity')
+                try:
+                    Recipe_Product.objects.create(id_recipe=editedRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
+                except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient already set')
+                    return False
+            return True
+        return False
+
+    def checkValidIngredients(self,req, numberOfForms):
+        for i in range(0,numberOfForms,1):
+            product = req.POST.get('form-'+str(i)+'-id_product')
+            quantity = req.POST.get('form-'+str(i)+'-quantity')
+            if product is None or quantity is None or product=="" or float(quantity)<=0:
+                messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
+                return False
+        return True
+
+    def fill_ingredient_form(self, recipeid):
+        data=[]
+        ingredients_data = Recipe_Product.objects.filter(id_recipe=recipeid).all()
+        for ingredient in ingredients_data:
+            data.append({'id_product':ingredient.id_product,'quantity':ingredient.quantity})
+        return self.articleFormSet(initial=data)
+
+
+
+class erase_recipe_url(LoginRequiredMixin,View):
+    login_url = '/login/'
+    def get(self, req):
+        template_data={}
+        template_name="DishDecoderApp/listeraserecipes.html"
+        title_page="Your Recipes"
+        newForm = erase_recipe_form(req.user)
+        recipes_count=Recipes.objects.filter(author=req.user).all().count()
+        print(recipes_count)
+        if recipes_count >= 1:
+            template_data['form']=newForm
+        template_data['title_page']=title_page
+        return render(req,template_name,template_data)   
+
+    def post(self, req):
+        recipes = dict(req.POST).get('recipes')
+        if recipes is not None:
+            for recipe in recipes:
+                Recipes.objects.filter(id=recipe,author=req.user).delete()
+        return redirect("/")
+
+
+class external_recipe_url(View):
+    template_data = {}
+    template_name = "DishDecoderApp/extrecipe.html"
+    def get(self, req):
+        self.template_data['title'] = req.GET.get('title')
+        self.template_data['ing'] = req.GET.get('inf')
+        self.template_data['href'] = req.GET.get('href')
+        return render(req, self.template_name, self.template_data)
 
