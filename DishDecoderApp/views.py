@@ -536,7 +536,7 @@ class create_recipe_url(LoginRequiredMixin,View):
                     Recipes.objects.filter(id=newRecipe.id).delete()
                     return self.returnSharedForm(req)
             except:
-                messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
+                messages.add_message(req, messages.ERROR, 'Incorrect Recipe format')
                 return self.returnSharedForm(req)  
         else:
             return self.returnSharedForm(req)
@@ -591,10 +591,10 @@ class list_recipes_edit_url(LoginRequiredMixin,View):
 
 class edit_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
-    template_data={}
-    template_name="DishDecoderApp/edit_recipe.html"
-    baseurl='/edit/'
-    title_page="Your Recipes"
+    template_data = {}
+    template_name = "DishDecoderApp/edit_recipe.html"
+    baseurl = '/edit/'
+    title_page = "Your Recipes"
     form = Create_recipe_form()
     articleFormSet = formset_factory(Add_products_form)
 
