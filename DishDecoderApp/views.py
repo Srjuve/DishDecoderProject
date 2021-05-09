@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
+from django.core.exceptions import ValidationError
 from django.views.defaults import *
 from urllib.parse import urlencode
 from DishDecoderApp.models import *
@@ -357,11 +358,16 @@ class recipe_profile_url(View):
         rating=req.POST.get('rating')
         try:
             newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
-            newReview.save()
+            newReview.full_clean()
             self.template_data['Comments_form']=self.form
             self.template_data['title_page']='Recipe'     
             return redirect('/recipe/'+str(recipeid))
-        except :
+        except ValidationError:
+            newReview.delete()
+            messages.warning(req, 'Invalid rating data')
+            return redirect('/recipe/'+str(recipeid))
+        except:
+            newReview.delete()
             messages.warning(req, 'Only one review per user and recipe')
             return redirect('/recipe/'+str(recipeid))
 
