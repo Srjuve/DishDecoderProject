@@ -1,14 +1,20 @@
 from django import forms
+from .models import *
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.conf import settings
 from django.contrib.auth.models import User
-from .models import Ratings
+from .models import Ratings, Recipes
 #Here we create the views for the forms
+
+class Autocomplete_form(forms.Form):
+    recipe_title = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Type something here'}))
+    recipe_href = forms.CharField(widget = forms.HiddenInput(), required = False)
+    recipe_ing = forms.CharField(widget = forms.HiddenInput(), required = False)
+
 
 class Main_page_form(forms.Form):
     request_objective = forms.ChoiceField(choices=(("1","Recipe"),("2","BasicProduct"),("3","Nutrient")),widget=forms.RadioSelect,label='')
     item_name = forms.CharField(label='',widget=forms.TextInput(attrs={'placeholder': 'Type something here'}))
-
 
 class Create_user_form(UserCreationForm):
     class Meta:
@@ -53,10 +59,25 @@ class Change_email_form(forms.Form):
     class Meta:
         fields = ['new_email1','new_email2']
     
-
 class Comments_form(forms.ModelForm):
     class Meta:
         model = Ratings
         fields = ['rating','desc']
 
+class Create_recipe_form(forms.ModelForm):
+    class Meta:
+        model = Recipes
+        fields = ['name','steps',]
+
+class Add_products_form(forms.ModelForm):
+    class Meta:
+        model = Recipe_Product
+        fields = ['id_product','quantity']
+        
+
+class erase_recipe_form(forms.Form):
+    recipes=forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple,queryset=None)
+    def __init__(self, user, *args, **kwargs):
+        super(erase_recipe_form, self).__init__(*args,**kwargs)
+        self.fields['recipes'].queryset = Recipes.objects.filter(author=user).all()
 

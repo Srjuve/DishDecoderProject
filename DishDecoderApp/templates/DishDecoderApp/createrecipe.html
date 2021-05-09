@@ -1,13 +1,87 @@
 {% extends 'DishDecoderApp/common.html' %}
 
 {% block content %}
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>  
+<link rel="stylesheet"href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
 
 <hr>
 <h1 class="display-6 text-center">Create Your Recipe</h1>
 <hr>
 
-<p class="text-justify text-center">Aquest formulari i les seves funcionalitats encara no seran implementades en el primer lliurament. Gràcies.</p>
 
+<form action="" method="POST">
+    {% csrf_token %}
+    <center>
+        <div class="form-group col-md-5">
+            {{ recipe_basic_form.name.label}}
+            {{ recipe_basic_form.name }}
+        </div>
+        <h3 class="text-justify text-center">Recipe steps(Separate steps using a # for every step)</h3>
+        <div class="form-group col-md-5">
+            {{ recipe_basic_form.steps.label}}
+            {{ recipe_basic_form.steps }}
+        </div>
+        <div class="form-group col-md-5" id="forms">
+            <!--{% for form in formset %}
+                {{ form }} 
+            {% endfor %}-->
+        </div>
+        {{ formset.management_form}}
+        <!--<input type="button" value="Add More" id="add_form">-->
+        <a href="javascript:void(0)" id="add_form">Add Another Ingredient</a>
+        <a href="javascript:void(0)" id="erase_form">Erase Another Ingredient</a>
+
+        <script>
+            var form_count = {{ formset.total_form_count }};
+            $('#add_form').click(function(){
+                console.log(form_count);
+                var new_form = '{{formset.empty_form|escapejs}}'.replace(/__prefix__/g,form_count);
+                $('#forms').append(new_form);
+                form_count++;
+                $('#id_form-TOTAL_FORMS').val(form_count);
+            });
+
+            $('#erase_form').click(function(){
+                console.log("You clicked erase!")
+                $('#id_form-'+(form_count-1)+'-quantity').parent().parent().remove();
+                $('#id_form-'+(form_count-1)+'-id_product').parent().parent().remove();
+                if(form_count>1){
+                    form_count--;
+                    $('#id_form-TOTAL_FORMS').val(form_count);
+                }
+                console.log(form_count);
+            });
+        </script>
+
+<!--var new_form = '{{formset.empty_form|escapejs}}'.replaceAll('id_form-0-id_product', 'id_form-'+form_count+'-id_product').replaceAll('id_form-0-quantity', 'id_form-'+form_count+'-id_quantity');-->
+        <!--<div class="container">
+            <h2 class="text-center">Select the Ingredients</h2>
+            {% if prod %}
+            <div class="form-group col-md-4 mx-auto">
+                <select class="form-control" id="exampleFormControlSelect1">
+                    {% for ingredient in prod %}
+                    <a class="list-group-item list-group-item-action">
+                        <option>{{ingredient.name}}</option></a>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% else %}
+                <p id="Error_message">No Data Found</p>
+        {% endif %}-->
+    </center>
+    <br>
+    <center><button type="submit" class="btn btn-success btn-lg">Create recipe</button></center>
+    <br>
+</form>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 {% endblock %}

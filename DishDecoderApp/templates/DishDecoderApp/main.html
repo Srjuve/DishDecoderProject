@@ -1,12 +1,50 @@
-
-{%  extends 'DishDecoderApp/common.html' %}
+{% extends 'DishDecoderApp/common.html' %}
 
 {% block content %}
-
+<script>
+    $(function () {
+        $("#id_recipe_title").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    "url": "https://recipe-puppy.p.rapidapi.com/",
+                    "headers": {
+                        'x-rapidapi-key': "7e8413fbaemsh00bc717f6fc0b2cp1e8db0jsne2d8414b90fc",
+                        'x-rapidapi-host': "recipe-puppy.p.rapidapi.com"
+                    },
+                    "type": "GET",
+                    "data": {
+                        "q": request.term,
+                    },
+                    success: function (data) {
+                        var data = jQuery.parseJSON(data);
+                        response($.map(data.results, function (item) {
+                            return {
+                                label: item.title,
+                                value: item.title,
+                                title: item.title,
+                                href: item.href,
+                                ing: item.ingredients
+                            }
+                        }));
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $("#id_recipe_title").val(ui.item.title);
+                    $("#id_recipe_href").val(ui.item.href);
+                    $("#id_recipe_ing").val(ui.item.ing);
+                }
+            }
+        });
+    });
+</script>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-5 col-centered">
+        <div class="col-md-4 col-centered">
+            <h1>Search in our database</h1>
             <div class="card card-body">
                 <form action="" method="POST">
                     {% csrf_token %}
@@ -17,11 +55,35 @@
                 </form>
             </div>
         </div>
+        <div class="col-md-4 col-centered">
+            <h1>Search external recipe</h1>
+            <div class="card card-body">
+                <form method="post" enctype="multipart/form-data" action="" class="col-centered">
+                    {% csrf_token %}
+                    {% for field in aform %}
+                    {{ field }}
+                    {% endfor %}
+                    <input type="submit" value="Search" />
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 col-centered">
+            <h1>Create recipe</h1>
+            <div class="card card-body">
+                <a class="btn btn-primary col-centered" href={% url 'createrecipe' %}>Create Recipe</a>
+            </div>
+            <div class="card card-body">
+                <a class="btn btn-primary col-centered" href={% url 'listeditrecipe' %}>Edit Recipe</a>
+            </div>
+            <div class="card card-body">
+                <a class="btn btn-primary col-centered" href={% url 'listeraserecipe' %}>Erase Recipe</a>
+            </div>
+        </div>
+
     </div>
 
-    <div class="row">
-        <a class="btn btn-primary col-centered" href={% url 'createrecipe' %}>Create Recipe</a>
-    </div>
+
+
 
 </div>
 
