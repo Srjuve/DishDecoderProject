@@ -387,7 +387,6 @@ class recipe_profile_url(View):
             messages.warning(req, 'Invalid rating data')
             return redirect('/recipe/'+str(recipeid))
         except:
-            newReview.delete()
             messages.warning(req, 'Only one review per user and recipe')
             return redirect('/recipe/'+str(recipeid))
 
