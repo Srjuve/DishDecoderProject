@@ -8,7 +8,7 @@
 <hr>
 
 
-<div class="container">
+<div id="ingredient-container" class="container">
     <h2 class="text-center">Ingredients</h2>
     {% if rec_prod %}
     <div class="list-group col-md-4 mx-auto">
@@ -25,7 +25,7 @@
 <hr>
 
 
-<div class="container">
+<div id="step-container" class="container">
     <h2 class="text-center">Steps</h2>
     {% if steps %}
     <ul class="list-group list-group-flush">
@@ -41,7 +41,7 @@
 {% endif %}
 <hr>
 
-<div class="container">
+<div id="nutrient-container" class="container">
     <h2 class="text-center">Nutrients</h2>
     {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
@@ -57,7 +57,7 @@
 <hr>
 
 
-<div class="container">
+<div id="review-container" class="container">
     <h2 class="text-center">User reviews</h2>
         {% if rating_data %}
         {% for user_rating in rating_data %}
@@ -71,10 +71,10 @@
         </div>
         <hr>
         {% endfor %}
-</div>
 {% else %}
         <p id="Error_message">No reviews found</p>
 {% endif %}
+</div>
 
 {% if messages %}
 <ul class="messages">

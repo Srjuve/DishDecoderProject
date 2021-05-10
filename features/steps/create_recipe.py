@@ -5,9 +5,9 @@ from utils import toggle_down_navbar
 use_step_matcher("parse")
 
 @given(u'Exists the ingredient "{ingredient_name}"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Given Exists the ingredient "meat"')
-
+def step_impl(context, ingredient_name):
+    from DishDecoderApp.models import BasicProducts
+    BasicProducts.objects.create(name=ingredient_name, desc=ingredient_name+", LoremIpsum")
 
 @then(u'pepito')
 def step_impl(context):
@@ -36,43 +36,45 @@ def step_impl(context, ingredient_name, ingredient_quantity):
     add_ing.click()
     inputs = context.browser.find_by_tag('input')[3:-4]
     options = context.browser.find_by_tag('option')
+    selects = context.browser.find_by_tag('select')
+    print(list(context.browser.find_by_tag('input')), list(context.browser.find_by_tag('option')))
     for e in inputs:
-        print("->", e['id'])
+        print("-->", e['id'], "<--")
     for e in options:
-        print("oo>", e['id'])
-    print(len(inputs))
-    ing_name = options[-1]
+        print("oo>", e['selected'], e['text'], "<oo")
+    for e in selects:
+        print("oo>", e['id'], "<oo")
+    ing_val = ""
+    for option in selects[-1].find_by_tag('option'):
+        if ingredient_name == option['text']:
+            ing_val = option['value']
+    #ing_name = selects[-1]
     ing_quant = inputs[-1]
-    ing_name.select(ingredient_name)
     ing_quant.fill(ingredient_quantity)
+    selects[-1].select(ing_val)
 
 @when(u'I finish recipe')
 def step_impl(context):
     context.browser.find_by_css('button[type="submit"]').last.click()
 
+@then(u'I can see recipe name "{recipe_name}" with author username "{username}"')
+def step_impl(context, recipe_name, username):
+    assert context.browser.is_text_present(recipe_name)
+    assert context.browser.is_text_present("by "+username)
 
-
-@then(u'I click on profile button')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I click on profile button')
-
-
-@then(u'I click on recipe with name "{recipe_name}"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I click on recipe with name "Paella"')
-
-
-@then(u'I can see recipe name "{recipe_name}"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I can see recipe name "Paella"')
-
-
-@then(u'I can see recipe steps "#Lorem#Ipsum#Dolor#Sit#Amet"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I can see recipe steps "#Lorem#Ipsum#Dolor#Sit#Amet"')
-
+@then(u'I can see recipe steps "{recipe_steps}"')
+def step_impl(context, recipe_steps):
+    steps = recipe_steps.split("#")
+    for step in steps:
+        assert context.browser.is_text_present(step)
 
 @then(u'I can see recipe ingredient "{ingredient_name}" with quantity "{ingredient_quantity}"')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then I can see recipe ingredient "rice" with quantity "250"')
-
+def step_impl(context, ingredient_name, ingredient_quantity):
+    ing_cont = context.browser.find_by_id("ingredient-container")
+    ing_item = ing_cont.find_by_tag("a")
+    for item in ing_item:
+        ing_name = item.text[-1]
+        if ing_name == ingredient_name:
+            ing_quant = ingredient_quantity + " " + ingredient_name
+            assert ing_quant == item.text
+            break

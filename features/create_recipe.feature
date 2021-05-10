@@ -17,12 +17,10 @@ Scenario: Logged user creates recipe
     And I add the ingredient "rice" with quantity "250"
     And I add the ingredient "meat" with quantity "42"
     And I finish recipe
-    Then I click on profile button 
-    And I click on recipe with name "Paella"
-    And I can see recipe name "Paella"
+    Then I can see recipe name "Paella" with author username "username"
     And I can see recipe steps "#Lorem#Ipsum#Dolor#Sit#Amet"
-    And I can see recipe ingredient "rice" with quantity "250"
-    And I can see recipe ingredient "meat" with quantity "42"
+    And I can see recipe ingredient "rice" with quantity "250.000g"
+    And I can see recipe ingredient "meat" with quantity "42.000g"
 
 Scenario: Unlogged user creates recipe
     Then pepito
