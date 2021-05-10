@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
+from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form, Comments_form
 from .forms import *
 from django.forms import formset_factory
 from .forms import Main_page_form, Create_user_form, Change_password_form , Change_email_form, Autocomplete_form
@@ -10,7 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.views import View
+from django.core.exceptions import ValidationError
 from django.views.defaults import *
+from django.db import *
 from urllib.parse import urlencode
 from DishDecoderApp.models import *
 import random
@@ -315,9 +318,12 @@ class list_data_url(View):
 #        return bad_request(req, exception=None)
 
 class recipe_profile_url(View):
-
+    form = Comments_form()
+    template_data={}
+    template_name="DishDecoderApp/recipe.html" 
     def get(self, req, recipeid):
         template_data={}
+        form = Comments_form(req.POST)
         try :
             recipe = Recipes.objects.get(id=recipeid)
             rec_prod = Recipe_Product.objects.filter(id_recipe=recipeid)
@@ -341,6 +347,8 @@ class recipe_profile_url(View):
             template_data['rating_data'] = rating_data
             template_data['average_score'] = average
             template_data['title_page']='Recipe Profile'
+            template_data['Comments_form'] = form
+            template_data['ratings'] = Ratings
             template_name="DishDecoderApp/recipe.html"  
             return render(req, template_name,template_data)
         except Recipes.DoesNotExist:
@@ -360,6 +368,29 @@ class recipe_profile_url(View):
                 else:
                     nut_value[nut_id]['value'] += value
         return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
+
+
+    def post(self, req, recipeid):
+        hasreview=False
+        reviewuser=req.user
+        form = Comments_form(req.POST)
+        desc=req.POST.get('desc')
+        rating=req.POST.get('rating')
+        try:
+            newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
+            newReview.full_clean()
+            self.template_data['Comments_form']=self.form
+            self.template_data['title_page']='Recipe'     
+            return redirect('/recipe/'+str(recipeid))
+        except ValidationError:
+            newReview.delete()
+            messages.warning(req, 'Invalid rating data')
+            return redirect('/recipe/'+str(recipeid))
+        except:
+            messages.warning(req, 'Only one review per user and recipe')
+            return redirect('/recipe/'+str(recipeid))
+
+
 
 # GET: shows the recipe page with the relationated info about it
 #def recipe_profile_url(req, recipeid):
@@ -505,7 +536,8 @@ class create_recipe_url(LoginRequiredMixin,View):
                     Recipes.objects.filter(id=newRecipe.id).delete()
                     return self.returnSharedForm(req)
             except:
-                return redirect("/")  
+                messages.add_message(req, messages.ERROR, 'Incorrect Recipe format')
+                return self.returnSharedForm(req)  
         else:
             return self.returnSharedForm(req)
         return redirect("/recipe/"+str(newRecipe.id))
@@ -517,8 +549,11 @@ class create_recipe_url(LoginRequiredMixin,View):
             if product is not None and quantity is not None and not product=="" and float(quantity)>0:
                 try:
                     Recipe_Product.objects.create(id_recipe=newRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
-                except:
+                except IntegrityError:
                     messages.add_message(req, messages.ERROR, 'Ingredient already set')
+                    return False
+                except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too great(0-999)')
                     return False
             else:
                 messages.add_message(req, messages.ERROR, 'Incorrect Ingredient format')
@@ -556,10 +591,10 @@ class list_recipes_edit_url(LoginRequiredMixin,View):
 
 class edit_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
-    template_data={}
-    template_name="DishDecoderApp/edit_recipe.html"
-    baseurl='/edit/'
-    title_page="Your Recipes"
+    template_data = {}
+    template_name = "DishDecoderApp/edit_recipe.html"
+    baseurl = '/edit/'
+    title_page = "Your Recipes"
     form = Create_recipe_form()
     articleFormSet = formset_factory(Add_products_form)
 
@@ -576,11 +611,11 @@ class edit_recipe_url(LoginRequiredMixin,View):
     def post(self, req, recipeid):
         recipe = Recipes.objects.get(id=recipeid)
         if req.POST.get('name') is not None:
-            recipe.name = req.POST.get('name')
-            recipe.save()
+            if not self.change_simple_field(recipe, req, "name"):
+                return self.get(req,recipeid)
         elif req.POST.get('steps') is not None:
-            recipe.steps = req.POST.get('steps')
-            recipe.save()
+            if not self.change_simple_field(recipe, req, "steps"):
+                return self.get(req,recipeid)
         elif req.POST.get('form-TOTAL_FORMS') is not None:
             if int(req.POST.get('form-TOTAL_FORMS')) > 0:
                 if( not self.putIngredientsIntoRecipe(req, recipe, int(req.POST.get('form-TOTAL_FORMS')))):
@@ -590,6 +625,22 @@ class edit_recipe_url(LoginRequiredMixin,View):
                 return self.get(req,recipeid)
         return redirect('/recipe/'+str(recipeid))
 
+    def change_simple_field(self,recipe,req,field):
+        try:
+            if field == "name":
+                recipe.name = req.POST.get('name')
+            else:
+                recipe.steps = req.POST.get('steps')
+            recipe.full_clean()
+            recipe.save()
+        except:
+            if field == "name":
+                messages.add_message(req, messages.ERROR, 'Incorrect name')
+            else:
+                messages.add_message(req, messages.ERROR, 'Incorrect steps')
+            return False
+        return True
+                
     def putIngredientsIntoRecipe(self, req, editedRecipe, numberOfForms):
         if self.checkValidIngredients(req,numberOfForms):
             Recipe_Product.objects.filter(id_recipe=editedRecipe).delete()
@@ -598,8 +649,11 @@ class edit_recipe_url(LoginRequiredMixin,View):
                 quantity = req.POST.get('form-'+str(i)+'-quantity')
                 try:
                     Recipe_Product.objects.create(id_recipe=editedRecipe,id_product=BasicProducts.objects.filter(id=product).first(),quantity=quantity)
-                except:
+                except IntegrityError:
                     messages.add_message(req, messages.ERROR, 'Ingredient already set')
+                    return False
+                except:
+                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too great(0-999)')
                     return False
             return True
         return False
