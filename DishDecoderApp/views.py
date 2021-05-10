@@ -192,7 +192,9 @@ class user_profile_url(LoginRequiredMixin, View):
     def get(self, req):
         if Ratings.objects.filter(id_autor=req.user.id).exists():
             rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
+            created_data=Recipes.objects.filter(author=req.user.id).all()
             self.template_data['scored_recipes']=rating_data
+            self.template_data['created_recipes']=created_data
         self.template_data['title_page']='User profile'
         return render(req, self.template_name, self.template_data)
 
@@ -336,16 +338,17 @@ class recipe_profile_url(View):
 
             rating_data = Ratings.objects.filter(id_recipe=recipeid).all()
             try:
-                average = sum([recipe_rating.rating for recipe_rating in rating_data]) / rating_data.count()
+                template_data['average_score'] = sum([recipe_rating.rating for recipe_rating in rating_data]) / rating_data.count()
             except ZeroDivisionError as e:
-                average = "Not rated"
+                pass
+            #    average = "Not rated"
 
             template_data['steps'] = steps
             template_data['recipe'] = recipe
             template_data['rec_prod'] = rec_prod
             template_data['nut_value'] = res
             template_data['rating_data'] = rating_data
-            template_data['average_score'] = average
+            #template_data['average_score'] = average
             template_data['title_page']='Recipe Profile'
             template_data['Comments_form'] = form
             template_data['ratings'] = Ratings
