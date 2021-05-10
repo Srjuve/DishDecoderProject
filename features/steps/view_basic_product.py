@@ -19,6 +19,8 @@ def step_impl(context,id):
 
 @then(u'I\'m viewing the details page for the basic product id "{id}" and appears the recipe with id "{idr}"')
 def step_impl(context,id,idr):
+    desciption1 = context.browser.find_by_id('description').text
+    assert desciption1 == BasicProducts.objects.get(id=id).desc
     ingredientname = context.browser.find_by_id('basic_product_name').text
     assert ingredientname == BasicProducts.objects.get(id=id).name
     recipename = context.browser.find_by_id('recipes').find_by_tag('a').text
@@ -36,6 +38,8 @@ def step_impl(context,id):
 
 @then(u'I\'m viewing the details page for the basic product with id "{2}" without recipe')
 def step_impl(context,id):
+    desciption1 = context.browser.find_by_id('description').text
+    assert desciption1 == BasicProducts.objects.get(id=id).desc
     ingredientname = context.browser.find_by_id('basic_product_name').text
     assert ingredientname == BasicProducts.objects.get(id=id).name
     assert context.browser.is_text_present('No Data Found')
