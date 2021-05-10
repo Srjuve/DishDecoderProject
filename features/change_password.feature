@@ -4,10 +4,9 @@ Feature: Change Password
     I want to have an option to do it.
 
 Scenario: Changing the password with a logged user
-    Given Exists a User "LoggedThahWillChange" and I'm logged with it
-    When I go to my profile and change my password {prova123}
-    Then I'll be able to log out
-    And I'll be able to logging with the new password {prova123}
+    Given Exists a User "RegisteredUser" and I'm logged with it
+    When I go to my profile and change my password "prova123"
+    Then I'll be able to logging with the username "RegisteredUser" and the new password "prova123"
 
 Scenario: Changing the password with a non-logged user
     Given I, as a non-logged user, will try to change a password in the system
