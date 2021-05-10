@@ -12,3 +12,7 @@ Scenario: User try to register having an existing account
     Given An account
     When I register with username "patata" with mail "patata@patata.com" and password "Exemple123"
     Then I see an error
+
+Scenario: User tries to register introducing a username similar to the password
+    When I register with username "Exemple" with mail "test@gmail.com" password "Exemple123"
+    Then An error appears
