@@ -1,6 +1,7 @@
 {% extends 'DishDecoderApp/common.html' %}
 
 {% block content %}
+{% load humanize %}
 
 <hr>
 <h1 class="display-6 text-center">User Profile</h1>
@@ -34,7 +35,7 @@
                 <h5 class="card-title">{{scored_recipe.id_recipe.name}} by {{scored_recipe.id_recipe.author.username}}</h5>
                 <p class="card-text">{{scored_recipe.desc}}</p>
                 <a href={% url 'recipe' scored_recipe.id_recipe.id %} class="btn btn-primary">Go to the recipe</a>
-                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating}} out of 10</button>
+                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating | floatformat:2 |intcomma }} out of 10</button>
             </div>
         </div>
         <hr>

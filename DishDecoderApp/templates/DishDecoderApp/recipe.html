@@ -1,10 +1,14 @@
 {% extends 'DishDecoderApp/common.html' %}
 {% block content %}
-
+{% load humanize %}
 <hr>
 <h1 class="display-6 text-center">{{recipe.name}}</h1>
 <h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
-<h1 class="display-6 text-center">Rating: {{average_score}}</h1>
+{% if average_score %}
+<h1 class="display-6 text-center">Rating: {{average_score | floatformat:2 |intcomma}}</h1>
+{% else %}
+<h1 class="display-6 text-center">Rating: Not rated</h1>
+{% endif %}
 <hr>
 
 
@@ -14,7 +18,7 @@
     <div class="list-group col-md-4 mx-auto">
         {% for ingredient in rec_prod %}
         <a class="list-group-item list-group-item-action"
-            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity}}{{ingredient.id_product.unit}}
+            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity | floatformat:2 |intcomma}}{{ingredient.id_product.unit}}
             {{ingredient.id_product.name}}</a>
         {% endfor %}
     </div>
@@ -46,7 +50,7 @@
     {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
         {% for value, nutrient in nut_value %}
-        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
+        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value | floatformat:2 |intcomma }}g
             {{nutrient.name}}</a>
         {% endfor %}
     </div>
