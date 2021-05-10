@@ -192,7 +192,9 @@ class user_profile_url(LoginRequiredMixin, View):
     def get(self, req):
         if Ratings.objects.filter(id_autor=req.user.id).exists():
             rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
+            created_data=Recipes.objects.filter(author=req.user.id).all()
             self.template_data['scored_recipes']=rating_data
+            self.template_data['created_recipes']=created_data
         self.template_data['title_page']='User profile'
         return render(req, self.template_name, self.template_data)
 
