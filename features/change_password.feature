@@ -9,11 +9,11 @@ Scenario: Changing the password with a logged user
     Then I'll be able to logging with the username "RegisteredUser" and the new password "prova123"
 
 Scenario: Changing the password with a non-logged user
-    Given I, as a non-logged user, will try to change a password in the system
-    When I'll try to enter to the site with that functionality
-    Then I'll recieve an error, not allowing me to do it
+    Given Exists a User "RegisteredUser" but I'm not logged
+    When I'll try to enter to the site in which I should be able to change my password
+    Then I'll be redirected, requiring me to log in
 
 Scenario: Trying to change the password but giving a wrong one
-    Given I, as "FailureUser", am logged in the system
+    Given Exists a User "FailureUser" with which I'm logged in
     When I'm going to change my password and fail
-    Then I'll recieve an error, it will tell me that I failed in something
+    Then The system will tell me that I entered invalid data
