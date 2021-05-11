@@ -19,7 +19,7 @@ def step_impl(context,id):
     from DishDecoderApp.models import Recipes
     context.browser.visit(context.get_url("/recipe/"+id))
 
-@then(u'I\'m viewing the details page for the recipe id "{id}"')
+@then(u'I\'m viewing the details page for the recipe id "{id}" without the comments')
 def step_impl(context, id):
     check_first_scenario_values(context,id)
     check_ingredients(context,id)
@@ -69,6 +69,7 @@ def check_nutrients(context, id):
     i=0
     for nutrient in nutrientsdata:
         actualValue = str(product_nutrients_data[i][0])+"g "+product_nutrients_data[i][1].name
+        print(actualValue)
         assert nutrient.text == actualValue
         i+=1
 
