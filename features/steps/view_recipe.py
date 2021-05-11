@@ -49,7 +49,7 @@ def check_ingredients(context,id):
     recipeingredients = context.browser.find_by_id('recipe_ingredients').find_by_tag('a')
     realingredients = Recipe_Product.objects.filter(id_recipe=id).first()
     for ingredient in recipeingredients:
-        assert ingredient.text == str(realingredients.quantity)+str(realingredients.id_product.unit)+" "+str(realingredients.id_product.name)
+        assert ingredient.text == str(round(realingredients.quantity,2))+str(realingredients.id_product.unit)+" "+str(realingredients.id_product.name)
 
 
 
@@ -68,7 +68,7 @@ def check_nutrients(context, id):
     nutrientsdata = context.browser.find_by_id('recipe_nutrients').find_by_tag('a')
     i=0
     for nutrient in nutrientsdata:
-        actualValue = str(product_nutrients_data[i][0])+"g "+product_nutrients_data[i][1].name
+        actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
         print(actualValue)
         assert nutrient.text == actualValue
         i+=1

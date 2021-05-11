@@ -2,19 +2,14 @@
 {% block content %}
 {% load humanize %}
 <hr>
-<<<<<<< HEAD
+
 <h1 class="display-6 text-center" id="recipe_name">{{recipe.name}}</h1>
 <h1 class="text-center text-muted" id="recipe_author"><small>by {{recipe.author}}</small></h1>
-<h1 class="display-6 text-center" id="recipe_rating">Rating: {{average_score}}</h1>
-=======
-<h1 class="display-6 text-center">{{recipe.name}}</h1>
-<h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
 {% if average_score %}
-<h1 class="display-6 text-center">Rating: {{average_score | floatformat:2 |intcomma}}</h1>
+<h1 class="display-6 text-center" id="recipe_rating">Rating: {{average_score | floatformat:2 |intcomma}}</h1>
 {% else %}
-<h1 class="display-6 text-center">Rating: Not rated</h1>
+<h1 class="display-6 text-center" id="recipe_rating">Rating: Not rated</h1>
 {% endif %}
->>>>>>> deliverable2_BDOriginalFunctions
 <hr>
 
 
@@ -67,13 +62,9 @@
 <hr>
 
 
-<<<<<<< HEAD
-<div class="container" id="recipe_rating">
-    <h2 class="text-center">User comments</h2>
-=======
+
 <div class="container">
     <h2 class="text-center">User reviews</h2>
->>>>>>> deliverable2_BDOriginalFunctions
         {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
