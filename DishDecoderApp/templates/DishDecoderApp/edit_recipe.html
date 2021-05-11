@@ -8,12 +8,12 @@
 <hr>
 <h1 class="display-6 text-center">Edit your Recipe</h1>
 <hr>
-<div class="container">
+<div class="container" id="nameEditForm">
 <form action="" method="POST">
     {% csrf_token %}
     <div class="form-group col-md-5">
         <h3> Name: {{ recipe_data.name }}</h3>
-        {{ recipe_form.name }} <button type="submit">Change Name</button> 
+        {{ recipe_form.name }} <button type="submit" id="name_change_btn">Change Name</button> 
     </div>
 </form>
 {% if messages %}
@@ -26,12 +26,12 @@
 </ul>
 {% endif %}
 </div>
-<div class="container">
+<div class="container" id="stepEditForm">
     <form action="" method="POST">
         {% csrf_token %}
         <div class="form-group col-md-5">
             <h3> Steps: {{ recipe_data.steps }}</h3>
-            {{ recipe_form.steps }} <button type="submit">Change Steps</button> 
+            {{ recipe_form.steps }} <button type="submit" id="steps_change_btn">Change Steps</button> 
         </div>
     </form>
     {% if messages %}
@@ -44,7 +44,7 @@
 </ul>
 {% endif %}
 </div>
-<div class="container">
+<div class="container" id="ingredientsEditForm">
     <form action="" method="POST">
         {% csrf_token %}
         <div class="col-md-5">
@@ -58,7 +58,7 @@
         {{ ingredients_forms.management_form}}
         <a href="javascript:void(0)" id="add_form">Add Another Form</a>
         <a href="javascript:void(0)" id="erase_form">Erase Another Form</a>
-        <button type="submit">Change ingredients</button>
+        <button type="submit" id="ing_change_btn">Change ingredients</button>
     </form>
 </div>
 

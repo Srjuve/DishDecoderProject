@@ -69,7 +69,6 @@ def check_nutrients(context, id):
     i=0
     for nutrient in nutrientsdata:
         actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
-        print(actualValue)
         assert nutrient.text == actualValue
         i+=1
 
