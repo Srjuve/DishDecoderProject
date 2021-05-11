@@ -16,6 +16,15 @@
         {{ recipe_form.name }} <button type="submit">Change Name</button> 
     </div>
 </form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        {% if message.message == 'Incorrect name' %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
 </div>
 <div class="container">
     <form action="" method="POST">
@@ -25,6 +34,15 @@
             {{ recipe_form.steps }} <button type="submit">Change Steps</button> 
         </div>
     </form>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        {% if message.message == 'Incorrect steps' %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
 </div>
 <div class="container">
     <form action="" method="POST">
@@ -70,7 +88,9 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% if message.message != 'Incorrect name' and message.message != 'Incorrect email' %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endif %}
     {% endfor %}
 </ul>
 {% endif %}

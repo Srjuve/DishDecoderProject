@@ -1,12 +1,29 @@
 {% extends 'DishDecoderApp/common.html' %}
 
 {% block content %}
+{% load humanize %}
 
 <hr>
 <h1 class="display-6 text-center">User Profile</h1>
 <h1 class="text-center text-muted"><small>{{user.username}}</small></h1>
 <hr>
 
+<div class="container">
+    <h2 class="text-center">Created Recipes</h2>
+    {% if created_recipes %}
+        {% for created_recipe in created_recipes %}
+        <hr>
+        <div class="card w-75 mx-auto">
+            <div class="card-body">
+                <h5 class="card-title">{{created_recipe.name}}</h5>
+                <a href={% url 'recipe' created_recipe.id %} class="btn btn-primary">Go to the recipe</a>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    {% else %}
+        <p id="Error_message">No Data Found</p>
+    {% endif %}
 
     <div class="container">
     <h2 class="text-center">Last scored recipes</h2>
@@ -15,10 +32,10 @@
         <hr>
         <div class="card w-75 mx-auto">
             <div class="card-body">
-                <h5 class="card-title">{{scored_recipe.id_recipe.name}} by {{scored_recipe.id_autor.username}}</h5>
+                <h5 class="card-title">{{scored_recipe.id_recipe.name}} by {{scored_recipe.id_recipe.author.username}}</h5>
                 <p class="card-text">{{scored_recipe.desc}}</p>
                 <a href={% url 'recipe' scored_recipe.id_recipe.id %} class="btn btn-primary">Go to the recipe</a>
-                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating}} out of 10</button>
+                <button type="button" class="btn btn-primary btn-sm" disabled> {{scored_recipe.rating | floatformat:2 |intcomma }} out of 10</button>
             </div>
         </div>
         <hr>

@@ -1,10 +1,20 @@
 {% extends 'DishDecoderApp/common.html' %}
 {% block content %}
-
+{% load humanize %}
 <hr>
+<<<<<<< HEAD
 <h1 class="display-6 text-center" id="recipe_name">{{recipe.name}}</h1>
 <h1 class="text-center text-muted" id="recipe_author"><small>by {{recipe.author}}</small></h1>
 <h1 class="display-6 text-center" id="recipe_rating">Rating: {{average_score}}</h1>
+=======
+<h1 class="display-6 text-center">{{recipe.name}}</h1>
+<h1 class="text-center text-muted"><small>by {{recipe.author}}</small></h1>
+{% if average_score %}
+<h1 class="display-6 text-center">Rating: {{average_score | floatformat:2 |intcomma}}</h1>
+{% else %}
+<h1 class="display-6 text-center">Rating: Not rated</h1>
+{% endif %}
+>>>>>>> deliverable2_BDOriginalFunctions
 <hr>
 
 
@@ -14,7 +24,7 @@
     <div class="list-group col-md-4 mx-auto" id="recipe_ingredients">
         {% for ingredient in rec_prod %}
         <a class="list-group-item list-group-item-action"
-            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity}}{{ingredient.id_product.unit}}
+            href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity | floatformat:2 |intcomma}}{{ingredient.id_product.unit}}
             {{ingredient.id_product.name}}</a>
         {% endfor %}
     </div>
@@ -46,7 +56,7 @@
     {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
         {% for value, nutrient in nut_value %}
-        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value}}g
+        <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value | floatformat:2 |intcomma }}g
             {{nutrient.name}}</a>
         {% endfor %}
     </div>
@@ -57,8 +67,13 @@
 <hr>
 
 
+<<<<<<< HEAD
 <div class="container" id="recipe_rating">
     <h2 class="text-center">User comments</h2>
+=======
+<div class="container">
+    <h2 class="text-center">User reviews</h2>
+>>>>>>> deliverable2_BDOriginalFunctions
         {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
@@ -73,11 +88,46 @@
         {% endfor %}
 </div>
 {% else %}
-        <p id="Error_message">No Data Found</p>
+        <p id="Error_message">No reviews found</p>
+{% endif %}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
 {% endif %}
 
 {% if user != recipe.author %}
-<div class="container col-md-6">
+<br>
+<div class="card">
+    <div class="card-body">
+        <h3 class="text-center">Review</h3>
+        <form action '' method="POST" >
+            {% csrf_token %}
+            <div style="margin-top: 100px; border-radius: 25px; padding: 20px;">
+                <div class="text-center">
+                    <p><b>Comment</b></p>
+                    {{Comments_form.desc.label}}
+                    {{Comments_form.desc}}
+                </div>
+                <div class="text-center">
+                <p><b>Rating</b></p>
+                    {{Comments_form.rating.label}}
+                    {{Comments_form.rating}}
+                </div>
+                <input style="margin-top: 10px" type="submit" name="Coment">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<!--<div class="container col-md-6">
     <h2 class="text-center">Rate this recipe</h2>
     <form action="" method="post">
         {% csrf_token %}
@@ -105,7 +155,8 @@
         <br>
         <center><button type="submit" class="btn btn-success btn-lg">Submit rating</button></center>
     </form>
-</div>
+</div>-->
+
 {% endif %}
 
 <hr>
