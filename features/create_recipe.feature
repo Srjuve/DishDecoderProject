@@ -20,8 +20,8 @@ Scenario: Logged user creates recipe
     And I finish recipe
     Then I can see recipe name "Paella" with author username "username"
     And I can see recipe steps "#Lorem#Ipsum#Dolor#Sit#Amet"
-    And I can see recipe ingredient "rice" with quantity "250.000g"
-    And I can see recipe ingredient "meat" with quantity "42.000g"
+    And I can see recipe ingredient "rice" with quantity "250.00g"
+    And I can see recipe ingredient "meat" with quantity "42.00g"
 
 Scenario: Unlogged user creates recipe
     When I click on create recipe button
