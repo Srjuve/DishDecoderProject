@@ -7,6 +7,7 @@ Background:
     Given Exists a user "username" with password "password"
     And Exists the ingredient "rice"
     And Exists the ingredient "meat"
+    And I am on main page
 
 Scenario: Logged user creates recipe
     Given I click on the login button
@@ -23,8 +24,12 @@ Scenario: Logged user creates recipe
     And I can see recipe ingredient "meat" with quantity "42.000g"
 
 Scenario: Unlogged user creates recipe
-    Then pepito
+    When I click on create recipe button
+    Then I stay at "/login/?next=/createrecipe/"
 
 Scenario: Logged user creates invalid recipe
     Given I click on the login button
     And I login as user "username" with password "password"
+    When I click on create recipe button
+    And I finish recipe
+    Then I stay at "/createrecipe/"
