@@ -11,7 +11,7 @@ def step_impl(context,user):
     context.browser.fill('username', user)
     context.browser.fill('password', 'Exemple123')
     #Podria buscar el nom enlloc d'afegir una id
-    form.find_by_id('Iniciar Sessió').first.click()
+    form.find_by_id('submit-login').first.click()
     
 @when(u'I go to my profile and change my password "{password}"')
 def step_impl(context,password):
@@ -22,7 +22,7 @@ def step_impl(context,password):
     context.browser.fill('old_password', 'Exemple123')
     context.browser.fill('new_password1', password)
     context.browser.fill('new_password2', password)
-    context.browser.find_by_id('Submit Changes').first.click()
+    context.browser.find_by_id('submit-password').first.click()
 
 
 
@@ -33,7 +33,7 @@ def step_impl(context,user,password):
     form = context.browser.find_by_tag('form').first
     context.browser.fill('username', user)
     context.browser.fill('password', password)
-    form.find_by_id('Iniciar Sessió').first.click()
+    form.find_by_id('submit-login').first.click()
     context.browser.visit(context.get_url("/profile/"))
     assert context.browser.is_text_present('User Profile')
 
@@ -63,7 +63,7 @@ def step_impl(context,user):
     form = context.browser.find_by_tag('form').first
     context.browser.fill('username', user)
     context.browser.fill('password', 'Exemple123')
-    form.find_by_id('Iniciar Sessió').first.click()
+    form.find_by_id('submit-login').first.click()
 
 
 @when(u'I\'m going to change my password and fail')
@@ -74,7 +74,7 @@ def step_impl(context):
     context.browser.fill('old_password', 'contrasenyaEquivocada')
     context.browser.fill('new_password1', '123')
     context.browser.fill('new_password2', '123')
-    context.browser.find_by_id('Submit Changes').first.click()
+    context.browser.find_by_id('submit-password').first.click()
 
 
 @then(u'The system will tell me that I entered invalid data')
