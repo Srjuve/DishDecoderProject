@@ -14,14 +14,21 @@ def step_impl(context, recipe_title, author_name):
 
 @when(u'I click on erase recipe button')
 def step_impl(context):
-    raise NotImplementedError(u'STEP: I click on erase recipe button')    
+    erase_btn = context.browser.find_by_id('erase-btn')
+    erase_btn.click()
+
+@when(u'I select "{recipe_title}" for deleting purposes')
+def step_impl(context, recipe_title):
+    from DishDecoderApp.models import Recipes
+    recipe = Recipes.objects.filter(name=recipe_title).first()
+    recipe_id = recipe.id
+    form = context.browser.find_by_tag('form')
+    ul = form.find_by_tag('ul')
+    ul.find_by_css('input[value="' + str(recipe_id) + '"]').last.click()
+    form.find_by_css('button[type="submit"]').last.click()
 
 
-@when(u'I select "soup" for deleting purposes')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: When I select "soup" for deleting purposes')
-
-
-@then(u'Recipe "soup" cannot be found in profile')
-def step_impl(context):
-    raise NotImplementedError(u'STEP: Then Recipe "soup" cannot be found in profile')
+@then(u'Recipe "{recipe_title}" cannot be found in profile')
+def step_impl(context, recipe_title):
+    context.browser.visit(context.get_url("/profile/"))
+    assert not context.browser.is_text_present(recipe_title)
