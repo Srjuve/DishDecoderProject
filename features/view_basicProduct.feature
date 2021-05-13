@@ -15,4 +15,4 @@ Scenario: View Basic Product without recipe
 
 Scenario: Trying to view a non existent Basic Product
     When I try to search the basic product with id "3" which doesn't exist
-    Then I'm expecting to revice an error
+    Then I'm expecting to recive error "Error 404" with message "The page you are trying to reach does not exist"

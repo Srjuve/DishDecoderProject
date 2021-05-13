@@ -49,8 +49,3 @@ def step_impl(context,id):
 def step_impl(context,id):
     from DishDecoderApp.models import BasicProducts
     context.browser.visit(context.get_url("/basicproduct/"+id))
-
-@then(u'I\'m expecting to revice an error')
-def step_impl(context):
-    assert context.browser.is_text_present('Error 404')
-    assert context.browser.is_text_present('The page you are trying to reach does not exist')
