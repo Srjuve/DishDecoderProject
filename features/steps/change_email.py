@@ -41,8 +41,3 @@ def step_impl(context, same_email):
     context.browser.fill('new_email1', same_email)
     context.browser.fill('new_email2', same_email)
     form.find_by_css('button[type="submit"]').first.click()
-
-
-@then(u'It appears error message "{err_msg}"')
-def step_impl(context, err_msg):
-    assert context.browser.is_text_present(err_msg)

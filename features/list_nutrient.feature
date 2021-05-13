@@ -10,4 +10,4 @@ Scenario: User search nutrients
 
 Scenario: User search for an inexistent recipe
     When I search for a nutrient that not exist
-    Then I'm seeing an error
+    Then It appears error message "No Data Found"

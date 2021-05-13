@@ -10,4 +10,4 @@ Scenario: User search BasicProducts
 
 Scenario: User search for a non existent BasicProduct
     When I search for a basic product that not exist
-    Then An error appears
+    Then It appears error message "No Data Found"

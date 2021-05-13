@@ -32,7 +32,3 @@ def step_impl(context):
     form.find_by_id('id_request_objective_1').first.click()
     context.browser.fill('item_name', "ingredient")
     form.find_by_css('input[name="submit"]').first.click()
-
-@then(u'An error appears')
-def step_impl(context):
-    assert context.browser.is_text_present('No Data Found')

@@ -1,0 +1,57 @@
+from behave import *
+from DishDecoderApp.models import *
+from DishDecoderApp.views import *
+from django.contrib.auth.models import User
+from utils import toggle_down_navbar
+use_step_matcher("parse")
+
+@when(u'I register as username "{username}" with mail "{mail}" and password "{pasw}"')
+def step_impl(context,username,mail,pasw):
+    toggle_down_navbar(context)
+    context.browser.visit(context.get_url("/register/"))
+    form = context.browser.find_by_tag('form')
+    context.browser.fill('username', username)
+    context.browser.fill('email',mail)
+    context.browser.fill('password1',pasw)
+    context.browser.fill('password2',pasw)
+    form.find_by_css('input[name="Create User"]').first.click()
+
+@then(u'I see the login page, i log in with my username "{username}" and password "{pasw}"')
+def step_impl(context,username,pasw):
+    form = context.browser.find_by_tag('form')
+    context.browser.fill('username', username)
+    context.browser.fill('password',pasw)
+    form.find_by_css('input[name="Log in"]').first.click()
+    toggle_down_navbar(context)
+
+@given(u'An account')
+def step_impl(context):
+    User.objects.create_user(username="patata",email="patata@patata.com",password="Exemple123")
+
+@when(u'I register with username "{username}" with mail "{mail}" and password "{pasw}"')
+def step_impl(context,username,mail,pasw):
+    toggle_down_navbar(context)
+    context.browser.visit(context.get_url("/register/"))
+    form = context.browser.find_by_tag('form')
+    context.browser.fill('username', username)
+    context.browser.fill('email',mail)
+    context.browser.fill('password1',pasw)
+    context.browser.fill('password2',pasw)
+    form.find_by_css('input[name="Create User"]').first.click()
+
+@then(u'I see the error "{err_msg}"')
+def step_impl(context, err_msg):
+    toggle_down_navbar(context)
+    assert context.browser.is_text_present(err_msg)
+
+@when(u'I register with username "{username}" with mail "{mail}" password "{pasw}"')
+def step_impl(context,username,mail,pasw):
+    toggle_down_navbar(context)
+    context.browser.visit(context.get_url("/register/"))
+    form = context.browser.find_by_tag('form')
+    context.browser.fill('username', username)
+    context.browser.fill('email',mail)
+    context.browser.fill('password1',pasw)
+    context.browser.fill('password2',pasw)
+    form.find_by_css('input[name="Create User"]').first.click()
+

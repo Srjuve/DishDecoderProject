@@ -10,4 +10,4 @@ Scenario: User search recipes
 
 Scenario: User search for an inexistent recipe
     When I search for a recipe that not exist
-    Then I see an error
+    Then It appears error message "No Data Found"
