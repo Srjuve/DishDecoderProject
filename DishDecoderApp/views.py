@@ -21,15 +21,15 @@ import random
 
 # GET: Show the principal page, and redirects the search depending on what the user selects
 class main_url(View):
-    template_data = {}
     template_name = "DishDecoderApp/main.html"
     form = Main_page_form()
     aform = Autocomplete_form
     def get(self,req):
-        self.template_data['form']=self.form
-        self.template_data['aform'] = self.aform
-        self.template_data['title_page']='Dish Decoder'
-        return render(req, self.template_name,self.template_data)
+        template_data = {}
+        template_data['form']=self.form
+        template_data['aform'] = self.aform
+        template_data['title_page']='Dish Decoder'
+        return render(req, self.template_name,template_data)
 
     def post(self,req):
         external_recipe_title = req.POST.get('recipe_title')
@@ -79,18 +79,19 @@ class main_url(View):
 #POST : proves that the data introduced is correct, creates the user and redirects the user to log in page
 
 class register_page_url(View):
-    template_data = {}
     template_name = "DishDecoderApp/register.html"
     form = Create_user_form()
     def get(self, req):
+        template_data = {}
         if not req.user.is_authenticated:
-            self.template_data['reg_form']=self.form
-            self.template_data['title_page']='Register'
-            return render(req, self.template_name,self.template_data)
+            template_data['reg_form']=self.form
+            template_data['title_page']='Register'
+            return render(req, self.template_name, template_data)
         return redirect('/')
 
     def post(self, req):
         if not req.user.is_authenticated:
+            template_data = {}
             if req.method == 'POST':
                 form = Create_user_form(req.POST)
                 if form.is_valid():
@@ -98,9 +99,9 @@ class register_page_url(View):
                     return redirect('/login/')
                 else:
                     messages.add_message(req, messages.ERROR, 'Error al registrar-se')
-                    self.template_data['reg_form'] = self.form
-                    self.template_data['title_page'] = 'Register'
-                    return render(req, self.template_name,self.template_data)
+                    template_data['reg_form'] = self.form
+                    template_data['title_page'] = 'Register'
+                    return render(req, self.template_name,template_data)
         return redirect('/')
 
 #def register_page_url(req):
@@ -122,18 +123,19 @@ class register_page_url(View):
 # GET: Shows the log in forms
 # POST: Proves that the data introduced is from an user, autenticates the user and redirects him to the main page logged.
 class login_page_url(View):
-    template_data={}
     template_name="DishDecoderApp/login.html"
     form = AuthenticationForm()
     def get(self, req):
         if not req.user.is_authenticated:
-            self.template_data['auth_form']=self.form
-            self.template_data['title_page']='Log in'
-            return render(req, self.template_name,self.template_data)
+            template_data = {}
+            template_data['auth_form']=self.form
+            template_data['title_page']='Log in'
+            return render(req, self.template_name,template_data)
         return redirect('/')
     
     def post(self, req):
         if not req.user.is_authenticated:
+            template_data = {}
             username = req.POST.get('username')
             password = req.POST.get('password')
             user = authenticate(req,username=username,password=password)
@@ -145,9 +147,9 @@ class login_page_url(View):
                 return redirect('/')
             else:
                 messages.warning(req,'Login credentials invalid')
-                self.template_data['auth_form']=self.form
-                self.template_data['title_page']='Log in'
-                return render(req, self.template_name,self.template_data)
+                template_data['auth_form']=self.form
+                template_data['title_page']='Log in'
+                return render(req, self.template_name,template_data)
         return redirect('/')
 
 
@@ -187,16 +189,17 @@ class logout_url(View):
 # GET: the user profile where the user can go to change the password or the email
 class user_profile_url(LoginRequiredMixin, View):
     login_url = '/login/'
-    template_data = {}
     template_name = "DishDecoderApp/user_profile.html"
     def get(self, req):
+        template_data = {}
+        if Recipes.objects.filter(author=req.user.id).exists():
+            created_data=Recipes.objects.filter(author=req.user.id).all()
+            template_data['created_recipes']=created_data
         if Ratings.objects.filter(id_autor=req.user.id).exists():
             rating_data=Ratings.objects.filter(id_autor=req.user.id).all()
-            created_data=Recipes.objects.filter(author=req.user.id).all()
-            self.template_data['scored_recipes']=rating_data
-            self.template_data['created_recipes']=created_data
-        self.template_data['title_page']='User profile'
-        return render(req, self.template_name, self.template_data)
+            template_data['scored_recipes']=rating_data
+        template_data['title_page']='User profile'
+        return render(req, self.template_name, template_data)
 
 #@login_required(login_url='/login/')
 #def user_profile_url(req):
@@ -211,27 +214,26 @@ class user_profile_url(LoginRequiredMixin, View):
 
 class change_data_url(LoginRequiredMixin, View):
     login_url = '/login/'
-    template_data={}
     template_name=""
     form_function=Change_password_form
     title_page=""
 
     def get(self, req):
-        self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']=self.title_page
-        return render(req, self.template_name, self.template_data)
+        template_data={}
+        template_data['change_data_form']=self.form_function(req.user)
+        template_data['title_page']=self.title_page
+        return render(req, self.template_name, template_data)
 
 
     def post(self, req):
+        template_data={}
         form = self.form_function(req.user,req.POST)
         if form.is_valid():
             form.save()
             return redirect('/profile/')
         else:
             messages.warning(req,'Invalid data entered')
-        self.template_data['change_data_form']=self.form_function(req.user)
-        self.template_data['title_page']=self.title_page
-        return render(req, self.template_name, self.template_data)
+        return self.get(req)
 
 #GET: Show the password change form
 #POST: Fill form with post data, validate it and, if valid, save it into the database
@@ -267,7 +269,6 @@ class change_data_url(LoginRequiredMixin, View):
 #    return render(req, template_name, template_data)
 
 class list_data_url(View):
-    template_data={}
     template_name=""
     baseurl=""
     searchedObject=Recipes
@@ -321,7 +322,6 @@ class list_data_url(View):
 
 class recipe_profile_url(View):
     form = Comments_form()
-    template_data={}
     template_name="DishDecoderApp/recipe.html" 
     def get(self, req, recipeid):
         template_data={}
@@ -382,8 +382,6 @@ class recipe_profile_url(View):
         try:
             newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
             newReview.full_clean()
-            self.template_data['Comments_form']=self.form
-            self.template_data['title_page']='Recipe'     
             return redirect('/recipe/'+str(recipeid))
         except ValidationError:
             newReview.delete()
@@ -516,7 +514,6 @@ class nutrient_profile_url(View):
 class create_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
     template_name ='DishDecoderApp/createrecipe.html'
-    template_data={}
     form = Create_recipe_form()
     articleFormSet = formset_factory(Add_products_form)
     def get(self, req):
@@ -564,10 +561,11 @@ class create_recipe_url(LoginRequiredMixin,View):
         return True
     
     def returnSharedForm(self, req):
-        self.template_data['recipe_basic_form'] = self.form
-        self.template_data['formset'] = self.articleFormSet
-        self.template_data['title_page']='Create_recipe'
-        return render(req,self.template_name,self.template_data)
+        template_data = {}
+        template_data['recipe_basic_form'] = self.form
+        template_data['formset'] = self.articleFormSet
+        template_data['title_page']='Create_recipe'
+        return render(req,self.template_name,template_data)
 
 # Not implemented
 #@login_required(login_url='/login/')
@@ -576,25 +574,24 @@ class create_recipe_url(LoginRequiredMixin,View):
 
 class list_recipes_edit_url(LoginRequiredMixin,View):
     login_url = '/login/'
-    template_data={}
     template_name=""
     baseurl=''
     title_page="Your Recipes"
     def get(self, req):
+        template_data = {}
         self.template_name="DishDecoderApp/listeditrecipes.html"
         self.baseurl='/edit/'
         data_fields = Recipes.objects.filter(author=req.user).all()
         if data_fields.count()==1:
             url=self.baseurl+str(getattr(data_fields.first(),'id'))
             return redirect(url)
-        self.template_data["listedtuples"]=data_fields
-        self.template_data['title_page']=self.title_page
-        return render(req,self.template_name,self.template_data)
+        template_data["listedtuples"]=data_fields
+        template_data['title_page']=self.title_page
+        return render(req,self.template_name,template_data)
 
 
 class edit_recipe_url(LoginRequiredMixin,View):
     login_url = '/login/'
-    template_data = {}
     template_name = "DishDecoderApp/edit_recipe.html"
     baseurl = '/edit/'
     title_page = "Your Recipes"
@@ -602,14 +599,15 @@ class edit_recipe_url(LoginRequiredMixin,View):
     articleFormSet = formset_factory(Add_products_form)
 
     def get(self, req, recipeid):
+        template_data = {}
         recipe_data = Recipes.objects.get(id=recipeid)
         ingredients_data = Recipe_Product.objects.filter(id_recipe=recipeid).all()
-        self.template_data["recipe_data"]=recipe_data
-        self.template_data["ingredients_data"]=ingredients_data
-        self.template_data["recipe_form"]=self.form
-        self.template_data["ingredients_forms"]=self.fill_ingredient_form(recipeid)
-        self.template_data['title_page']=self.title_page
-        return render(req,self.template_name,self.template_data)
+        template_data["recipe_data"]=recipe_data
+        template_data["ingredients_data"]=ingredients_data
+        template_data["recipe_form"]=self.form
+        template_data["ingredients_forms"]=self.fill_ingredient_form(recipeid)
+        template_data['title_page']=self.title_page
+        return render(req,self.template_name,template_data)
     
     def post(self, req, recipeid):
         recipe = Recipes.objects.get(id=recipeid)
@@ -656,7 +654,7 @@ class edit_recipe_url(LoginRequiredMixin,View):
                     messages.add_message(req, messages.ERROR, 'Ingredient already set')
                     return False
                 except:
-                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too great(0-999)')
+                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too big(0-999)')
                     return False
             return True
         return False
@@ -702,11 +700,11 @@ class erase_recipe_url(LoginRequiredMixin,View):
 
 
 class external_recipe_url(View):
-    template_data = {}
     template_name = "DishDecoderApp/extrecipe.html"
     def get(self, req):
-        self.template_data['title'] = req.GET.get('title')
-        self.template_data['ing'] = req.GET.get('inf')
-        self.template_data['href'] = req.GET.get('href')
-        return render(req, self.template_name, self.template_data)
+        template_data = {}
+        template_data['title'] = req.GET.get('title')
+        template_data['ing'] = req.GET.get('inf')
+        template_data['href'] = req.GET.get('href')
+        return render(req, self.template_name, template_data)
 
