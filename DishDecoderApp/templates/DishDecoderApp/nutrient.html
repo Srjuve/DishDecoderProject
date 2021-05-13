@@ -8,13 +8,13 @@
 
 <div class="container">
     <h1 class="display-6 text-center">Description</h1>
-    {% if nutrient %}
+    {% if nutrient.desc %}
     <p>{{nutrient.desc}}</p>
-</div>
-{% else %}
-        <p id="Error_message">No Data Found</p>
-{% endif %}
 
+    {% else %}
+            <p id="Error_message">No Data Found</p>
+    {% endif %}
+</div>
 
 <hr>
 {% endblock %}

@@ -13,7 +13,7 @@
 <hr>
 
 
-<div class="container">
+<div id="ingredient-container" class="container">
     <h2 class="text-center">Ingredients</h2>
     {% if rec_prod %}
     <div class="list-group col-md-4 mx-auto" id="recipe_ingredients">
@@ -62,8 +62,7 @@
 <hr>
 
 
-
-<div class="container">
+<div id="review-container" class="container">
     <h2 class="text-center">User reviews</h2>
         {% if rating_data %}
         {% for user_rating in rating_data %}
@@ -77,10 +76,10 @@
         </div>
         <hr>
         {% endfor %}
-</div>
 {% else %}
         <p id="Error_message">No reviews found</p>
 {% endif %}
+</div>
 
 {% if messages %}
 <ul class="messages">
