@@ -28,7 +28,7 @@ def step_impl(context,user):
     form = context.browser.find_by_tag('form').first
     context.browser.fill('username', user)
     context.browser.fill('password', 'Exemple123')
-    form.find_by_id('Iniciar Sessió').first.click()
+    form.find_by_id('submit-login').first.click()
 
 
 @when(u'I\'m going to my profile')
