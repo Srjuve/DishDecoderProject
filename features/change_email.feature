@@ -22,3 +22,10 @@ Scenario: Change old email with invalid new email
     When I click on change email button
     And I fill the camps with my new email "dummy@com"
     Then It appears error message "Invalid data entered"
+
+Scenario: Don't write the same new email twice
+    When I click on change email button
+    And I fill first field with my new email "dummy@dummy.com"
+    And I fill second field with my new email "not@not.com"
+    And I submit the form
+    Then It appears error message "Invalid data entered"
