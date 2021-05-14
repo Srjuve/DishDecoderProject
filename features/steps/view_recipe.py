@@ -4,11 +4,11 @@ from DishDecoderApp.views import recipe_profile_url
 from django.contrib.auth.models import User
 
 use_step_matcher("parse")
-@given(u'Exists a recipe id "{id}" created by the User "{user}" with "{inunits}" units of the the Ingredient with id "{inid}" that contains "{nutunits}" units of the Nutrient with id "{nutid}"')
-def step_impl(context,id,user,inunits,inid,nutunits,nutid):
+@given(u'Exists a recipe id "{id}" created by the User "{user}" with "{inunits}" units of the the Ingredient with id "{inid}" and name "{inname}" that contains "{nutunits}" units of the Nutrient with id "{nutid}"')
+def step_impl(context,id,user,inunits,inid,inname,nutunits,nutid):
     createdUser = User.objects.get(username=user)
     recipe = Recipes.objects.create(id=id, name='Recipe1', author=createdUser, steps="#Step1#Step2")
-    basicproduct = BasicProducts.objects.create(id=inid,name="Ingredient1",desc="Description1",unit="Gram")
+    basicproduct = BasicProducts.objects.create(id=inid,name=inname,desc="Description1",unit="Gram")
     nutrient = Nutrients.objects.create(id=nutid,name="Nutrient1",desc="Description2")
     Recipe_Product.objects.create(id_recipe=recipe,id_product=basicproduct,quantity=inunits)
     Product_Nutrients.objects.create(id_product=basicproduct,quantity=nutunits,id_nutrient=nutrient)
@@ -25,7 +25,6 @@ def step_impl(context, id):
     check_ingredients(context,id)
     check_steps(context,id)
     check_nutrients(context,id)
-
 
 @then(u'I\'m viewing the 404 error page')
 def step_impl(context):
@@ -69,7 +68,6 @@ def check_nutrients(context, id):
     i=0
     for nutrient in nutrientsdata:
         actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
-        print(actualValue)
         assert nutrient.text == actualValue
         i+=1
 

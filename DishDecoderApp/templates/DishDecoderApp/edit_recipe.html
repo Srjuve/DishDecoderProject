@@ -8,12 +8,12 @@
 <hr>
 <h1 class="display-6 text-center">Edit your Recipe</h1>
 <hr>
-<div class="container">
+<div class="container" id="nameEditForm">
 <form action="" method="POST">
     {% csrf_token %}
     <div class="form-group col-md-5">
         <h3> Name: {{ recipe_data.name }}</h3>
-        {{ recipe_form.name }} <button type="submit">Change Name</button> 
+        {{ recipe_form.name }} <button type="submit" id="name_change_btn">Change Name</button> 
     </div>
 </form>
 {% if messages %}
@@ -26,12 +26,12 @@
 </ul>
 {% endif %}
 </div>
-<div class="container">
+<div class="container" id="stepEditForm">
     <form action="" method="POST">
         {% csrf_token %}
         <div class="form-group col-md-5">
             <h3> Steps: {{ recipe_data.steps }}</h3>
-            {{ recipe_form.steps }} <button type="submit">Change Steps</button> 
+            {{ recipe_form.steps }} <button type="submit" id="steps_change_btn">Change Steps</button> 
         </div>
     </form>
     {% if messages %}
@@ -44,7 +44,7 @@
 </ul>
 {% endif %}
 </div>
-<div class="container">
+<div class="container" id="ingredientsEditForm">
     <form action="" method="POST">
         {% csrf_token %}
         <div class="col-md-5">
@@ -58,7 +58,7 @@
         {{ ingredients_forms.management_form}}
         <a href="javascript:void(0)" id="add_form">Add Another Form</a>
         <a href="javascript:void(0)" id="erase_form">Erase Another Form</a>
-        <button type="submit">Change ingredients</button>
+        <button type="submit" id="ing_change_btn">Change ingredients</button>
     </form>
 </div>
 
@@ -66,7 +66,7 @@
         <script>
             var form_count = {{ ingredients_forms.total_form_count }};
             $('#add_form').click(function(){
-                console.log(form_count);
+                //form_count++;
                 var new_form = '{{ingredients_forms.empty_form|escapejs}}'.replace(/__prefix__/g,form_count);
                 $('#forms').append(new_form);
                 form_count++;
@@ -77,7 +77,7 @@
                 console.log("You clicked erase!")
                 $('#id_form-'+(form_count-1)+'-quantity').parent().parent().remove();
                 $('#id_form-'+(form_count-1)+'-id_product').parent().parent().remove();
-                if(form_count>1){
+                if(form_count>0){
                     form_count--;
                     $('#id_form-TOTAL_FORMS').val(form_count);
                 }
@@ -86,7 +86,7 @@
         </script>
 
 {% if messages %}
-<ul class="messages">
+<ul class="messages" id="error_messages">
     {% for message in messages %}
         {% if message.message != 'Incorrect name' and message.message != 'Incorrect email' %}
             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>

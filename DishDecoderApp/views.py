@@ -654,7 +654,7 @@ class edit_recipe_url(LoginRequiredMixin,View):
                     messages.add_message(req, messages.ERROR, 'Ingredient already set')
                     return False
                 except:
-                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too great(0-999)')
+                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too big(0-999)')
                     return False
             return True
         return False
