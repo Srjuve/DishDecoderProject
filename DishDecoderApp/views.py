@@ -376,19 +376,22 @@ class recipe_profile_url(View):
         form = Comments_form(req.POST)
         desc=req.POST.get('desc')
         rating=req.POST.get('rating')
-        try:
-            newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
-            newReview.full_clean()
-            self.template_data['Comments_form']=self.form
-            self.template_data['title_page']='Recipe'     
-            return redirect('/recipe/'+str(recipeid))
-        except ValidationError:
-            newReview.delete()
-            messages.warning(req, 'Invalid rating data')
-            return redirect('/recipe/'+str(recipeid))
-        except:
-            messages.warning(req, 'Only one review per user and recipe')
-            return redirect('/recipe/'+str(recipeid))
+        if req.user.is_authenticated:
+            try:
+                newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
+                newReview.full_clean()
+                self.template_data['Comments_form']=self.form
+                self.template_data['title_page']='Recipe'     
+                return redirect('/recipe/'+str(recipeid))
+            except ValidationError:
+                newReview.delete()
+                messages.warning(req, 'Invalid rating data')
+                return redirect('/recipe/'+str(recipeid))
+            except:
+                messages.warning(req, 'Only one review per user and recipe')
+                return redirect('/recipe/'+str(recipeid))
+        else:
+            return redirect('/login')
 
 
 
