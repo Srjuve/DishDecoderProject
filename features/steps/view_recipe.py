@@ -61,10 +61,6 @@ def check_first_scenario_values(context,id):
     reciperating = context.browser.find_by_id('recipe_rating').text
     assert reciperating == "Rating: Not rated"
     
-   
-
-    
-    
 
 def check_ingredients(context,id):
     recipeingredients = context.browser.find_by_id('recipe_ingredients').find_by_tag('a')
