@@ -25,6 +25,11 @@ Scenario: Viewing the profile of a user who has a recipe
     Then I, as user "UsuariTestBehave", will also see some details about his/her recipe "TestRecipeYummy"
 
 Scenario: Viewing the profile of a user who made a rating
-    Given The user "UserReviewer" with the password "elCritico123" is logged and he made a rating "NiceRate" on the recipe "RatedRecipe" made by the other user "ElChefNuestro" with the password "CuinerCasaNostra123"
+    
+    Given I click on the login button
+    And I login as user "UsuariTestBehave" with password "Exemple123"
+    And Exists a user "ElChefNuestro" with password "CuinerCasaNostra123"
+    And Exists a recipe "RatedRecipe" created by "ElChefNuestro"
+    And I made a rating "NiceRate" on the recipe "RatedRecipe"
     When I click on profile button
-    Then The user "UserReviewer" will also see some details about his/her rating "NiceRate" on the recipe "RatedRecipe" made by the other user "ElChefNuestro"
+    Then The user "UsuariTestBehave" will also see some details about his/her rating "NiceRate" on the recipe "RatedRecipe" made by the other user "ElChefNuestro"
