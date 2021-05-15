@@ -14,9 +14,8 @@ Background:
 Scenario: Change old email with valid new email
     When I click on change email button
     And I fill the camps with my new email "dummy@dummy.com"
-    Then I click on change email button
-    And I fill the camps with my the same email "dummy@dummy.com"
-    And It appears error message "Invalid data entered"
+    And I click on profile button
+    Then It appears my new email "dummy@dummy.com"
 
 Scenario: Change old email with invalid new email
     When I click on change email button
