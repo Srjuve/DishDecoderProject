@@ -630,11 +630,13 @@ class edit_recipe_url(LoginRequiredMixin,View):
         try:
             if field == "name":
                 recipe.name = req.POST.get('name')
+                print(req.POST.get('name'))
             else:
                 recipe.steps = req.POST.get('steps')
             recipe.full_clean()
             recipe.save()
-        except:
+        except Exception as e:
+            print(str(e))
             if field == "name":
                 messages.add_message(req, messages.ERROR, 'Incorrect name')
             else:

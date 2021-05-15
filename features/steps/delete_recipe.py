@@ -9,7 +9,7 @@ def step_impl(context, recipe_title, author_name):
     from DishDecoderApp.models import Recipes
     from django.contrib.auth.models import User
     author = User.objects.filter(username=author_name).first()
-    recipe = Recipes.objects.create(name=recipe_title, author=author, steps="")
+    recipe = Recipes.objects.create(name=recipe_title, author=author, steps="Step1")
 
 
 @when(u'I click on erase recipe button')
