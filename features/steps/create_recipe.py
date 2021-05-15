@@ -78,7 +78,3 @@ def step_impl(context, ingredient_name, ingredient_quantity):
 @then(u'I stay at "{current_url}"')
 def step_impl(context, current_url):
     assert context.browser.url.replace(context.get_url('/'), '/') == current_url
-
-@given(u'I am on main page')
-def step_impl(context):
-    context.browser.visit(context.get_url('/'))
