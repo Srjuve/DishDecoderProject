@@ -1,12 +1,15 @@
-Feature: Create recipe
+Feature: Create recipe copy
     In order to create a recipe,
     As a logged user,
     I want to create a recipe.
 
 Background:
     Given Exists a user "username" with password "password"
-    And Exists the ingredient "rice"
-    And Exists the ingredient "meat"
+    And Exists the ingredient "Rice"
+    And Exists the ingredient "Meat"
+    And Exists the Nutrient "Nutrient1"
+    And Ingredient "Rice" that contains "1.00" units of the Nutrient with name "Nutrient1"
+    And Ingredient "Meat" that contains "1.00" units of the Nutrient with name "Nutrient1"
     And I am on main page
 
 Scenario: Logged user creates recipe
@@ -15,13 +18,14 @@ Scenario: Logged user creates recipe
     When I click on create recipe button
     And I fill the name of the recipe "Paella"
     And I fill the steps of the recipe "#Lorem#Ipsum#Dolor#Sit#Amet"
-    And I add the ingredient "rice" with quantity "250"
-    And I add the ingredient "meat" with quantity "42"
+    And I add the ingredient "Rice" with quantity "250"
+    And I add the ingredient "Meat" with quantity "42"
     And I finish recipe
     Then I can see recipe name "Paella" with author username "username"
     And I can see recipe steps "#Lorem#Ipsum#Dolor#Sit#Amet"
-    And I can see recipe ingredient "rice" with quantity "250.00g"
-    And I can see recipe ingredient "meat" with quantity "42.00g"
+    And I can see recipe ingredient "Rice" with quantity "250.00g"
+    And I can see recipe ingredient "Meat" with quantity "42.00g"
+    And I can see recipe nutrient "Nutrient1" with quantity "2.92g"
 
 Scenario: Unlogged user creates recipe
     When I click on create recipe button
