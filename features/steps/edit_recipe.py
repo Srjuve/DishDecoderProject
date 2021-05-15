@@ -70,13 +70,13 @@ def step_impl(context):
     change_ing_btn = context.browser.find_by_id('ing_change_btn')
     change_ing_btn.click()
 
-@then(u'I can see the Ingredient with id "{inid}" and with name "{inname}" and type "{intype}" with "{quantity}" units')
-def step_impl(context,inid,inname,intype,quantity):
-    check_ingredients(context, inid, inname,intype, quantity)
+@then(u'I can see the Ingredient with name "{inname}" and quantity "{quantity}" units')
+def step_impl(context,inname,quantity):
+    check_ingredients(context, inname, quantity)
 
-def check_ingredients(context,id,inname,intype, quantity):
+def check_ingredients(context, inname, quantity):
     ingredient = context.browser.find_by_id('recipe_ingredients').find_by_tag('a').last
-    assert ingredient.text == quantity+intype+" "+inname
+    assert ingredient.text == quantity+"g "+inname
 
 def check_nutrients(context, id):
     product_nutrients_data = get_nutritional_value_foreach_nutrition(Recipe_Product.objects.filter(id_recipe=id))
@@ -108,10 +108,10 @@ def step_impl(context):
     erase_btn = context.browser.find_by_id('erase_form')
     erase_btn.click()
 
-@given(u'In the Recipe with id "{id}" contains the Ingredient with id "{inid}" and name "{inname}" and type "{intype}" that contains "{quantity}" units of the Nutrient with id "{nutid}"')
-def step_impl(context,id,inid,inname,intype,quantity,nutid):
-    recipe = Recipes.objects.get(id=id)
-    basicproduct = BasicProducts.objects.get(id=inid)
+@given(u'In the Recipe with name "{rename}" contains the Ingredient with name "{inname}" and type "{intype}" that contains "{quantity}" units of the Nutrient with id "{nutid}"')
+def step_impl(context,rename,inid,inname,intype,quantity,nutid):
+    recipe = Recipes.objects.filter(name=rename).first()
+    basicproduct = BasicProducts.objects.filter(name=inname).first()
     Recipe_Product.objects.create(id_recipe=recipe,id_product=basicproduct,quantity=quantity)
 
 
@@ -120,11 +120,11 @@ def step_impl(context):
     error_message = context.browser.find_by_id('error_messages').find_by_tag('li')
     assert error_message.text == "Incorrect number of ingredients"
 
-@then(u'I see that the only ingredient shown is the ingredient with id "{inid}",name "{inname}",type "{intype}" and quantity "{quantity}"')
-def step_impl(context,inid,inname,intype,quantity):
+@then(u'I see that the only ingredient shown is the ingredient with name "{inname}" and quantity "{quantity}"')
+def step_impl(context,inname,quantity):
     ingredients = context.browser.find_by_id('recipe_ingredients').find_by_tag('a')
     for ingredient in ingredients:
-        assert ingredient.text == quantity+intype+" "+inname
+        assert ingredient.text == quantity+"g "+inname
 
 @given(u'I am on main page')
 def step_impl(context):
