@@ -15,14 +15,14 @@ Scenario: Viewing my profile
     Given I click on the login button
     And I login as user "UsuariTestBehave" with password "Exemple123"
     When I click on profile button
-    Then I'll see the user's profile's information.
+    Then I, as the user "UsuariTestBehave", will see my profile's information.
 
 Scenario: Viewing the profile of a user who has a recipe
     Given I click on the login button
     And I login as user "UsuariTestBehave" with password "Exemple123"
-    And I made the recipe "TestRecipeYummy"
+    And Exists a recipe "TestRecipeYummy" created by "UsuariTestBehave"
     When I click on profile button
-    Then I, as user "UsuariTestBehave", will also see some details about his/her recipe "TestRecipeYummy"
+    Then I will see in my profila that I made the recipe "TestRecipeYummy"
 
 Scenario: Viewing the profile of a user who made a rating
     
@@ -30,6 +30,6 @@ Scenario: Viewing the profile of a user who made a rating
     And I login as user "UsuariTestBehave" with password "Exemple123"
     And Exists a user "ElChefNuestro" with password "CuinerCasaNostra123"
     And Exists a recipe "RatedRecipe" created by "ElChefNuestro"
-    And I made a rating "NiceRate" on the recipe "RatedRecipe"
+    And I, the user "UsuariTestBehave", made a rating "NiceRate" on the recipe "RatedRecipe"
     When I click on profile button
-    Then The user "UsuariTestBehave" will also see some details about his/her rating "NiceRate" on the recipe "RatedRecipe" made by the other user "ElChefNuestro"
+    Then I, the user "UsuariTestBehave", will see my rating "NiceRate" on the recipe "RatedRecipe" made by the other user "ElChefNuestro"
