@@ -3,6 +3,8 @@ from DishDecoderApp.models import *
 from DishDecoderApp.views import *
 from django.contrib.auth.models import User
 
+
+#test 1
 use_step_matcher("parse")
 @when(u'I fill the comment with "{desc}" with rate "{rating}"')
 def step_impl(context, desc, rating):
@@ -29,3 +31,22 @@ def step_impl(context,rename, user):
     assert review_container.find_by_tag("button").text == str(rating_data.rating)+" out of 10"
         
     #assert "1"=="2" per a veure el html de la pagina per a la part dels comments dels users
+#test3
+@then(u'I see an error saying i can not leave two reviews')
+def step_impl(context):
+    error = context.browser.find_by_id('Comment_error')
+    assert error.text == "Only one review per user and recipe"
+#"Comment_error"
+@then(u'I fill the comment with "{desc}" with rate "{rating}"')
+def step_impl(context, desc, rating):
+    form = context.browser.find_by_tag('form')
+    context.browser.fill('desc', desc)
+    context.browser.fill('rating',rating)
+
+
+@then(u'I click on summit comment button')
+def step_impl(context):
+    create_btn = context.browser.find_by_id('id_comment')
+    create_btn.click()
+
+

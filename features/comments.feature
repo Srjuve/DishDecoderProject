@@ -24,4 +24,23 @@ Scenario: Not logged user tries to comment
     When I search the recipe with name "Recipe1"
     And I fill the comment with "bo" with rate "8"
     And I click on summit comment button
-    Then I'll be redirected, requiring me to log in
+    Then I see the login page, i log in with my username "username2" and password "password"
+    And I'm viewing the details page for the recipe with name "Recipe1" without the comments
+
+Scenario: User tries to review two times
+    Given I click on the login button
+    And I login as user "username2" with password "password"
+    When I search the recipe with name "Recipe1"
+    And I fill the comment with "bo" with rate "8"
+    And I click on summit comment button
+    Then I view the comment in the recipe with name "Recipe1" by "username2"
+    And I fill the comment with "dolent" with rate "1"
+    And I click on summit comment button
+    And I see an error saying i can not leave two reviews
+Scenario: User tries to rate with a letter
+        Given I click on the login button
+    And I login as user "username2" with password "password"
+    When I search the recipe with name "Recipe1"
+    And I fill the comment with "bo" with rate "a"
+    And I click on summit comment button
+    Then I see an error saying i can not rate with letters
