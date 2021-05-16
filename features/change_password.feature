@@ -3,17 +3,23 @@ Feature: Change Password
     As a user,
     I want to have an option to do it.
 
+Background:
+    Given Exists a user "UsuariTestBehave" with password "Exemple123"
+
 Scenario: Changing the password with a logged user
-    Given Exists a User "RegisteredUser" and I'm logged with it
-    When I go to my profile and change my password "prova123"
-    Then I'll be able to logging with the username "RegisteredUser" and the new password "prova123"
+    Given I click on the login button
+    And I login as user "UsuariTestBehave" with password "Exemple123"
+    When I click on profile button
+    And I change my old password "Exemple123" to a new one "prova123"
+    Then I'll be able to logging with the username "UsuariTestBehave" and the new password "prova123"
 
 Scenario: Changing the password with a non-logged user
-    Given Exists a User "RegisteredUser" but I'm not logged
-    When I'll try to enter to the site in which I should be able to change my password
-    Then I'll be redirected, requiring me to log in
+    When I'll try to enter to the site in which I should be able to change my password directly through the url
+    Then I'll be redirected since I'm not logged in, requiring me to do it
 
 Scenario: Trying to change the password but giving a wrong one
-    Given Exists a User "FailureUser" with which I'm logged in
-    When I'm going to change my password and fail
+    Given I click on the login button
+    And I login as user "UsuariTestBehave" with password "Exemple123"
+    When I click on profile button
+    And I change my password but I fail introducing the actual one
     Then The system will tell me that I entered invalid data
