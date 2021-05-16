@@ -5,19 +5,23 @@ Feature: Comment a receipe
 
 Background: 
     Given Exists a user "username" with password "password" 
-    And Exists a user "username2" with password "password" 
+    And Exists a user "username2" with password "password"
+    And Exists a recipe "Recipe1" created by "username"
+    And Exists the ingredient "Ingredient1"
+    And Exists the Nutrient "Nutrient1"
+    And Recipe "Recipe1" contains "1.00" units of the Ingredient with name "Ingredient1"
+    And Ingredient "Ingredient1" that contains "1.00" units of the Nutrient with name "Nutrient1" 
 
 Scenario: Leave a comment in a receipe
     Given I click on the login button
     And I login as user "username2" with password "password"
-    And Exists a recipe id "1" created by the User "username" with "1.00" units of the the Ingredient with id "1" and name "Ingredient1" that contains "1.00" units of the Nutrient with id "1"
-    When I search the recipe id "1"
+    When I search the recipe with name "Recipe1"
     And I fill the comment with "bo" with rate "8"
     And I click on summit comment button
-    Then I view the recipe "1" with comments by "username2"
+    Then I view the comment in the recipe with name "Recipe1" by "username2"
+
 Scenario: Not logged user tries to comment
-    Given Exists a recipe id "1" created by the User "username" with "1.00" units of the the Ingredient with id "1" and name "Ingredient1" that contains "1.00" units of the Nutrient with id "1"
-    When I search the recipe id "1"
+    When I search the recipe with name "Recipe1"
     And I fill the comment with "bo" with rate "8"
     And I click on summit comment button
-    Then I am redirected to the login page
+    Then I'll be redirected, requiring me to log in

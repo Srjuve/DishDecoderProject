@@ -374,23 +374,33 @@ class recipe_profile_url(View):
 
 
     def post(self, req, recipeid):
-        hasreview=False
-        reviewuser=req.user
-        form = Comments_form(req.POST)
-        desc=req.POST.get('desc')
-        rating=req.POST.get('rating')
-        try:
-            newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
-            newReview.full_clean()
-            return redirect('/recipe/'+str(recipeid))
-        except ValidationError:
-            newReview.delete()
-            messages.warning(req, 'Invalid rating data')
-            return redirect('/recipe/'+str(recipeid))
-        except:
-            messages.warning(req, 'Only one review per user and recipe')
-            return redirect('/recipe/'+str(recipeid))
-
+        if req.user.is_authenticated:
+            try:
+                recipe = Recipes.objects.get(id=recipeid)
+                hasreview=False
+                reviewuser=req.user
+                if(reviewuser != recipe.author):
+                    form = Comments_form(req.POST)
+                    desc=req.POST.get('desc')
+                    rating=req.POST.get('rating')
+                    try:
+                        newReview = Ratings.objects.create( id_autor=reviewuser, id_recipe=Recipes.objects.get(id=recipeid),desc=desc,rating=rating)
+                        newReview.full_clean()
+                        return redirect('/recipe/'+str(recipeid))
+                    except ValidationError:
+                        newReview.delete()
+                        messages.warning(req, 'Invalid rating data')
+                        return redirect('/recipe/'+str(recipeid))
+                    except IntegrityError:
+                        messages.warning(req, 'Only one review per user and recipe')
+                        return redirect('/recipe/'+str(recipeid))
+                else:
+                    messages.warning(req, 'The author of the Recipe is not allowed to add ratings')
+                    return redirect('/recipe/'+str(recipeid))
+            except Recipes.DoesNotExist:
+                return page_not_found(req, exception=None)
+        else:
+            return redirect('/login/?next=/recipe/'+str(recipeid))
 
 
 # GET: shows the recipe page with the relationated info about it
