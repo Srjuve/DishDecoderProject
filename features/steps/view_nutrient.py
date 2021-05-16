@@ -31,12 +31,12 @@ def step_impl(context):
     assert context.browser.is_text_present('No Data Found')
 
 #Test 3
-@when(u'I try to search the nutrient id "{id}" which doesn\'t exist')
+@when(u'I try to search the nutrient id "{id}"')
 def step_impl(context,id):
     context.browser.visit(context.get_url("/nutrient/"+id))
 
 
-@then(u'I\'m expecting to receive an error')
+@then(u'I\'ll receive the error 404')
 def step_impl(context):   
     assert context.browser.is_text_present('Error 404')
     assert context.browser.is_text_present('The page you are trying to reach does not exist')

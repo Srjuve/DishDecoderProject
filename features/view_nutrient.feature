@@ -16,6 +16,6 @@ Scenario: View Nutrient without Description
     And I can see that there's no description
 
 Scenario: Trying to view a nonexistent Nutrient
-    When I try to search the nutrient id "3" which doesn't exist
-    Then I'm expecting to receive an error
+    When I try to search the nutrient id "3"
+    Then I'll receive the error 404
 
