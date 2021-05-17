@@ -4,10 +4,12 @@ Feature: View list of BasicProducts
     I want to see a list of BasicProducts.
 
 Scenario: User search BasicProducts
-    Given A BasicProduct with id "1" and a BasicProduct id "2"
-    When I click BasicProducts and i search products and i click search
-    Then I see ingredients
+    Given Exists the ingredient "Ingredient1" with description "Lorem ipsum description1"
+    And Exists the ingredient "Ingredient2" with description "Lorem ipsum description2"
+    When I search for a basic product with name "Ingredient"
+    Then I see basic product "Ingredient1"
+    And I see basic product "Ingredient2"
 
 Scenario: User search for a non existent BasicProduct
-    When I search for a basic product that not exist
+    When I search for a basic product with name "Ingredient"
     Then It appears error message "No Data Found"
