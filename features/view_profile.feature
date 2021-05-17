@@ -9,7 +9,7 @@ Background:
 
 Scenario: Trying to see my profile without being logged
     When I check my profile through the url
-    Then I get redirected to the login page
+    Then I stay at "/login/?next=/profile/"
 
 Scenario: Viewing my profile 
     Given I click on the login button

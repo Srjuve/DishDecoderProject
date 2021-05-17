@@ -8,13 +8,6 @@ use_step_matcher("parse")
 def step_impl(context):
     context.browser.visit(context.get_url("/profile/"))
 
-@then(u'I get redirected to the login page')
-def step_impl(context):
-    assert context.browser.is_text_present('Log in')
-    assert context.browser.is_text_present('Username')
-    assert context.browser.is_text_present('Password')
-
-
 #Test 2 
 @then(u'I, as the user "{user}", see my profile\'s information.')
 def step_impl(context, user):
