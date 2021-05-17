@@ -80,8 +80,8 @@ class main_url(View):
 
 class register_page_url(View):
     template_name = "DishDecoderApp/register.html"
-    form = Create_user_form()
     def get(self, req):
+        self.form = Create_user_form()
         template_data = {}
         if not req.user.is_authenticated:
             template_data['reg_form']=self.form
@@ -93,12 +93,11 @@ class register_page_url(View):
         if not req.user.is_authenticated:
             template_data = {}
             if req.method == 'POST':
-                form = Create_user_form(req.POST)
-                if form.is_valid():
-                    form.save()
+                self.form = Create_user_form(req.POST)
+                if self.form.is_valid():
+                    self.form.save()
                     return redirect('/login/')
                 else:
-                    messages.add_message(req, messages.ERROR, 'Error al registrar-se')
                     template_data['reg_form'] = self.form
                     template_data['title_page'] = 'Register'
                     return render(req, self.template_name,template_data)
