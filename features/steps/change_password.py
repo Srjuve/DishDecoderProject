@@ -28,13 +28,6 @@ def step_impl(context,url):
    context.browser.visit(context.get_url(url))
 
 
-@then(u'I get redirected since I\'m not logged in, requiring me to do it')
-def step_impl(context):
-    assert context.browser.is_text_present('Log in')
-    assert context.browser.is_text_present('If you are not Registered go click')
-
-
-
 #Test 3
 @when(u'I introduce my old password as "{oldPassword}" and the password that I want as "{newPassword}"')
 def step_impl(context, oldPassword, newPassword):
