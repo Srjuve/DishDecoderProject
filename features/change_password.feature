@@ -15,7 +15,7 @@ Scenario: Changing the password with a logged user
 
 Scenario: Changing the password with a non-logged user
     When I enter the site in which I should be able to change my password directly through the url "/profile/change_password"
-    Then I get redirected to the login page
+    Then I stay at "/login/?next=/profile/change_password"
 
 Scenario: Trying to change the password but giving a wrong one
     Given I click on the login button
