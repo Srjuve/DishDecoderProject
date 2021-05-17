@@ -6,10 +6,10 @@ from DishDecoderApp.models import Recipe_Product
 
 use_step_matcher("parse")
 
-@given(u'Exists the ingredient "{ingredient_name}"')
-def step_impl(context, ingredient_name):
+@given(u'Exists the ingredient "{ingredient_name}" with description "{ingredient_desc}"')
+def step_impl(context, ingredient_name, ingredient_desc):
     from DishDecoderApp.models import BasicProducts
-    BasicProducts.objects.create(name=ingredient_name, desc=ingredient_name+", LoremIpsum")
+    BasicProducts.objects.create(name=ingredient_name, desc=ingredient_desc)
 
 @when(u'I click on create recipe button')
 def step_impl(context):
