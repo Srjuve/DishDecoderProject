@@ -17,5 +17,5 @@ Scenario: View Recipe without comments
 
 
 Scenario: View non existent Recipe
-    When I search a recipe with a not existent id
+    When I search a recipe with a non existent id
     Then I'm viewing the 404 error page

@@ -1,6 +1,8 @@
 from behave import *
 
-from utils import toggle_down_navbar
+from utils import toggle_down_navbar, get_nutritional_value_foreach_nutrition
+
+from DishDecoderApp.models import Recipe_Product
 
 use_step_matcher("parse")
 
@@ -78,3 +80,35 @@ def step_impl(context, ingredient_name, ingredient_quantity):
 @then(u'I stay at "{current_url}"')
 def step_impl(context, current_url):
     assert context.browser.url.replace(context.get_url('/'), '/') == current_url
+
+
+@then(u'I can see recipe nutrient "{nutrient_name}" with quantity "{nutrient_quantity}"')
+def step_impl(context, nutrient_name, nutrient_quantity):
+    nut_cont = context.browser.find_by_id("recipe_nutrients")
+    nut_items = nut_cont.find_by_tag("a")
+    nut_item = None
+    for item in nut_items:
+        nut_name = item.text.split()[1]
+        if nut_name == nutrient_name:
+            nut_item = item
+    if nut_item:
+        recipe_id = context.browser.url.split("/")[-1]
+        nut_vals = get_nutritional_value_foreach_nutrition(Recipe_Product.objects.filter(id_recipe=recipe_id))
+        for nut_val in nut_vals:
+            if nut_val[1].name == nutrient_name:
+                actual_val = str(round(nut_val[0],2))+"g "+nut_val[1].name
+                expected_val = nutrient_quantity + " " + nutrient_name
+                assert actual_val, expected_val
+
+    else:
+        raise ValueError("{nutrient_name} not found in page")
+
+
+#def check_nutrients(context, id):
+#    product_nutrients_data = get_nutritional_value_foreach_nutrition(Recipe_Product.objects.filter(id_recipe=id))
+#    nutrientsdata = context.browser.find_by_id('recipe_nutrients').find_by_tag('a')
+#    i=0
+#    for nutrient in nutrientsdata:
+#        actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
+#        assert nutrient.text == actualValue
+#        i+=1

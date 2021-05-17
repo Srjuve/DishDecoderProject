@@ -14,18 +14,16 @@ Background:
     And Exists the Nutrient "Nutrient2"
     And Ingredient "Ingredient2" that contains "1.00" units of the Nutrient with name "Nutrient2"
     And I am on main page
+    And I click on the login button
+    And I login as user "username" with password "password"
 
 Scenario: Logged user edit Recipe name
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I fill the recipe name form with the new name "Nom1"
     And I click the button to change the name
     Then I can see that the recipe has the name "Nom1"
 
 Scenario: Logged user edit steps
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I fill the steps form with the steps "Pas1"
     And I click the button to change the steps
@@ -33,8 +31,6 @@ Scenario: Logged user edit steps
     
 
 Scenario: Logged user edit Ingredients
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I add "1.00" units of the Ingredient with name "Ingredient2"
     And I click the button to add the Ingredients
@@ -42,32 +38,24 @@ Scenario: Logged user edit Ingredients
 
 
 Scenario: Logged user edit Ingredients with repeated Ingredient
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I add "1.00" units of the Ingredient with name "Ingredient1"
     And I click the button to add the Ingredients
     Then I see the repeated ingredient error
 
 Scenario: Logged user edit Ingredients with negative Ingredient quantity
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I add "-1.00" units of the Ingredient with name "Ingredient1"
     And I click the button to add the Ingredients
     Then I see the invalid ingredient format error
 
 Scenario: Logged user edit Ingredients with too much quantity
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I add "1000.00" units of the Ingredient with name "Ingredient1"
     And I click the button to add the Ingredients
     Then I see the quantity value too big error
 
 Scenario: Logged user edit Ingredient erase the only Ingredient
-    Given I click on the login button
-    And I login as user "username" with password "password"
     When I click the edit recipe button
     And I click the button to erase Ingredients
     And I click the button to erase Ingredients
@@ -76,9 +64,7 @@ Scenario: Logged user edit Ingredient erase the only Ingredient
 
 
 Scenario: Logged user edit Ingredient erase only one Ingredient
-    Given I click on the login button
-    And Recipe "Recipe1" contains "1.00" units of the Ingredient with name "Ingredient2"
-    And I login as user "username" with password "password"
+    Given Recipe "Recipe1" contains "1.00" units of the Ingredient with name "Ingredient2"
     When I click the edit recipe button
     And I click the button to erase Ingredients
     And I click the button to erase Ingredients
