@@ -6,11 +6,11 @@ Feature: Edit Recipe
 Background: 
     Given Exists a user "username" with password "password"
     And Exists a recipe "Recipe1" created by "username"
-    And Exists the ingredient "Ingredient1"
+    And Exists the ingredient "Ingredient1" with description "Lorem ipsum description"
     And Exists the Nutrient "Nutrient1"
     And Recipe "Recipe1" contains "1.00" units of the Ingredient with name "Ingredient1"
     And Ingredient "Ingredient1" that contains "1.00" units of the Nutrient with name "Nutrient1"
-    And Exists the ingredient "Ingredient2"
+    And Exists the ingredient "Ingredient2" with description "Lorem ipsum description"
     And Exists the Nutrient "Nutrient2"
     And Ingredient "Ingredient2" that contains "1.00" units of the Nutrient with name "Nutrient2"
     And I am on main page
