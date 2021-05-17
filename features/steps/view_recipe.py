@@ -2,6 +2,7 @@ from behave import *
 from DishDecoderApp.models import *
 from DishDecoderApp.views import recipe_profile_url
 from django.contrib.auth.models import User
+from utils import get_nutritional_value_foreach_nutrition
 
 use_step_matcher("parse")
     
@@ -27,7 +28,7 @@ def step_impl(context,rename):
     from DishDecoderApp.models import Recipes
     context.browser.visit(context.get_url("/recipe/"+str(Recipes.objects.filter(name=rename).first().id)))
 
-@when(u'I search a recipe with a not existent id')
+@when(u'I search a recipe with a non existent id')
 def step_impl(context):
     from DishDecoderApp.models import Recipes
     context.browser.visit(context.get_url("/recipe/1234567"))
@@ -52,10 +53,6 @@ def check_first_scenario_values(context,id):
     assert recipeauthor == "by "+Recipes.objects.get(id=id).author.username
     reciperating = context.browser.find_by_id('recipe_rating').text
     assert reciperating == "Rating: Not rated"
-    
-   
-
-    
     
 
 def check_ingredients(context,id):
@@ -84,20 +81,5 @@ def check_nutrients(context, id):
         actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
         assert nutrient.text == actualValue
         i+=1
-
-def get_nutritional_value_foreach_nutrition(rec_prod):
-        nut_value = {} 
-        for rel_rec_prod in rec_prod:
-            for rel_prod_nut in Product_Nutrients.objects.filter(id_product=rel_rec_prod.id_product):
-                unit = rel_rec_prod.id_product.unit
-                value = rel_rec_prod.quantity * (rel_prod_nut.quantity / 100)
-                nut_id = rel_prod_nut.id_nutrient.id
-                if unit == 'L':
-                    value *= 1000
-                if nut_id not in nut_value:
-                    nut_value[nut_id] = {'value':value, 'nutrient' : rel_prod_nut.id_nutrient}
-                else:
-                    nut_value[nut_id]['value'] += value
-        return [list(total_nut_val.values()) for total_nut_val in nut_value.values()]
 
     
