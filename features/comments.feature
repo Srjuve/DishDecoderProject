@@ -37,10 +37,3 @@ Scenario: User tries to review two times
     And I fill the comment with "dolent" with rate "1"
     And I click on summit comment button
     And I see an error saying i can not leave two reviews
-Scenario: User tries to rate with a letter
-        Given I click on the login button
-    And I login as user "username2" with password "password"
-    When I search the recipe with name "Recipe1"
-    And I fill the comment with "bo" with rate "a"
-    And I click on summit comment button
-    Then I see an error saying i can not rate with letters
