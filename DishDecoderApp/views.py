@@ -32,15 +32,13 @@ class main_url(View):
         return render(req, self.template_name,template_data)
 
     def post(self,req):
+        from django.core.exceptions import ValidationError
         external_recipe_title = req.POST.get('recipe_title')
         if external_recipe_title:
-            external_recipe_href = req.POST.get('recipe_href')
-            external_recipe_ing = req.POST.get('recipe_ing')
-            query_string = urlencode({'title' : str(external_recipe_title), 
-                                    'href' : str(external_recipe_href), 
-                                    'ing' : str(external_recipe_ing)})
-            base_url = '/extrecipe'
-            url = '{}?{}'.format(base_url, query_string)
+            try:
+                url = self._autocomplete(req, external_recipe_title)
+            except ValidationError:
+                return page_not_found(req, exception=None)
         else:
             radioptchoice = str(req.POST.get('request_objective'))
             searched_data = str(req.POST.get('item_name'))
@@ -53,6 +51,23 @@ class main_url(View):
                 base_url = '/nutrients/'
             url = '{}?{}'.format(base_url,query_string)
         return redirect(url)
+    
+    def _autocomplete(self, req, external_recipe_title):
+        from django.core.validators import URLValidator
+        external_recipe_href = req.POST.get('recipe_href')
+        external_recipe_ing = req.POST.get('recipe_ing')
+
+        validate = URLValidator()
+        validate(external_recipe_href)
+        query_string = urlencode({'title' : str(external_recipe_title), 
+                        'href' : str(external_recipe_href), 
+                        'ing' : str(external_recipe_ing)})
+        base_url = '/extrecipe'
+        print("---",external_recipe_href,"---",external_recipe_ing, "---")
+        url = '{}?{}'.format(base_url, query_string)
+        return url            
+        
+        
 
     
 #def main_url(req):
