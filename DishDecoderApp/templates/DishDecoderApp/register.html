@@ -32,7 +32,11 @@
         <input type="submit" name="Create User">
     </div>
     </form>
-        {{reg_form.errors}}
+        {% for field in reg_form %}
+                <div>
+                    <p>{{ field.errors }}</p>
+                </div>
+        {% endfor %}
     </fieldset>
 </html>
 {% if messages %}
