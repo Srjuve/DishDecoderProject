@@ -36,12 +36,12 @@ def step_impl(context):
 
 
 #Test 3
-@when(u'I change my password but I fail introducing the actual one')
-def step_impl(context):
+@when(u'I introduce my old password as "{oldPassword}" and the password that I want as "{newPassword}"')
+def step_impl(context, oldPassword, newPassword):
     context.browser.links.find_by_text('Change Password').first.click()
-    context.browser.fill('old_password', 'contrasenyaEquivocada')
-    context.browser.fill('new_password1', '123')
-    context.browser.fill('new_password2', '123')
+    context.browser.fill('old_password', oldPassword)
+    context.browser.fill('new_password1', newPassword)
+    context.browser.fill('new_password2', newPassword)
     context.browser.find_by_id('submit-password').first.click()
 
 

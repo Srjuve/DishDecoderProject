@@ -21,5 +21,5 @@ Scenario: Trying to change the password but giving a wrong one
     Given I click on the login button
     And I login as user "UsuariTestBehave" with password "Exemple123"
     When I click on profile button
-    And I change my password but I fail introducing the actual one
+    And I introduce my old password as "{ConstrasenyaEquivocada}" and the password that I want as "{123}"
     Then The system will tell me that I entered invalid data
