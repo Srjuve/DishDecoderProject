@@ -23,12 +23,12 @@ def step_impl(context,user,password):
 
 
 #Test 2 
-@when(u'I\'ll try to enter to the site in which I should be able to change my password directly through the url')
-def step_impl(context):
-   context.browser.visit(context.get_url("/profile/change_password"))
+@when(u'I enter the site in which I should be able to change my password directly through the url "{url}"')
+def step_impl(context,url):
+   context.browser.visit(context.get_url(url))
 
 
-@then(u'I\'ll be redirected since I\'m not logged in, requiring me to do it')
+@then(u'I get redirected since I\'m not logged in, requiring me to do it')
 def step_impl(context):
     assert context.browser.is_text_present('Log in')
     assert context.browser.is_text_present('If you are not Registered go click')
@@ -45,6 +45,6 @@ def step_impl(context, oldPassword, newPassword):
     context.browser.find_by_id('submit-password').first.click()
 
 
-@then(u'The system will tell me that I entered invalid data')
+@then(u'The system tells me that I entered invalid data')
 def step_impl(context):
     assert context.browser.is_text_present('Invalid data entered')
