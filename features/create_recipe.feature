@@ -1,12 +1,12 @@
-Feature: Create recipe copy
+Feature: Create recipe
     In order to create a recipe,
     As a logged user,
     I want to create a recipe.
 
 Background:
     Given Exists a user "username" with password "password"
-    And Exists the ingredient "Rice"
-    And Exists the ingredient "Meat"
+    And Exists the ingredient "Rice" with description "Lorem ipsum description"
+    And Exists the ingredient "Meat" with description "Lorem ipsum description"
     And Exists the Nutrient "Nutrient1"
     And Ingredient "Rice" that contains "1.00" units of the Nutrient with name "Nutrient1"
     And Ingredient "Meat" that contains "1.00" units of the Nutrient with name "Nutrient1"
