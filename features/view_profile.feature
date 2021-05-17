@@ -22,7 +22,7 @@ Scenario: Viewing the profile of a user who has a recipe
     And I login as user "UsuariTestBehave" with password "Exemple123"
     And Exists a recipe "TestRecipeYummy" created by "UsuariTestBehave"
     When I click on profile button
-    Then I will see in my profila that I made the recipe "TestRecipeYummy"
+    Then I will see in my profile that I made the recipe "TestRecipeYummy"
 
 Scenario: Viewing the profile of a user who made a rating
     

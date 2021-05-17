@@ -24,7 +24,7 @@ def step_impl(context, user):
     assert foundh1[1].text == user
 
 #Test3
-@then (u'I will see in my profila that I made the recipe "{recipe}"')
+@then (u'I will see in my profile that I made the recipe "{recipe}"')
 def step_impl(context,recipe):
     assert context.browser.is_text_present('User Profile')
     assert context.browser.is_text_present(recipe)
