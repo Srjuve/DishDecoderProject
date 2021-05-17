@@ -633,7 +633,7 @@ class edit_recipe_url(LoginRequiredMixin,View):
                 recipe.steps = req.POST.get('steps')
             recipe.full_clean()
             recipe.save()
-        except:
+        except Exception as e:
             if field == "name":
                 messages.add_message(req, messages.ERROR, 'Incorrect name')
             else:
@@ -653,7 +653,7 @@ class edit_recipe_url(LoginRequiredMixin,View):
                     messages.add_message(req, messages.ERROR, 'Ingredient already set')
                     return False
                 except:
-                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too great(0-999)')
+                    messages.add_message(req, messages.ERROR, 'Ingredient quantity too big(0-999)')
                     return False
             return True
         return False
@@ -684,7 +684,6 @@ class erase_recipe_url(LoginRequiredMixin,View):
         title_page="Your Recipes"
         newForm = erase_recipe_form(req.user)
         recipes_count=Recipes.objects.filter(author=req.user).all().count()
-        print(recipes_count)
         if recipes_count >= 1:
             template_data['form']=newForm
         template_data['title_page']=title_page
