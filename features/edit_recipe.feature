@@ -17,6 +17,12 @@ Background:
     And I click on the login button
     And I login as user "username" with password "password"
 
+
+Scenario: Not logged user tries to edit a Recipe
+    When I click on logout button 
+    And I click the edit recipe button
+    Then I stay at "/login/?next=/listedit/"
+
 Scenario: Logged user edit Recipe name
     When I click the edit recipe button
     And I fill the recipe name form with the new name "Nom1"
