@@ -7,7 +7,7 @@ Background:
     Given Exists a user "username" with password "password"
     And Exists the ingredient "Rice" with description "Lorem ipsum description"
     And Exists the ingredient "Meat" with description "Lorem ipsum description"
-    And Exists the Nutrient "Nutrient1" and the description "Description1"
+    And Exists the Nutrient "Nutrient1" with the description "Description1"
     And Ingredient "Rice" that contains "1.00" units of the Nutrient with name "Nutrient1"
     And Ingredient "Meat" that contains "1.00" units of the Nutrient with name "Nutrient1"
     And I am on main page
