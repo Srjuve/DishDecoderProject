@@ -24,7 +24,7 @@ Scenario: Not logged user tries to comment
     When I search the recipe with name "Recipe1"
     And I fill the comment with "bo" with rate "8"
     And I click on summit comment button
-    And I login as user "patata1" with password "Exemple124"
+    And I login as user "username2" with password "password"
     Then I'm viewing the details page for the recipe with name "Recipe1" without the comments
 
 Scenario: User tries to review two times
