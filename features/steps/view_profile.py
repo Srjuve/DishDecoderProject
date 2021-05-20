@@ -1,18 +1,14 @@
 from behave import *
 from django.contrib.auth.models import User
-from DishDecoderApp.models import Recipes
+from DishDecoderApp.models import Ratings, Recipes
 
 use_step_matcher("parse")
-#Test 1
-@given(u'Exists a User "{user}" but it\'s not logged')
-def step_impl(context,user):
-    createdUser = User.objects.create_user(username=user, email='testbehave@potatoe.com', password='Exemple123')
-    
-@when(u'I\'ll try to see my profile')
+#Test 1    
+@when(u'I check my profile through the url')
 def step_impl(context):
     context.browser.visit(context.get_url("/profile/"))
 
-@then(u'I\'ll receive an error')
+@then(u'I get redirected to the login page')
 def step_impl(context):
     assert context.browser.is_text_present('Log in')
     assert context.browser.is_text_present('Username')
@@ -20,24 +16,36 @@ def step_impl(context):
 
 
 #Test 2 
-@given(u'I, as "{user}", am logged in the system')
-def step_impl(context,user):
-    createdUser = User.objects.create_user(username=user, email='testbehave@potatoe.com', password='Exemple123')
-    #Em falta loggejar
-    context.browser.visit(context.get_url("/profile/"))
-    form = context.browser.find_by_tag('form').first
-    context.browser.fill('username', user)
-    context.browser.fill('password', 'Exemple123')
-    form.find_by_id('submit-login').first.click()
-
-
-@when(u'I\'m going to my profile')
-def step_impl(context):
-    context.browser.visit(context.get_url("/profile/"))
-
-
-@then(u'I\'ll bee seeing my profile\'s information')
-def step_impl(context):
+@then(u'I, as the user "{user}", see my profile\'s information.')
+def step_impl(context, user):
     assert context.browser.is_text_present('User Profile')
-    assert context.browser.is_text_present('Change password')
-    assert context.browser.is_text_present('Change email')
+    foundh1 = context.browser.find_by_tag('h1')
+    assert foundh1[1]
+    assert foundh1[1].text == user
+
+#Test3
+@then (u'I see in my profile that I made the recipe "{recipe}"')
+def step_impl(context,recipe):
+    assert context.browser.is_text_present('User Profile')
+    assert context.browser.is_text_present(recipe)
+    
+
+
+#Test4
+@given (u'I, the user "{user}", made a rating "{rating}" on the recipe "{recipe}"')
+def step_impl(context,user, rating,recipe):
+    user_data = User.objects.get(username=user)
+    chefUser_data = Recipes.objects.get(name=recipe)
+    Ratings.objects.create(id_autor = User.objects.get(id=user_data.id),id_recipe = chefUser_data,rating = 5,desc = rating)
+
+
+
+@then (u'I, the user "{user}", see my rating "{rating}" on the recipe "{recipe}" made by the other user "{chefUser}"')
+def step_impl(context,user, rating, recipe,chefUser):
+    assert context.browser.is_text_present('User Profile')
+    assert context.browser.is_text_present(user)
+    assert context.browser.is_text_present(rating)
+    assert context.browser.is_text_present(recipe)
+    assert context.browser.is_text_present(chefUser)
+
+
