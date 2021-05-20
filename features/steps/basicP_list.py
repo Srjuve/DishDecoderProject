@@ -6,11 +6,6 @@ from utils import toggle_down_navbar
 
 
 use_step_matcher("parse")
-#test1
-@given(u'A BasicProduct with id "{id}" and a BasicProduct id "{id2}"')
-def step_impl(context,id,id2):
-    BasicProducts.objects.create(id=id,name="ingredient1",desc="desc",unit="gram")
-    BasicProducts.objects.create(id=id2,name="ingredient2",desc="desc2",unit="grams")
 
 @when(u'I search for a basic product with name "{ing_name}"')
 def step_impl(context, ing_name):

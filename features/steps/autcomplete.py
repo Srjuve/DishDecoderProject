@@ -10,8 +10,6 @@ def step_impl(context, recipe_name):
     context.browser.find_by_id('id_recipe_title').fill(recipe_name)
 
 
-
-
 @when(u'I write at the autocomplete bar "{recipe_name}" and select first option')
 def step_impl(context, recipe_name):
     context.browser.visit(context.get_url('/'))

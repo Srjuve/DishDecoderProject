@@ -1,7 +1,7 @@
-Feature: View Recipe
-    In order to view a recipe,
+Feature: Delete Recipe
+    In order to delete a recipe,
     As a user,
-    I want to view the information related to a recipe.
+    I want to delete the information of a recipe.
 
 Background: 
     Given Exists a user "username" with password "password"

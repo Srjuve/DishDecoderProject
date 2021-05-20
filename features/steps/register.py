@@ -16,14 +16,6 @@ def step_impl(context,username,mail,pasw):
     context.browser.fill('password2',pasw)
     form.find_by_css('input[name="Create User"]').first.click()
 
-@then(u'I see the login page, i log in with my username "{username}" and password "{pasw}"')
-def step_impl(context,username,pasw):
-    form = context.browser.find_by_tag('form')
-    context.browser.fill('username', username)
-    context.browser.fill('password',pasw)
-    form.find_by_css('input[name="Log in"]').first.click()
-    toggle_down_navbar(context)
-
 @given(u'An account')
 def step_impl(context):
     User.objects.create_user(username="patata",email="patata@patata.com",password="Exemple123")
