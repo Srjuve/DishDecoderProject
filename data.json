@@ -54,6 +54,15 @@
     }
 },
 {
+    "model": "DishDecoderApp.recipes",
+    "pk": 7,
+    "fields": {
+        "name": "Tortilla de Patata",
+        "author": 5,
+        "steps": "goto#lorem#ipsum"
+    }
+},
+{
     "model": "DishDecoderApp.basicproducts",
     "pk": 1,
     "fields": {
@@ -252,6 +261,26 @@
     }
 },
 {
+    "model": "DishDecoderApp.ratings",
+    "pk": 7,
+    "fields": {
+        "id_autor": 5,
+        "id_recipe": 5,
+        "rating": 3,
+        "desc": "La mia es mejor >:)"
+    }
+},
+{
+    "model": "DishDecoderApp.ratings",
+    "pk": 8,
+    "fields": {
+        "id_autor": 4,
+        "id_recipe": 2,
+        "rating": 8,
+        "desc": "Best pasta I've cooked in my life!!!!1!"
+    }
+},
+{
     "model": "DishDecoderApp.recipe_product",
     "pk": 1,
     "fields": {
@@ -357,6 +386,33 @@
         "id_recipe": 6,
         "id_product": 10,
         "quantity": "11.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 13,
+    "fields": {
+        "id_recipe": 7,
+        "id_product": 2,
+        "quantity": "200.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 14,
+    "fields": {
+        "id_recipe": 7,
+        "id_product": 9,
+        "quantity": "320.000"
+    }
+},
+{
+    "model": "DishDecoderApp.recipe_product",
+    "pk": 15,
+    "fields": {
+        "id_recipe": 7,
+        "id_product": 7,
+        "quantity": "2.000"
     }
 },
 {
@@ -1911,6 +1967,42 @@
     }
 },
 {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$ECQcA8Q1aCFp$HGcoK1ZCCxWww1djn8QAPoE3z83p9KlUEej9O3hyLH0=",
+        "last_login": "2021-05-20T16:55:39.455Z",
+        "is_superuser": true,
+        "username": "root",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2021-05-20T16:02:39.651Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$n6GkVZBKp9x3$S7zsZs63c8+zU7cWDrb107BAnpF2tEE6i4R8KO88wn0=",
+        "last_login": "2021-05-20T16:46:58.804Z",
+        "is_superuser": false,
+        "username": "johndoe",
+        "first_name": "",
+        "last_name": "",
+        "email": "johndoe@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-20T16:46:52.819Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
     "model": "contenttypes.contenttype",
     "pk": 1,
     "fields": {
@@ -2020,6 +2112,14 @@
     "fields": {
         "session_data": ".eJxVjMEOwiAQRP-FsyEQWECP3v0GsixbqRpISnsy_rs06UGPM-_NvEXEbS1x67zEOYuL0OL02yWkJ9cd5AfWe5PU6rrMSe6KPGiXt5b5dT3cv4OCvYw16kwcSHk7ASsC7-2ZQWlAZIMKPUAIRlEyOFl2jOSstYM6bUYE8fkC8Lg4Iw:1lUtpj:dX3bAWgG32iikxw5aT_AO3jot617NxLNlR5aVEfEYSY",
         "expire_date": "2021-04-23T16:18:11.704Z"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "ks7mmz5qq6dt35sjxdsn0yplsr5y3yix",
+    "fields": {
+        "session_data": ".eJxVjDsOwjAQRO_iGlmsvzElfc5grb0rHEC2FCcV4u5gKQVounlv5iUi7luJe-c1LiQuwojTb5cwP7gOQHestyZzq9u6JDkUedAu50b8vB7u30HBXr5rHxwpC5OnEeWdzy6ATgQqJz0ptJ6zz2fUZCiA0QTBAQZjgVkZI94fyh03Hw:1ljlxT:Z0xuNDNQrT8NoCXFQxHGLjveYMU0SkwgA-cMdxttuH0",
+        "expire_date": "2021-06-03T16:55:39.462Z"
     }
 }
 ]
