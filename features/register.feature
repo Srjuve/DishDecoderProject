@@ -5,7 +5,7 @@ Feature: Test register
 
 Scenario: User register correctly
     When I register as username "patata1" with mail "test@gmail.com" and password "Exemple123"
-    Then I see the login page, i log in with my username "patata1" and password "Exemple123"
+    And I login as user "patata1" with password "Exemple124"
     Then It appears my username "patata1"
 
 Scenario: User try to register having an existing account

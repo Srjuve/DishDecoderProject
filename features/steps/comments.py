@@ -30,7 +30,6 @@ def step_impl(context,rename, user):
     assert review_container.find_by_tag("p").text == rating_data.desc
     assert review_container.find_by_tag("button").text == str(rating_data.rating)+" out of 10"
         
-    #assert "1"=="2" per a veure el html de la pagina per a la part dels comments dels users
 #test3
 @then(u'I see an error saying i can not leave two reviews')
 def step_impl(context):
