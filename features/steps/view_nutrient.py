@@ -3,10 +3,6 @@ from DishDecoderApp.models import Nutrients
 
 use_step_matcher("parse")
 #Test 1
-@given(u'Exists a nutrient id "{id}" with the name "{nutrientName}" and the description "{description}"')
-def step_impl(context,id, nutrientName, description):
-    Nutrients.objects.create(id=id, name=nutrientName, desc=description)
-
 @when(u'I search the nutrient "{name}"')
 def step_impl(context,name):
     from DishDecoderApp.models import Nutrients
@@ -23,9 +19,9 @@ def step_impl(context,description):
     assert context.browser.is_text_present(description)
 
 #Test 2
-@given(u'Exists a nutrient id "{id}" with the name "{name}" but without description')
-def step_impl(context,id,name):
-    Nutrients.objects.create(id=id, name=name)
+@given(u'Exists a nutrient "{name}" but without description')
+def step_impl(context,name):
+    Nutrients.objects.create(name=name)
 
 @then(u'I can see that there\'s no description')
 def step_impl(context):
