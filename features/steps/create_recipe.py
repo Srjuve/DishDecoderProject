@@ -102,13 +102,3 @@ def step_impl(context, nutrient_name, nutrient_quantity):
 
     else:
         raise ValueError("{nutrient_name} not found in page")
-
-
-#def check_nutrients(context, id):
-#    product_nutrients_data = get_nutritional_value_foreach_nutrition(Recipe_Product.objects.filter(id_recipe=id))
-#    nutrientsdata = context.browser.find_by_id('recipe_nutrients').find_by_tag('a')
-#    i=0
-#    for nutrient in nutrientsdata:
-#        actualValue = str(round(product_nutrients_data[i][0],2))+"g "+product_nutrients_data[i][1].name
-#        assert nutrient.text == actualValue
-#        i+=1

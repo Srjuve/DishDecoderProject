@@ -68,7 +68,7 @@
         {% for user_rating in rating_data %}
         <hr>
         <div class="card w-75 mx-auto">
-            <div class="card-body">
+            <div id="review" class="card-body">
                 <h5 class="card-title">{{user_rating.id_autor.username}}</h5>
                 <p class="card-text">{{user_rating.desc}}</p>
                 <button type="button" class="btn btn-primary btn-sm" disabled> {{user_rating.rating}} out of 10</button>
@@ -84,7 +84,7 @@
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    <li{% if message.tags %} class="{{ message.tags }}" id = "Comment_error"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
 {% endif %}
@@ -107,7 +107,7 @@
                     {{Comments_form.rating.label}}
                     {{Comments_form.rating}}
                 </div>
-                <input style="margin-top: 10px" type="submit" name="Coment">
+                <input style="margin-top: 10px" type="submit" name="Coment"  id='id_comment'>
             </div>
         </form>
     </div>

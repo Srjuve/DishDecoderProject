@@ -6,9 +6,9 @@ from utils import get_nutritional_value_foreach_nutrition
 
 use_step_matcher("parse")
     
-@given(u'Exists the Nutrient "{nutname}"')
-def step_impl(context,nutname):
-    Nutrients.objects.create(name=nutname,desc="Description2")
+@given(u'Exists the Nutrient "{nutname}" with the description "{description}"')
+def step_impl(context,nutname,description):
+    Nutrients.objects.create(name=nutname,desc=description)
 
 
 @given(u'Recipe "{rename}" contains "{quantity}" units of the Ingredient with name "{inname}"')
