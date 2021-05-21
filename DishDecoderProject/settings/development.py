@@ -120,6 +120,8 @@ STATICFILES_DIRS = (
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "uhct8753yutw9r0ivm5hy0wvu4m09c2ccccccticpg"
 
+API_KEY = "here you have to put your Recipe Puppy RapidAPI key (https://rapidapi.com/brianiswu/api/recipe-puppy)"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

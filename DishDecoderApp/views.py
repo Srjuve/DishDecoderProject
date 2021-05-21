@@ -1,3 +1,4 @@
+from DishDecoderProject.settings.development import API_KEY
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
@@ -29,6 +30,7 @@ class main_url(View):
         template_data['form']=self.form
         template_data['aform'] = self.aform
         template_data['title_page']='Dish Decoder'
+        template_data['api_key'] = API_KEY
         return render(req, self.template_name,template_data)
 
     def post(self,req):
