@@ -5,10 +5,6 @@ from utils import toggle_down_navbar
 
 use_step_matcher("parse")
 
-@given(u'Exists a nutrient with name "{nut_name}"')
-def step_impl(context, nut_name):
-    Nutrients.objects.create(name=nut_name,desc=nut_name+", Lorem Ipsum")
-
 @then(u'I can see the nutrient "{nut_name}"')
 def step_impl(context, nut_name):
     assert context.browser.is_text_present(nut_name)

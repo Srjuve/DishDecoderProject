@@ -35,6 +35,7 @@ def step_impl(context,rename, user):
 def step_impl(context):
     error = context.browser.find_by_id('Comment_error')
     assert error.text == "Only one review per user and recipe"
+    
 #"Comment_error"
 @then(u'I fill the comment with "{desc}" with rate "{rating}"')
 def step_impl(context, desc, rating):

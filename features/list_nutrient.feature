@@ -4,8 +4,8 @@ Feature: View list of Nutrients
     I want to see a list of nutrients.
 
 Scenario: User search nutrients
-    Given Exists a nutrient with name "nutrient1" with the description "Description1"
-    And Exists a nutrient with name "nutrient2" with the description "Description2"
+    Given Exists the Nutrient "nutrient1" with the description "Description1"
+    And Exists the Nutrient "nutrient2" with the description "Description2"
     When I search for a nutrient with name "nutrient"
     Then I can see the nutrient "nutrient1"
     And I can see the nutrient "nutrient2"

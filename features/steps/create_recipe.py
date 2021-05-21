@@ -35,18 +35,10 @@ def step_impl(context, ingredient_name, ingredient_quantity):
     inputs = context.browser.find_by_tag('input')[3:-4]
     options = context.browser.find_by_tag('option')
     selects = context.browser.find_by_tag('select')
-    #print(list(context.browser.find_by_tag('input')), list(context.browser.find_by_tag('option')))
-    #for e in inputs:
-    #    print("-->", e['id'], "<--")
-    #for e in options:
-    #    print("oo>", e['selected'], e['text'], "<oo")
-    #for e in selects:
-    #    print("oo>", e['id'], "<oo")
     ing_val = ""
     for option in selects[-1].find_by_tag('option'):
         if ingredient_name == option['text']:
             ing_val = option['value']
-    #ing_name = selects[-1]
     ing_quant = inputs[-1]
     ing_quant.fill(ingredient_quantity)
     selects[-1].select(ing_val)
