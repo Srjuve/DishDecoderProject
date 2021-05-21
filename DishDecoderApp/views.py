@@ -1,4 +1,4 @@
-from DishDecoderProject.settings.development import API_KEY
+from DishDecoderProject.settings import API_KEY
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse,HttpResponseForbidden,HttpResponseBadRequest,HttpResponseNotAllowed,HttpResponseNotFound
