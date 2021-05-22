@@ -3,13 +3,13 @@ from behave import *
 from utils import toggle_down_navbar
 from DishDecoderApp.models import *
 
-@given(u'Exists a nutrient id "{id}" with the name "{name}" but without description')
-def step_impl(context,id,name):
-    Nutrients.objects.create(id=id, name=name)
+@given(u'Exists a nutrient "{name}" but without description')
+def step_impl(context,name):
+    Nutrients.objects.create(name=name)
 
-@given(u'Exists a nutrient id "{id}" with the name "{nutrientName}" and the description "{description}"')
-def step_impl(context,id, nutrientName, description):
-    Nutrients.objects.create(id=id, name=nutrientName, desc=description)
+@given(u'Exists a nutrient "{nutrientName}" and the description "{description}"')
+def step_impl(context, nutrientName, description):
+    Nutrients.objects.create(name=nutrientName, desc=description)
 
 @given(u'Exists a user "{username}" with password "{password}"')
 def step_impl(context, username, password):
