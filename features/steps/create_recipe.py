@@ -34,6 +34,7 @@ def step_impl(context, ingredient_name, ingredient_quantity):
 
 @when(u'I finish recipe')
 def step_impl(context):
+    assert context.browser.is_element_present_by_css('button[type="submit"]', wait_time=5)
     context.browser.find_by_css('button[type="submit"]').last.click()
 
 @then(u'I can see recipe name "{recipe_name}" with author username "{username}"')

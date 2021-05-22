@@ -11,6 +11,7 @@ def step_impl(context, recipe_title):
     recipe = Recipes.objects.filter(name=recipe_title).first()
     recipe_id = recipe.id
     form = context.browser.find_by_tag('form')
+    assert context.browser.is_element_present_by_tag('ul', wait_time=5)
     ul = form.find_by_tag('ul')
     ul.find_by_css('input[value="' + str(recipe_id) + '"]').last.click()
     form.find_by_css('button[type="submit"]').last.click()
