@@ -6,33 +6,6 @@ from utils import get_nutritional_value_foreach_nutrition
 
 use_step_matcher("parse")
     
-@given(u'Exists the Nutrient "{nutname}" with the description "{description}"')
-def step_impl(context,nutname,description):
-    Nutrients.objects.create(name=nutname,desc=description)
-
-
-@given(u'Recipe "{rename}" contains "{quantity}" units of the Ingredient with name "{inname}"')
-def step_impl(context,rename,quantity,inname):
-    recipe = Recipes.objects.filter(name=rename).first()
-    ingredient = BasicProducts.objects.filter(name=inname).first()
-    Recipe_Product.objects.create(id_recipe=recipe,id_product=ingredient,quantity=quantity)
-
-@given(u'Ingredient "{inname}" that contains "{quantity}" units of the Nutrient with name "{nutname}"')
-def step_impl(context, inname,quantity,nutname):
-    ingredient = BasicProducts.objects.filter(name=inname).first()
-    nutrient = Nutrients.objects.filter(name=nutname).first()
-    Product_Nutrients.objects.create(id_product=ingredient,quantity=quantity,id_nutrient=nutrient)
-
-@when(u'I search the recipe with name "{rename}"')
-def step_impl(context,rename):
-    from DishDecoderApp.models import Recipes
-    context.browser.visit(context.get_url("/recipe/"+str(Recipes.objects.filter(name=rename).first().id)))
-
-@when(u'I search a recipe with a non existent id')
-def step_impl(context):
-    from DishDecoderApp.models import Recipes
-    context.browser.visit(context.get_url("/recipe/1234567"))
-
 @then(u'I\'m viewing the details page for the recipe with name "{rename}" without the comments')
 def step_impl(context, rename):
     id = Recipes.objects.filter(name=rename).first().id
@@ -40,11 +13,6 @@ def step_impl(context, rename):
     check_ingredients(context,id)
     check_steps(context,id)
     check_nutrients(context,id)
-
-@then(u'I\'m viewing the 404 error page')
-def step_impl(context):
-    title = context.browser.find_by_tag('h1')
-    assert title.text == "Error 404"
 
 def check_first_scenario_values(context,id):
     recipename = context.browser.find_by_id('recipe_name').text

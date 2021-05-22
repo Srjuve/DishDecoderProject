@@ -30,11 +30,6 @@ def step_impl(context,rename, user):
     assert review_container.find_by_tag("p").text == rating_data.desc
     assert review_container.find_by_tag("button").text == str(rating_data.rating)+" out of 10"
         
-#test3
-@then(u'I see an error saying i can not leave two reviews')
-def step_impl(context):
-    error = context.browser.find_by_id('Comment_error')
-    assert error.text == "Only one review per user and recipe"
     
 #"Comment_error"
 @then(u'I fill the comment with "{desc}" with rate "{rating}"')

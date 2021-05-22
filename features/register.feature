@@ -9,7 +9,7 @@ Scenario: User register correctly
     Then It appears my username "patata1"
 
 Scenario: User try to register having an existing account
-    Given An account
+    Given Exists a user "patata" with password "Exemple123"
     When I register as username "patata" with mail "patata@patata.com" and password "Exemple123"
     Then It appears error message "A user with that username already exists."
 

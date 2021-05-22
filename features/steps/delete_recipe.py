@@ -4,18 +4,6 @@ from utils import toggle_down_navbar
 
 use_step_matcher("parse")
 
-@given(u'Exists a recipe "{recipe_title}" created by "{author_name}"')
-def step_impl(context, recipe_title, author_name):
-    from DishDecoderApp.models import Recipes
-    from django.contrib.auth.models import User
-    author = User.objects.filter(username=author_name).first()
-    recipe = Recipes.objects.create(name=recipe_title, author=author, steps="Step1")
-
-
-@when(u'I click on erase recipe button')
-def step_impl(context):
-    erase_btn = context.browser.find_by_id('erase-btn')
-    erase_btn.click()
 
 @when(u'I select "{recipe_title}" for deleting purposes')
 def step_impl(context, recipe_title):

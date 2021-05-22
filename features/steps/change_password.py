@@ -2,7 +2,7 @@ from behave import *
 from django.contrib.auth.models import User
 
 use_step_matcher("parse")
-#Test 1   
+
 @when(u'I change my old password "{oldpassword}" to a new one "{newpassword}"')
 def step_impl(context, oldpassword, newpassword):
     context.browser.links.find_by_text('Change Password').first.click()
@@ -21,17 +21,6 @@ def step_impl(context,user,password):
     context.browser.visit(context.get_url("/profile/"))
     assert context.browser.is_text_present('User Profile')
 
-
-#Test 2 
-@when(u'I enter the site in which I should be able to change my password directly through the url "{url}"')
-def step_impl(context,url):
-   context.browser.visit(context.get_url(url))
-
-
-
-
-
-#Test 3
 @when(u'I introduce my old password as "{oldPassword}" and the password that I want as "{newPassword}"')
 def step_impl(context, oldPassword, newPassword):
     context.browser.links.find_by_text('Change Password').first.click()
@@ -39,8 +28,3 @@ def step_impl(context, oldPassword, newPassword):
     context.browser.fill('new_password1', newPassword)
     context.browser.fill('new_password2', newPassword)
     context.browser.find_by_id('submit-password').first.click()
-
-
-@then(u'The system tells me that I entered invalid data')
-def step_impl(context):
-    assert context.browser.is_text_present('Invalid data entered')

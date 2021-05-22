@@ -5,11 +5,6 @@ from django.contrib.auth.models import User
 
 use_step_matcher("parse")
         
-@when(u'I click the edit recipe button')
-def step_impl(context):
-    context.browser.visit(context.get_url('/'))
-    edit_btn = context.browser.find_by_id('edit-btn')
-    edit_btn.click()
 
 @when(u'I fill the recipe name form with the new name "{newname}"')
 def step_impl(context,newname):
@@ -48,34 +43,8 @@ def step_impl(context):
     change_ing_btn = context.browser.find_by_id('ing_change_btn')
     change_ing_btn.click()
 
-@then(u'I see the repeated ingredient error')
-def step_impl(context):
-    error_message = context.browser.find_by_id('error_messages').find_by_tag('li')
-    assert error_message.text == "Ingredient already set"
     
-@then(u'I see the invalid ingredient format error')
-def step_impl(context):
-    error_message = context.browser.find_by_id('error_messages').find_by_tag('li')
-    assert error_message.text == "Incorrect Ingredient format"
-
-@then(u'I see the quantity value too big error')
-def step_impl(context):
-    error_message = context.browser.find_by_id('error_messages').find_by_tag('li')
-    assert error_message.text == "Ingredient quantity too big(0-999)"
-
-
 @when(u'I click the button to erase Ingredients')
 def step_impl(context):
     erase_btn = context.browser.find_by_id('erase_form')
     erase_btn.click()
-
-
-@then(u'I see the incorrect number of Ingredients exceptions')
-def step_impl(context):
-    error_message = context.browser.find_by_id('error_messages').find_by_tag('li')
-    assert error_message.text == "Incorrect number of ingredients"
-
-
-@given(u'I am on main page')
-def step_impl(context):
-    context.browser.visit(context.get_url('/'))

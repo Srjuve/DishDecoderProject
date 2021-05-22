@@ -6,21 +6,10 @@ from DishDecoderApp.models import Recipe_Product
 
 use_step_matcher("parse")
 
-@given(u'Exists the ingredient "{ingredient_name}" with description "{ingredient_desc}"')
-def step_impl(context, ingredient_name, ingredient_desc):
-    from DishDecoderApp.models import BasicProducts
-    BasicProducts.objects.create(name=ingredient_name, desc=ingredient_desc)
-
-@when(u'I click on create recipe button')
-def step_impl(context):
-    create_btn = context.browser.find_by_id('create-btn')
-    create_btn.click()
-
 @when(u'I fill the name of the recipe "{recipe_name}"')
 def step_impl(context, recipe_name):
     form = context.browser.find_by_tag('form')
     context.browser.fill('name', recipe_name)
-
 
 @when(u'I fill the steps of the recipe "{recipe_steps}"')
 def step_impl(context, recipe_steps):
@@ -68,11 +57,6 @@ def step_impl(context, ingredient_name, ingredient_quantity):
             ing_quant = ingredient_quantity + " " + ingredient_name
             assert ing_quant == item.text
             break
-
-@then(u'I stay at "{current_url}"')
-def step_impl(context, current_url):
-    assert context.browser.url.replace(context.get_url('/'), '/') == current_url
-
 
 @then(u'I can see recipe nutrient "{nutrient_name}" with quantity "{nutrient_quantity}"')
 def step_impl(context, nutrient_name, nutrient_quantity):

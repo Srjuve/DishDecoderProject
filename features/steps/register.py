@@ -15,7 +15,3 @@ def step_impl(context,username,mail,pasw):
     context.browser.fill('password1',pasw)
     context.browser.fill('password2',pasw)
     form.find_by_css('input[name="Create User"]').first.click()
-
-@given(u'An account')
-def step_impl(context):
-    User.objects.create_user(username="patata",email="patata@patata.com",password="Exemple123")
