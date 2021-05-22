@@ -18,6 +18,12 @@ def step_impl(context):
     create_btn = context.browser.find_by_id('id_comment')
     create_btn.click()
 
+@then(u'I can\'t see a comment written by "{username}"')
+def step_impl(context, username):
+    comments = context.browser.find_by_id("review-container")[-1] 
+    for review in comments.find_by_id("review"):
+        assert not review.find_by_tag("h5").text == username
+
 @then(u'I view the comment in the recipe with name "{rename}" by "{user}"')
 def step_impl(context,rename, user):
     reciperating = context.browser.find_by_id('recipe_rating').text

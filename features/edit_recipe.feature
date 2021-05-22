@@ -5,7 +5,7 @@ Feature: Edit Recipe
 
 Background: 
     Given Exists a user "username" with password "password"
-    And Exists a recipe "Recipe1" created by "username"
+    And Exists a recipe "Recipe1" created by "username" with steps "lorem#ipsum#steps"
     And Exists the ingredient "Ingredient1" with description "Lorem ipsum description"
     And Exists the Nutrient "Nutrient1" with the description "Description1"
     And Recipe "Recipe1" contains "1.00" units of the Ingredient with name "Ingredient1"

@@ -5,7 +5,7 @@ Feature: Delete Recipe
 
 Background: 
     Given Exists a user "username" with password "password"
-    And Exists a recipe "soup" created by "username"
+    And Exists a recipe "soup" created by "username" with steps "lorem#ipsum#steps"
     And I click on the login button
     And I login as user "username" with password "password"
 

@@ -7,8 +7,8 @@ Background:
     And Exists a user "user2" with password "password"
 
 Scenario: User search recipes
-    Given Exists a recipe "recipe1" created by "user1"
-    And Exists a recipe "recipe2" created by "user2"
+    Given Exists a recipe "recipe1" created by "user1" with steps "lorem#ipsum#steps"
+    And Exists a recipe "recipe2" created by "user2" with steps "lorem#ipsum#steps"
     When I search for a recipe with name "recipe"
     Then I can see the recipe "recipe1"
     And I can see the recipe "recipe2"

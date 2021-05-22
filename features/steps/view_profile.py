@@ -4,12 +4,13 @@ from DishDecoderApp.models import Ratings, Recipes
 
 use_step_matcher("parse")
 
-@then(u'I, as the user "{user}", see my profile\'s information.')
-def step_impl(context, user):
+@then(u'I can see my username name "{username}"')
+def step_impl(context, username):
     assert context.browser.is_text_present('User Profile')
     foundh1 = context.browser.find_by_tag('h1')
     assert foundh1[1]
-    assert foundh1[1].text == user
+    assert foundh1[1].text == username
+
 
 @then (u'I see in my profile that I made the recipe "{recipe}"')
 def step_impl(context,recipe):

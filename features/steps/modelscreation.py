@@ -21,12 +21,12 @@ def step_impl(context, ingredient_name, ingredient_desc):
     from DishDecoderApp.models import BasicProducts
     BasicProducts.objects.create(name=ingredient_name, desc=ingredient_desc)
 
-@given(u'Exists a recipe "{recipe_title}" created by "{author_name}"')
-def step_impl(context, recipe_title, author_name):
+@given(u'Exists a recipe "{recipe_title}" created by "{author_name}" with steps "{recipe_steps}"')
+def step_impl(context, recipe_title, author_name, recipe_steps):
     from DishDecoderApp.models import Recipes
     from django.contrib.auth.models import User
     author = User.objects.filter(username=author_name).first()
-    recipe = Recipes.objects.create(name=recipe_title, author=author, steps="Step1")
+    recipe = Recipes.objects.create(name=recipe_title, author=author, steps=recipe_steps)
 
 @given(u'Exists the Nutrient "{nutname}" with the description "{description}"')
 def step_impl(context, nutname, description):

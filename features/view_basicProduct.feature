@@ -5,7 +5,7 @@ Feature: View Basic Product
 
 Background: 
     Given Exists a user "username" with password "password"
-    And Exists a recipe "Recipe1" created by "username"
+    And Exists a recipe "Recipe1" created by "username" with steps "lorem#ipsum#steps"
     And Exists the ingredient "Ingredient1" with description "Lorem ipsum description"
 
 

@@ -99,10 +99,10 @@ def step_impl(context,rename):
     from DishDecoderApp.models import Recipes
     context.browser.visit(context.get_url("/recipe/"+str(Recipes.objects.filter(name=rename).first().id)))
 
-@when(u'I search a recipe with a non existent id')
-def step_impl(context):
+@when(u'I search the recipe with id "{rid}"')
+def step_impl(context, rid):
     from DishDecoderApp.models import Recipes
-    context.browser.visit(context.get_url("/recipe/1234567"))
+    context.browser.visit(context.get_url("/recipe/{rid}"))
 
 @then(u'I get redirected to the login page')
 def step_impl(context):
