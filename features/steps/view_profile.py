@@ -4,7 +4,6 @@ from DishDecoderApp.models import Ratings, Recipes
 
 use_step_matcher("parse")
 
-
 @then(u'I, as the user "{user}", see my profile\'s information.')
 def step_impl(context, user):
     assert context.browser.is_text_present('User Profile')
