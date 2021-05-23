@@ -45,6 +45,7 @@ POSTGRES_DB=dish_decoder_db
 - .env
 ```bash
 SECRET_KEY=your_secret_key
+API_KEY=recipe_puppy_key_from_rapid_api
 DEBUG=True
 POSTGRES_ENGINE=django.db.backends.postgresql
 POSTGRES_NAME=dish_decoder_db
