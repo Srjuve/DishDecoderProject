@@ -72,12 +72,12 @@
 <hr>
 
 
-<div id="review-container" class="container" property="contentRating" typeof="contentRating">
+<div id="review-container" class="container">
     <h2 class="text-center">User reviews</h2>
         {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
-        <div class="card w-75 mx-auto" property="Rating" typeof="Rating">
+        <div class="card w-75 mx-auto" property="contentRating" typeof="Rating">
             <div id="review" class="card-body">
                 <span property="author"><h5 class="card-title">{{user_rating.id_autor.username}}</h5></span>
                 <span property="ratingExplanation"><p class="card-text">{{user_rating.desc}}</p></span>
