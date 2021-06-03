@@ -1,15 +1,24 @@
 {% extends 'DishDecoderApp/common.html' %}
 {% block content %}
 {% load humanize %}
+<div vocab="https://schema.org/" typeof="Recipe">
 <hr>
 
-<h1 class="display-6 text-center" id="recipe_name">{{recipe.name}}</h1>
-<h1 class="text-center text-muted" id="recipe_author"><small>by {{recipe.author}}</small></h1>
+<h1 class="display-6 text-center" id="recipe_name"><span property="name">{{recipe.name}}</span></h1>
+<h1 class="text-center text-muted" id="recipe_author"><small>by <span property="author">{{recipe.author}}</span></small></h1>
 {% if average_score %}
-<h1 class="display-6 text-center" id="recipe_rating">Rating: {{average_score | floatformat:2 |intcomma}}</h1>
+<div  property="aggregateRating" typeof="AggregateRating">
+<h1 class="display-6 text-center" id="recipe_rating">Rating: <span property="ratingValue">{{average_score | floatformat:2 |intcomma}}</span></h1>
+<span property="worstRating" hidden>0</span>
+<span property="bestRating" hidden>10</span>
+<span property="ratingCount" hidden>{{ rating_data|length }}</span>
+</div>
 {% else %}
 <h1 class="display-6 text-center" id="recipe_rating">Rating: Not rated</h1>
 {% endif %}
+<div class="text-center">
+<img src="https://images-ext-2.discordapp.net/external/roOSeGRdUX3AqlB9fW6knjsWZLHzP73USL-FwURnhHo/https/www.lavanguardia.com/files/image_449_220/uploads/2018/05/23/5e99650de32ed.jpeg?width=400&height=196" alt="food" property="image">
+</div>
 <hr>
 
 
@@ -18,9 +27,9 @@
     {% if rec_prod %}
     <div class="list-group col-md-4 mx-auto" id="recipe_ingredients">
         {% for ingredient in rec_prod %}
-        <a class="list-group-item list-group-item-action"
+        <span property="recipeIngredient"><a class="list-group-item list-group-item-action"
             href="{% url 'basicproduct' ingredient.id_product.id %}">{{ingredient.quantity | floatformat:2 |intcomma}}{{ingredient.id_product.unit}}
-            {{ingredient.id_product.name}}</a>
+            {{ingredient.id_product.name}}</a></span>
         {% endfor %}
     </div>
 </div>
@@ -36,7 +45,7 @@
     <ul class="list-group list-group-flush">
         {% for step in steps %}
         <li class="list-group-item">
-            <h2>Step {{forloop.counter}}</h2>{{step}}
+            <span property="step"><h2>Step {{forloop.counter}}</h2>{{step}}</span>
         </li>
         {% endfor %}
     </ul>
@@ -46,13 +55,14 @@
 {% endif %}
 <hr>
 
-<div class="container" id="recipe_nutrients">
+<div class="container" id="recipe_nutrients" property="nutrition" typeof="NutritionInformation">
     <h2 class="text-center">Nutrients</h2>
     {% if nut_value %}
     <div class="list-group col-md-4 mx-auto">
         {% for value, nutrient in nut_value %}
+        <span property="name">
         <a class="list-group-item list-group-item-action" href="{% url 'nutrient' nutrient.id %}">{{value | floatformat:2 |intcomma }}g
-            {{nutrient.name}}</a>
+            {{nutrient.name}}</a></span>
         {% endfor %}
     </div>
 </div>
@@ -67,11 +77,11 @@
         {% if rating_data %}
         {% for user_rating in rating_data %}
         <hr>
-        <div class="card w-75 mx-auto">
+        <div class="card w-75 mx-auto" property="contentRating" typeof="Rating">
             <div id="review" class="card-body">
-                <h5 class="card-title">{{user_rating.id_autor.username}}</h5>
-                <p class="card-text">{{user_rating.desc}}</p>
-                <button type="button" class="btn btn-primary btn-sm" disabled> {{user_rating.rating}} out of 10</button>
+                <span property="author"><h5 class="card-title">{{user_rating.id_autor.username}}</h5></span>
+                <span property="ratingExplanation"><p class="card-text">{{user_rating.desc}}</p></span>
+                <span property="ratingValue"><button type="button" class="btn btn-primary btn-sm" disabled> {{user_rating.rating}} out of 10</button></span>
             </div>
         </div>
         <hr>
@@ -80,7 +90,7 @@
         <p id="Error_message">No reviews found</p>
 {% endif %}
 </div>
-
+</div>
 {% if messages %}
 <ul class="messages">
     {% for message in messages %}
